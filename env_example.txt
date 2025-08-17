@@ -1,0 +1,38 @@
+# Django Core
+SECRET_KEY=your-very-long-and-secure-secret-key-here-minimum-50-characters-with-unique-characters
+DEBUG=True
+ALLOWED_HOSTS=localhost,127.0.0.1
+
+# Database (SQLite для розробки)
+DATABASE_URL=sqlite:///db.sqlite3
+
+# Redis
+REDIS_URL=redis://localhost:6379/0
+CELERY_BROKER_URL=redis://localhost:6379/0
+CELERY_RESULT_BACKEND=redis://localhost:6379/0
+
+# Site URL
+SITE_URL=http://localhost:8000
+
+# Email Settings (Console backend для розробки)
+EMAIL_BACKEND=django.core.mail.backends.console.EmailBackend
+EMAIL_HOST=localhost
+EMAIL_PORT=587
+EMAIL_HOST_USER=
+EMAIL_HOST_PASSWORD=
+EMAIL_USE_TLS=True
+DEFAULT_FROM_EMAIL=noreply@adiabatic.com
+
+# Monobank (заглушки для розробки)
+MONOBANK_TOKEN=dev-token
+
+# Telegram (заглушки для розробки)
+TELEGRAM_BOT_TOKEN=dev-token
+TELEGRAM_CHAT_ID=dev-chat-id
+
+# Viber (заглушки для розробки)
+VIBER_BOT_TOKEN=dev-token
+
+# Analytics (заглушки для розробки)
+GA4_MEASUREMENT_ID=G-XXXXXXXXXX
+GOOGLE_ANALYTICS_PROPERTY_ID=dev-property-id

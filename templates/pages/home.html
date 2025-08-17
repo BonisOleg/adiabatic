@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{{ page.get_title }}{% endblock %}
+{% block og_title %}{{ page.get_title }}{% endblock %}
+{% block og_description %}{{ page.get_meta_description }}{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+{% if heroes %}
+<section class="hero">
+    {% for hero in heroes %}
+    {% if hero.background_image %}
+    <div class="hero__background">
+        <img src="{{ hero.background_image.url }}" alt="{{ hero.get_title }}" class="hero__image">
+    </div>
+    {% endif %}
+    <div class="hero__overlay"></div>
+    <div class="hero__content">
+        <p class="hero__subtitle">{{ hero.get_subtitle }}</p>
+        <h1 class="hero__title">{{ hero.get_title }}</h1>
+        <p class="hero__description">{{ hero.get_description }}</p>
+        <div class="hero__actions">
+            {% if hero.cta_url %}
+            <a href="{{ hero.cta_url }}" class="btn btn--primary btn--large">
+                {{ hero.get_cta_text }}
+            </a>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</section>
+{% endif %}
+
+<!-- About Section -->
+{% if page and page.get_content %}
+<section class="section">
+    <div class="container">
+        <div class="about-content">
+            <h2 class="heading-section">{{ page.get_title }}</h2>
+            <div class="text-lead">
+                {{ page.get_content|safe }}
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Partners Section -->
+{% if partners %}
+<section class="section section--small">
+    <div class="container">
+        <h2 class="heading-section text-center">Наші партнери</h2>
+        <div class="partners-grid">
+            {% for partner in partners %}
+            <div class="partner-item">
+                {% if partner.logo %}
+                <div class="partner-item__logo">
+                    <img src="{{ partner.logo.url }}" alt="{{ partner.name }}" class="partner-logo">
+                </div>
+                {% endif %}
+                <h3 class="partner-item__name">{{ partner.name }}</h3>
+                {% if partner.description %}
+                <p class="partner-item__description">{{ partner.description }}</p>
+                {% endif %}
+                {% if partner.website_url %}
+                <a href="{{ partner.website_url }}" target="_blank" class="partner-item__link">
+                    Відвідати сайт
+                </a>
+                {% endif %}
+            </div>
+            {% empty %}
+            <div class="partner-item">
+                <h3 class="partner-item__name">Партнери</h3>
+                <p class="partner-item__description">Інформація про партнерів буде додана пізніше</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- CTA Section -->
+<section class="section section--small">
+    <div class="container">
+        <div class="cta-section">
+            <h2 class="heading-section text-center">Готові почати співпрацю?</h2>
+            <p class="text-lead text-center">
+                Зв'яжіться з нами для отримання детальної інформації про наші послуги
+            </p>
+            <div class="cta-actions">
+                <a href="{% url 'pages:contacts' %}" class="btn btn--primary btn--large">
+                    Зв'язатися з нами
+                </a>
+                <a href="{% url 'pages:products' %}" class="btn btn--secondary btn--large">
+                    Переглянути продукцію
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

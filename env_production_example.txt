@@ -1,0 +1,39 @@
+# Production Environment Variables для Render.com
+
+# Django Core
+DEBUG=False
+SECRET_KEY=your-generated-secret-key-will-be-here
+ALLOWED_HOSTS=adiabatic-django.onrender.com,adiabatic-django-*.onrender.com
+CSRF_TRUSTED_ORIGINS=https://adiabatic-django.onrender.com,https://adiabatic-django-*.onrender.com
+
+# Database (буде автоматично встановлено Render)
+DATABASE_URL=postgresql://username:password@hostname:port/database
+
+# Redis (опційно для Celery)
+REDIS_URL=redis://hostname:port
+
+# Site URL
+SITE_URL=https://adiabatic-django.onrender.com
+
+# Email Settings для продакшену
+EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_HOST_USER=your-email@gmail.com
+EMAIL_HOST_PASSWORD=your-app-password
+EMAIL_USE_TLS=True
+DEFAULT_FROM_EMAIL=noreply@adiabatic.com
+
+# Monobank (реальні дані для продакшену)
+MONOBANK_TOKEN=your-real-monobank-token
+
+# Telegram (реальні дані для продакшену)
+TELEGRAM_BOT_TOKEN=your-real-telegram-bot-token
+TELEGRAM_CHAT_ID=your-real-chat-id
+
+# Viber (реальні дані для продакшену)
+VIBER_BOT_TOKEN=your-real-viber-bot-token
+
+# Analytics (реальні дані для продакшену)
+GA4_MEASUREMENT_ID=G-XXXXXXXXXX
+GOOGLE_ANALYTICS_PROPERTY_ID=your-property-id

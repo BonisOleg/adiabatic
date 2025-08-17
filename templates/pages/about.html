@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{{ page.get_title }}{% endblock %}
+{% block og_title %}{{ page.get_title }}{% endblock %}
+{% block og_description %}{{ page.get_meta_description }}{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        {% if page %}
+        <h1 class="heading-section">{{ page.get_title }}</h1>
+        <div class="text-lead">
+            {{ page.get_content|safe }}
+        </div>
+        {% else %}
+        <h1 class="heading-section">Про компанію</h1>
+        <div class="text-lead">
+            <p>Інформація про компанію буде додана пізніше.</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
