@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% load i18n %}
 
-{% block title %}{{ page.get_title }}{% endblock %}
-{% block og_title %}{{ page.get_title }}{% endblock %}
-{% block og_description %}{{ page.get_meta_description }}{% endblock %}
+{% block title %}{% if page %}{{ page.get_title }}{% else %}Adiabatic - Головна{% endif %}{% endblock %}
+{% block og_title %}{% if page %}{{ page.get_title }}{% else %}Adiabatic{% endif %}{% endblock %}
+{% block og_description %}{% if page %}{{ page.get_meta_description }}{% else %}Промислове обладнання та послуги{% endif %}{% endblock %}
 
 {% block content %}
 <!-- Hero Section -->

@@ -10,26 +10,8 @@ def home_redirect(request):
     return HttpResponseRedirect(reverse('pages:home'))
 
 
-def test_view(request):
-    """Тестовий view без шаблону"""
-    return HttpResponse("""
-    <h1>🎉 Django працює!</h1>
-    <p>Це простий тестовий view без шаблону.</p>
-    <ul>
-        <li><a href="/">Повернутися на головну</a></li>
-        <li><a href="/?debug=1">Debug режим</a></li>
-        <li><a href="/about/">Про компанію</a></li>
-        <li><a href="/catalog/">Каталог</a></li>
-    </ul>
-    """)
-
-
 def home(request):
     """Головна сторінка"""
-    # Тимчасове рішення для тестування
-    if request.GET.get('debug'):
-        return HttpResponse("<h1>Debug: Django працює!</h1><p>Проблема в шаблоні або контексті.</p>")
-    
     try:
         page = Page.objects.get(page_type='home', is_published=True)
     except Page.DoesNotExist:

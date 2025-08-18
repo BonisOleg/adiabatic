@@ -6,20 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>{% block title %}{{ site_settings.site_name|default:"Adiabatic" }}{% endblock %}</title>
+    <title>{% block title %}{{ site_settings.site_name|default:'Adiabatic' }}{% endblock %}</title>
 
     {% if page %}
     <meta name="description" content="{{ page.get_meta_description }}">
     <meta name="keywords" content="{{ page.get_meta_keywords }}">
     {% else %}
-    <meta name="description" content="{{ site_settings.meta_description|default:"Промислове обладнання та послуги" }}">
-    <meta name="keywords" content="{{ site_settings.meta_keywords|default:"промислове обладнання, теплообмінники, Adiabatic" }}">
+    <meta name="description" content="{{ site_settings.meta_description|default:'Промислове обладнання та послуги' }}">
+    <meta name="keywords" content="{{ site_settings.meta_keywords|default:'промислове обладнання, теплообмінники, Adiabatic' }}">
     {% endif %}
 
     <!-- Open Graph -->
-    <meta property="og:title" content="{% block og_title %}{{ site_settings.site_name|default:"Adiabatic" }}{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}{{ site_settings.site_name|default:'Adiabatic' }}{% endblock %}">
     <meta property="og:description"
-        content="{% block og_description %}{{ site_settings.meta_description|default:"Промислове обладнання та послуги" }}{% endblock %}">
+        content="{% block og_description %}{{ site_settings.meta_description|default:'Промислове обладнання та послуги' }}{% endblock %}">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ request.build_absolute_uri }}">
 
@@ -46,7 +46,7 @@
             <div class="header__content">
                 <div class="header__logo">
                     <a href="{% url 'pages:home' %}" class="logo">
-                        <span class="logo__text">{{ site_settings.site_name|default:"Adiabatic" }}</span>
+                        <span class="logo__text">{{ site_settings.site_name|default:'Adiabatic' }}</span>
                     </a>
                 </div>
 
@@ -102,8 +102,8 @@
         <div class="container">
             <div class="footer__content">
                 <div class="footer__section">
-                    <h3 class="footer__title">{{ site_settings.site_name|default:"Adiabatic" }}</h3>
-                    <p class="footer__description">{{ site_settings.site_description|default:"Промислове обладнання та послуги для вашого бізнесу" }}</p>
+                    <h3 class="footer__title">{{ site_settings.site_name|default:'Adiabatic' }}</h3>
+                    <p class="footer__description">{{ site_settings.site_description|default:'Промислове обладнання та послуги для вашого бізнесу' }}</p>
                 </div>
 
                 <div class="footer__section">
@@ -138,7 +138,7 @@
 
             <div class="footer__bottom">
                 <p class="footer__copyright">
-                    © {% now "Y" %} {{ site_settings.site_name|default:"Adiabatic" }}. Всі права захищені.
+                    © {% now "Y" %} {{ site_settings.site_name|default:'Adiabatic' }}. Всі права захищені.
                 </p>
             </div>
         </div>
