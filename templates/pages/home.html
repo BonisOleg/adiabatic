@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% load i18n %}
 
-{% block title %}{% if page %}{{ page.get_title }}{% else %}Adiabatic - Головна{% endif %}{% endblock %}
-{% block og_title %}{% if page %}{{ page.get_title }}{% else %}Adiabatic{% endif %}{% endblock %}
-{% block og_description %}{% if page %}{{ page.get_meta_description }}{% else %}Промислове обладнання та послуги{% endif %}{% endblock %}
+{% block title %}Adiabatic - Головна{% endblock %}
+{% block og_title %}Adiabatic{% endblock %}
+{% block og_description %}Промислове обладнання та послуги{% endblock %}
 
 {% block content %}
 <!-- Hero Section -->
@@ -112,23 +112,43 @@
         </div>
     </div>
 </section>
+{% else %}
+<section class="section section--small">
+    <div class="container">
+        <h2 class="heading-section text-center">Наші переваги</h2>
+        <div class="stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--spacing-6); margin-top: var(--spacing-8);">
+            <div class="text-center">
+                <div style="font-size: 3rem; font-weight: bold; color: var(--brand-blue); margin-bottom: var(--spacing-2);">10+</div>
+                <p>Років досвіду</p>
+            </div>
+            <div class="text-center">
+                <div style="font-size: 3rem; font-weight: bold; color: var(--brand-blue); margin-bottom: var(--spacing-2);">100+</div>
+                <p>Реалізованих проектів</p>
+            </div>
+            <div class="text-center">
+                <div style="font-size: 3rem; font-weight: bold; color: var(--brand-blue); margin-bottom: var(--spacing-2);">24/7</div>
+                <p>Технічна підтримка</p>
+            </div>
+            <div class="text-center">
+                <div style="font-size: 3rem; font-weight: bold; color: var(--brand-blue); margin-bottom: var(--spacing-2);">ISO</div>
+                <p>Сертифікація якості</p>
+            </div>
+        </div>
+    </div>
+</section>
 {% endif %}
 
 <!-- CTA Section -->
 <section class="section section--small">
     <div class="container">
-        <div class="cta-section">
-            <h2 class="heading-section text-center">Готові почати співпрацю?</h2>
-            <p class="text-lead text-center">
-                Зв'яжіться з нами для отримання детальної інформації про наші послуги
+        <div class="cta-block text-center" style="background: var(--gray-50); padding: var(--spacing-12) var(--spacing-6); border-radius: 12px;">
+            <h2 class="heading-section">Готові почати співпрацю?</h2>
+            <p class="text-lead" style="margin: var(--spacing-4) 0 var(--spacing-8);">
+                Зв'яжіться з нами для консультації та розрахунку вартості обладнання
             </p>
-            <div class="cta-actions">
-                <a href="{% url 'pages:contacts' %}" class="btn btn--primary btn--large">
-                    Зв'язатися з нами
-                </a>
-                <a href="{% url 'pages:products' %}" class="btn btn--secondary btn--large">
-                    Переглянути продукцію
-                </a>
+            <div style="display: flex; gap: var(--spacing-4); justify-content: center; flex-wrap: wrap;">
+                <a href="/contacts/" class="btn btn--primary btn--large">Зв'язатися з нами</a>
+                <a href="/catalog/" class="btn btn--secondary btn--large">Переглянути каталог</a>
             </div>
         </div>
     </div>
