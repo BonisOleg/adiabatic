@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{{ page_title }}{% endblock %}
+{% block og_title %}{{ page_title }}{% endblock %}
+{% block og_description %}Каталог промислового обладнання компанії Adiabatic. Якісне обладнання для різних галузей
+промисловості.{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="section section--small">
+    <div class="container">
+        <h1 class="heading-section text-center">{{ page_title }}</h1>
+        <p class="text-lead text-center">
+            Професійне промислове обладнання для вашого бізнесу
+        </p>
+    </div>
+</section>
+
+<!-- Categories Section -->
+{% if categories %}
+<section class="section">
+    <div class="container">
+        <h2 class="heading-section">Категорії продукції</h2>
+
+        <div class="industries-grid">
+            {% for category in categories %}
+            <div class="industry-item">
+                {% if category.icon %}
+                <div class="industry-item__icon">
+                    <i class="{{ category.icon }}"></i>
+                </div>
+                {% endif %}
+
+                <h3 class="industry-item__title">
+                    <a href="{% url 'catalog:category_detail' category.slug %}">
+                        {{ category.get_name }}
+                    </a>
+                </h3>
+
+                {% if category.get_description %}
+                <p class="text-body">{{ category.get_description|truncatewords:15 }}</p>
+                {% endif %}
+
+                <p class="text-sm text-muted">
+                    {{ category.products.count }} {% trans "товарів" %}
+                </p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Featured Products Section -->
+{% if featured_products %}
+<section class="section section--small">
+    <div class="container">
+        <h2 class="heading-section">Рекомендована продукція</h2>
+
+        <div class="equipment-grid">
+            {% for product in featured_products %}
+            <div class="equipment-card">
+                {% if product.hero_image %}
+                <img src="{{ product.hero_image.url }}" alt="{{ product.get_name }}" class="equipment-card__image">
+                {% else %}
+                <div class="equipment-card__image"
+                    style="background: var(--gray-100); display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-image" style="font-size: 3rem; color: var(--gray-400);"></i>
+                </div>
+                {% endif %}
+
+                <div class="equipment-card__content">
+                    <h3 class="equipment-card__title">
+                        <a href="{{ product.get_absolute_url }}">{{ product.get_name }}</a>
+                    </h3>
+
+                    <p class="equipment-card__description">
+                        {{ product.get_short_description }}
+                    </p>
+
+                    {% if product.price_usd %}
+                    <div class="card__meta">
+                        <span class="text-lg font-semibold color-brand-blue">
+                            ${{ product.price_usd }}
+                        </span>
+                    </div>
+                    {% endif %}
+
+                    <div class="card__meta" style="margin-top: var(--spacing-4);">
+                        <a href="{{ product.get_absolute_url }}" class="btn btn--primary btn--small">
+                            {% trans "Детальніше" %}
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- All Products Section -->
+{% if products %}
+<section class="section">
+    <div class="container">
+        <h2 class="heading-section">Вся продукція</h2>
+
+        <div class="product-grid">
+            {% for product in products %}
+            <div class="card">
+                {% if product.hero_image %}
+                <img src="{{ product.hero_image.url }}" alt="{{ product.get_name }}" class="card__image">
+                {% endif %}
+
+                <div class="card__content">
+                    <h3 class="card__title">
+                        <a href="{{ product.get_absolute_url }}">{{ product.get_name }}</a>
+                    </h3>
+
+                    <p class="card__description">
+                        {{ product.get_short_description }}
+                    </p>
+
+                    <div class="card__meta">
+                        <span class="text-sm text-muted">{{ product.category.get_name }}</span>
+
+                        {% if product.price_usd %}
+                        <span class="text-lg font-semibold color-brand-blue">
+                            ${{ product.price_usd }}
+                        </span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Пагінація -->
+        {% if products.has_other_pages %}
+        <div class="pagination" style="text-align: center; margin-top: var(--spacing-8);">
+            {% if products.has_previous %}
+            <a href="?page={{ products.previous_page_number }}" class="btn btn--secondary btn--small">
+                {% trans "Попередня" %}
+            </a>
+            {% endif %}
+
+            <span class="pagination__info" style="margin: 0 var(--spacing-4);">
+                {% blocktrans with page=products.number total=products.paginator.num_pages %}
+                Сторінка {{ page }} з {{ total }}
+                {% endblocktrans %}
+            </span>
+
+            {% if products.has_next %}
+            <a href="?page={{ products.next_page_number }}" class="btn btn--secondary btn--small">
+                {% trans "Наступна" %}
+            </a>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endif %}
+{% endblock %}
