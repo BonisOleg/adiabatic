@@ -170,9 +170,9 @@ class NotificationSettings(models.Model):
         return f"Налаштування нотифікацій ({self.updated_at.strftime('%d.%m.%Y')})"
     
     @classmethod
-    def get_settings(self):
+    def get_settings(cls):
         """Отримати налаштування (singleton)"""
-        settings, created = self.objects.get_or_create(
+        settings, created = cls.objects.get_or_create(
             id=1,
             defaults={
                 'email_enabled': True,

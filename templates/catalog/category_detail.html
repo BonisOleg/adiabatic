@@ -67,8 +67,7 @@
                         <div class="spec-item"
                             style="display: flex; justify-content: space-between; font-size: var(--text-sm); margin-bottom: var(--spacing-1);">
                             <span class="spec-label">{{ spec.get_name }}:</span>
-                            <span class="spec-value">{{ spec.value }}{% if spec.unit %} {{ spec.unit }}{% endif
-                                %}</span>
+                            <span class="spec-value">{{ spec.value }}{% if spec.unit %} {{ spec.unit }}{% endif %}</span>
                         </div>
                         {% endfor %}
                         {% if product.specifications.count > 3 %}

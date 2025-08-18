@@ -13,8 +13,8 @@ Pillow==10.4.0
 requests==2.32.3
 qrcode[pil]==7.4.2
 
-# i18n
-django-modeltranslation==0.19.7
+# i18n - поки що не використовується
+# django-modeltranslation==0.19.7
 
 # Static files  
 whitenoise==6.7.0
