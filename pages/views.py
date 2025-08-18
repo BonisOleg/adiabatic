@@ -17,11 +17,17 @@ def home(request):
     except Page.DoesNotExist:
         page = None
     
-    # Отримуємо тільки активні hero секції з зображеннями
-    heroes = Hero.objects.filter(is_active=True).exclude(background_image='').order_by('order')
+    try:
+        # Отримуємо тільки активні hero секції з зображеннями
+        heroes = Hero.objects.filter(is_active=True).exclude(background_image='').order_by('order')
+    except Exception:
+        heroes = []
     
-    # Отримуємо тільки активних партнерів
-    partners = Partner.objects.filter(is_published=True).order_by('order')
+    try:
+        # Отримуємо тільки активних партнерів
+        partners = Partner.objects.filter(is_published=True).order_by('order')
+    except Exception:
+        partners = []
     
     context = {
         'page': page,

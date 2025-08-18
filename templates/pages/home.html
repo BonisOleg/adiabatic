@@ -30,6 +30,24 @@
     </div>
     {% endfor %}
 </section>
+{% else %}
+<!-- Fallback Hero Section -->
+<section class="hero" style="background: linear-gradient(135deg, var(--brand-blue), var(--brand-purple)); min-height: 60vh; display: flex; align-items: center; color: white; text-align: center;">
+    <div class="container">
+        <h1 style="font-size: 3rem; margin-bottom: var(--spacing-6); font-weight: bold;">Adiabatic</h1>
+        <p style="font-size: 1.25rem; margin-bottom: var(--spacing-8); max-width: 600px; margin-left: auto; margin-right: auto; opacity: 0.9;">
+            Промислове обладнання та послуги. Надійні рішення для вашого бізнесу.
+        </p>
+        <div style="display: flex; gap: var(--spacing-4); justify-content: center; flex-wrap: wrap;">
+            <a href="/catalog/" class="btn btn--primary btn--large">
+                Переглянути каталог
+            </a>
+            <a href="/about/" class="btn btn--secondary btn--large">
+                Про компанію
+            </a>
+        </div>
+    </div>
+</section>
 {% endif %}
 
 <!-- About Section -->
@@ -40,6 +58,22 @@
             <h2 class="heading-section">{{ page.get_title }}</h2>
             <div class="text-lead">
                 {{ page.get_content|safe }}
+            </div>
+        </div>
+    </div>
+</section>
+{% else %}
+<!-- Fallback About Section -->
+<section class="section">
+    <div class="container">
+        <div class="text-center" style="max-width: 800px; margin: 0 auto;">
+            <h2 class="heading-section">Про компанію Adiabatic</h2>
+            <p class="text-lead">
+                Ми спеціалізуємося на постачанні промислового обладнання та надаємо комплексні рішення для підприємств. 
+                Наша команда має багаторічний досвід у галузі теплообмінного обладнання та промислових систем.
+            </p>
+            <div style="margin-top: var(--spacing-8);">
+                <a href="/about/" class="btn btn--primary">Детальніше про нас</a>
             </div>
         </div>
     </div>
