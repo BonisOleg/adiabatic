@@ -271,6 +271,14 @@ def thank_you(request):
     return render(request, 'leads/thank_you.html', context)
 
 
+def lead_form(request):
+    """Сторінка з формою заявки"""
+    context = {
+        'page_title': 'Залишити заявку',
+    }
+    return render(request, 'leads/lead_form.html', context)
+
+
 def thank_you_detail(request, lead_uuid):
     """Персоналізована сторінка подяки"""
     lead = get_object_or_404(Lead, uuid=lead_uuid)

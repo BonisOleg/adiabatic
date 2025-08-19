@@ -4,8 +4,11 @@ from . import views
 app_name = 'leads'
 
 urlpatterns = [
+    # Form pages
+    path('submit/', views.lead_form, name='submit'),
+    
     # AJAX endpoints
-    path('submit/', views.submit_lead, name='submit'),
+    path('submit-ajax/', views.submit_lead, name='submit_ajax'),
     path('quick-quote/', views.quick_quote, name='quick_quote'),
     path('contact/', views.contact, name='contact'),
     

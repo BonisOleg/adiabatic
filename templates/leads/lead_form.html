@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}Залишити заявку{% endblock %}
+{% block og_title %}Залишити заявку{% endblock %}
+{% block og_description %}Залиште заявку для отримання консультації{% endblock %}
+
+{% block content %}
+<!-- Lead Form Section (Promsteel Style) -->
+<section class="catalog-section">
+    <div class="container">
+        <div class="catalog-header js-observe">
+            <p class="catalog-subtitle">Залишити заявку</p>
+            <h1 class="catalog-title">
+                Отримати
+                <span class="catalog-title-accent">консультацію</span>
+            </h1>
+            <div class="catalog-underline"></div>
+        </div>
+
+        <div class="about-content js-observe">
+            <p class="about-description">
+                Заповніть форму нижче і наші фахівці зв'яжуться з вами найближчим часом для надання професійної
+                консультації.
+            </p>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="contact-form-container js-observe">
+            <form id="leadForm" class="contact-form" method="post" action="{% url 'leads:submit_ajax' %}">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Ім'я *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Телефон *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="company">Компанія</label>
+                    <input type="text" id="company" name="company">
+                </div>
+                <div class="form-group">
+                    <label for="message">Повідомлення</label>
+                    <textarea id="message" name="message" rows="4"
+                        placeholder="Опишіть ваші потреби або запитання..."></textarea>
+                </div>
+                <button type="submit" class="btn btn--primary btn--large">
+                    Відправити заявку
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="cta-container">
+        <div class="cta-content js-observe">
+            <p class="cta-question">Потрібна додаткова інформація?</p>
+            <h2 class="cta-title">
+                Зв'яжіться з нами
+                <span class="cta-title-accent">безпосередньо!</span>
+            </h2>
+            <p class="cta-description">
+                Наші фахівці готові відповісти на всі ваші запитання та надати детальну консультацію
+            </p>
+            <a href="{% url 'pages:contacts' %}" class="btn btn--secondary btn--large">
+                Контакти
+            </a>
+        </div>
+        <div class="js-observe">
+            <div class="promsteel-placeholder">
+                📞 Форма
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
