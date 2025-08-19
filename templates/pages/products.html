@@ -1,24 +1,124 @@
 {% extends 'base.html' %}
 {% load i18n %}
 
-{% block title %}{{ page.get_title }}{% endblock %}
-{% block og_title %}{{ page.get_title }}{% endblock %}
-{% block og_description %}{{ page.get_meta_description }}{% endblock %}
+{% block title %}{{ page.get_title|default:"Продукти" }}{% endblock %}
+{% block og_title %}{{ page.get_title|default:"Продукти" }}{% endblock %}
+{% block og_description %}{{ page.get_meta_description|default:"Наші продукти та послуги" }}{% endblock %}
 
 {% block content %}
-<section class="section">
+<!-- Products Section (Promsteel Style) -->
+<section class="catalog-section">
     <div class="container">
-        {% if page %}
-        <h1 class="heading-section">{{ page.get_title }}</h1>
-        <div class="text-lead">
-            {{ page.get_content|safe }}
+        <div class="catalog-header js-observe">
+            <p class="catalog-subtitle">Наші продукти</p>
+            <h1 class="catalog-title">
+                Промислове
+                <span class="catalog-title-accent">обладнання</span>
+            </h1>
+            <div class="catalog-underline"></div>
+        </div>
+
+        {% if page and page.get_content %}
+        <div class="about-content js-observe">
+            <div class="about-description">
+                {{ page.get_content|safe }}
+            </div>
         </div>
         {% else %}
-        <h1 class="heading-section">Продукція</h1>
-        <div class="text-lead">
-            <p>Каталог продукції буде додано пізніше.</p>
+        <div class="about-content js-observe">
+            <h2 class="about-title">
+                Широкий спектр
+                <span class="about-title-accent">промислового обладнання</span>
+            </h2>
+            <p class="about-description">
+                Ми пропонуємо комплексні рішення для різних галузей промисловості, включаючи теплообмінне обладнання,
+                системи очищення та інші технологічні рішення.
+            </p>
         </div>
         {% endif %}
+
+        <!-- Products Grid -->
+        <div class="equipment-grid">
+            <div class="equipment-card js-observe">
+                <div class="equipment-card__image">
+                    🔧
+                </div>
+                <div class="equipment-card__content">
+                    <div class="equipment-card__title">
+                        Теплообмінне обладнання
+                    </div>
+                    <p class="equipment-card__description">
+                        Ефективні рішення для теплообміну в промислових процесах
+                    </p>
+                </div>
+            </div>
+
+            <div class="equipment-card js-observe">
+                <div class="equipment-card__image">
+                    🏭
+                </div>
+                <div class="equipment-card__content">
+                    <div class="equipment-card__title">
+                        Системи очищення
+                    </div>
+                    <p class="equipment-card__description">
+                        Технології очищення для захисту навколишнього середовища
+                    </p>
+                </div>
+            </div>
+
+            <div class="equipment-card js-observe">
+                <div class="equipment-card__image">
+                    ⚙️
+                </div>
+                <div class="equipment-card__content">
+                    <div class="equipment-card__title">
+                        Автоматизація
+                    </div>
+                    <p class="equipment-card__description">
+                        Рішення для автоматизації промислових процесів
+                    </p>
+                </div>
+            </div>
+
+            <div class="equipment-card js-observe">
+                <div class="equipment-card__image">
+                    🔥
+                </div>
+                <div class="equipment-card__content">
+                    <div class="equipment-card__title">
+                        Енергоефективність
+                    </div>
+                    <p class="equipment-card__description">
+                        Технології для зниження енергоспоживання
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="cta-container">
+        <div class="cta-content js-observe">
+            <p class="cta-question">Потрібна консультація?</p>
+            <h2 class="cta-title">
+                Наші фахівці готові
+                <span class="cta-title-accent">допомогти з вибором!</span>
+            </h2>
+            <p class="cta-description">
+                Зв'яжіться з нами для отримання професійної консультації та підбору обладнання
+            </p>
+            <a href="{% url 'leads:submit' %}" class="btn btn--primary btn--large">
+                Отримати консультацію
+            </a>
+        </div>
+        <div class="js-observe">
+            <div class="promsteel-placeholder">
+                🚀 Продукти
+            </div>
+        </div>
     </div>
 </section>
 {% endblock %}

@@ -63,8 +63,17 @@ def contacts(request):
     return render(request, 'pages/contacts.html', context)
 
 
-
-
+def products(request):
+    """Сторінка продуктів"""
+    try:
+        page = Page.objects.get(page_type='products', is_published=True)
+    except Page.DoesNotExist:
+        page = None
+    
+    context = {
+        'page': page,
+    }
+    return render(request, 'pages/products.html', context)
 
 def page_detail(request, slug):
     """Детальна сторінка за slug"""
