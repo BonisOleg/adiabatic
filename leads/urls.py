@@ -5,7 +5,7 @@ app_name = 'leads'
 
 urlpatterns = [
     # AJAX endpoints
-    path('submit/', views.submit_lead, name='submit_lead'),
+    path('submit/', views.submit_lead, name='submit'),
     path('quick-quote/', views.quick_quote, name='quick_quote'),
     path('contact/', views.contact, name='contact'),
     

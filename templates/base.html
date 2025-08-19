@@ -23,7 +23,7 @@
     <meta property="og:description"
         content="{% block og_description %}{{ site_settings.meta_description|default:'Промислове обладнання та послуги' }}{% endblock %}">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico">
