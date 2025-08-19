@@ -6,19 +6,155 @@
 {% block og_description %}{{ page.get_meta_description }}{% endblock %}
 
 {% block content %}
-<section class="section">
+<!-- Hero Section (Promsteel Style) -->
+<section class="hero">
+    <div class="hero__container">
+        <div class="hero__content js-observe">
+            <p class="hero__subtitle slide-in-left">
+                ООО "ПРОМСТИЛ"
+            </p>
+            <h1 class="hero__title fade-in">
+                Надійний постачальник
+                <span class="hero__title-accent">енергетичного обладнання для промислових процесів</span>
+            </h1>
+            <p class="hero__description slide-in-up">
+                ADIABATIC є сучасною динамічно розвиваючоюся компанією, яка прагне стати провідним постачальником
+                продуктів і рішень для організації процесів теплообміну та управління потоками. Ми розробляємо рішення в
+                таких напрямках, як оптимізація використання енергії, скорочення витрат підприємств на експлуатацію
+                технологічних позицій, пов'язаних з процесами теплообміну, а також по охороні навколишнього середовища.
+                Замовляйте теплообмінне обладнання у нас!
+            </p>
+            <div class="hero__actions">
+                <a href="{% url 'catalog:catalog_list' %}" class="btn btn--primary btn--large">Каталог</a>
+                <a href="{% url 'leads:submit' %}" class="btn btn--secondary btn--large">Замовити</a>
+            </div>
+        </div>
+        <div class="hero__image-container js-observe">
+            <div class="promsteel-placeholder">
+                🏢 Компанія Adiabatic
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Advantages Section -->
+<section class="catalog-section">
     <div class="container">
-        {% if page %}
-        <h1 class="heading-section">{{ page.get_title }}</h1>
-        <div class="text-lead">
-            {{ page.get_content|safe }}
+        <div class="catalog-header js-observe">
+            <h2 class="catalog-title text-center">
+                Гарантовані
+                <span class="catalog-title-accent">переваги постачального енергетичного обладнання ООО "Промстил"</span>
+            </h2>
+            <div class="catalog-underline"></div>
         </div>
-        {% else %}
-        <h1 class="heading-section">Про компанію</h1>
-        <div class="text-lead">
-            <p>Інформація про компанію буде додана пізніше.</p>
+
+        <div class="equipment-grid">
+            <div class="equipment-card js-observe">
+                <div class="equipment-card__image">
+                    📈
+                </div>
+                <div class="equipment-card__content">
+                    <div class="equipment-card__title">
+                        Гарантуємо високу рентабельність
+                    </div>
+                    <p class="equipment-card__description">
+                        технічних рішень
+                    </p>
+                </div>
+            </div>
+
+            <div class="equipment-card js-observe">
+                <div class="equipment-card__image">
+                    ✅
+                </div>
+                <div class="equipment-card__content">
+                    <div class="equipment-card__title">
+                        Многоступенчастий контроль якості
+                    </div>
+                    <p class="equipment-card__description">
+                        нашого обладнання
+                    </p>
+                </div>
+            </div>
+
+            <div class="equipment-card js-observe">
+                <div class="equipment-card__image">
+                    🔒
+                </div>
+                <div class="equipment-card__content">
+                    <div class="equipment-card__title">
+                        Гарантуємо захист прав і інтересів
+                    </div>
+                    <p class="equipment-card__description">
+                        наших клієнтів
+                    </p>
+                </div>
+            </div>
+
+            <div class="equipment-card js-observe">
+                <div class="equipment-card__image">
+                    🔧
+                </div>
+                <div class="equipment-card__content">
+                    <div class="equipment-card__title">
+                        Технічна підтримка
+                    </div>
+                    <p class="equipment-card__description">
+                        на протязі всього строку експлуатації
+                    </p>
+                </div>
+            </div>
+
+            <div class="equipment-card js-observe">
+                <div class="equipment-card__image">
+                    🎆
+                </div>
+                <div class="equipment-card__content">
+                    <div class="equipment-card__title">
+                        Надаємо високий рівень
+                    </div>
+                    <p class="equipment-card__description">
+                        сервісного обслуговування
+                    </p>
+                </div>
+            </div>
+
+            <div class="equipment-card js-observe">
+                <div class="equipment-card__image">
+                    🎓
+                </div>
+                <div class="equipment-card__content">
+                    <div class="equipment-card__title">
+                        Проводимо безкоштовне навчання
+                    </div>
+                    <p class="equipment-card__description">
+                        культурі експлуатації обладнання
+                    </p>
+                </div>
+            </div>
         </div>
-        {% endif %}
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="cta-container">
+        <div class="cta-content js-observe">
+            <h2 class="cta-title">
+                За ідеєю йде рішення...
+            </h2>
+            <p class="cta-description">
+                Давайте разом вирішимо Вашу задачу
+            </p>
+            <a href="{% url 'leads:submit' %}" class="btn btn--primary btn--large">
+                Отримати консультацію
+            </a>
+        </div>
+        <div class="js-observe">
+            <div class="promsteel-placeholder">
+                🚀 Рішення
+            </div>
+        </div>
     </div>
 </section>
 {% endblock %}

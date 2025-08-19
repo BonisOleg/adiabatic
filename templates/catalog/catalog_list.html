@@ -1,94 +1,166 @@
 {% extends 'base.html' %}
 {% load i18n %}
 
-{% block title %}{{ page_title }}{% endblock %}
-{% block og_title %}{{ page_title }}{% endblock %}
-{% block og_description %}Каталог промислового обладнання компанії Adiabatic. Якісне обладнання для різних галузей
-промисловості.{% endblock %}
+{% block title %}Каталог обладнання{% endblock %}
+{% block og_title %}Каталог обладнання{% endblock %}
+{% block og_description %}Повний каталог промислового обладнання{% endblock %}
 
 {% block content %}
-<!-- Hero Section -->
-<section class="section section--small">
-    <div class="container">
-        <h1 class="heading-section text-center fade-in">{{ page_title }}</h1>
-        <p class="text-lead text-center slide-in-up">
-            Професійне промислове обладнання для вашого бізнесу
-        </p>
-    </div>
-</section>
-
-<!-- Categories Section -->
-{% if categories %}
-<section class="section">
-    <div class="container">
-        <h2 class="heading-section js-observe">Категорії продукції</h2>
-
-        <div class="industries-grid">
-            {% for category in categories %}
-            <div class="industry-item js-observe">
-                {% if category.icon %}
-                <div class="industry-item__icon">
-                    <i class="{{ category.icon }}"></i>
-                </div>
-                {% endif %}
-
-                <h3 class="industry-item__title">
-                    <a href="{% url 'catalog:category_detail' category.slug %}">
-                        {{ category.get_name }}
-                    </a>
-                </h3>
-
-                {% if category.get_description %}
-                <p class="text-body">{{ category.get_description|truncatewords:15 }}</p>
-                {% endif %}
-
-                <p class="text-sm text-muted">
-                    {{ category.products.count }} {% trans "товарів" %}
-                </p>
+<!-- Hero Section (Promsteel Style) -->
+<section class="hero hero--promsteel">
+    <div class="hero__container">
+        <div class="hero__content js-observe">
+            <p class="hero__subtitle slide-in-left">
+                Каталог продукції
+            </p>
+            <h1 class="hero__title fade-in">
+                Промислове
+                <span class="hero__title-accent">технологічне обладнання</span>
+            </h1>
+            <p class="hero__description slide-in-up">
+                Надійні рішення для промислових процесів
+            </p>
+            <div class="hero__actions">
+                <a href="{% url 'pages:contacts' %}" class="btn btn--primary btn--large">Контакти</a>
+                <a href="{% url 'pages:about' %}" class="btn btn--secondary btn--large">Про нас</a>
             </div>
-            {% endfor %}
+        </div>
+        <div class="hero__image-wrapper js-observe">
+            <div class="promsteel-placeholder">
+                🏭 Промислове обладнання
+            </div>
         </div>
     </div>
+    <div class="hero__nav-arrows">
+        <button class="hero__nav-arrow">←</button>
+        <span class="hero__nav-text">вліво</span>
+        <span class="hero__nav-text">вправо</span>
+        <button class="hero__nav-arrow">→</button>
+    </div>
 </section>
-{% endif %}
 
-<!-- Featured Products Section -->
-{% if featured_products %}
-<section class="section section--small">
+<!-- Catalog Section -->
+<section class="catalog-section">
     <div class="container">
-        <h2 class="heading-section js-observe">Рекомендована продукція</h2>
+        <div class="catalog-header js-observe">
+            <p class="catalog-subtitle">Каталог продукції</p>
+            <h2 class="catalog-title">
+                Категорії
+                <span class="catalog-title-accent">обладнання</span>
+            </h2>
+            <div class="catalog-underline"></div>
+        </div>
 
+        <!-- Industries Grid -->
         <div class="equipment-grid">
-            {% for product in featured_products %}
-            <div class="equipment-card js-observe">
-                {% if product.hero_image %}
-                <img src="{{ product.hero_image.url }}" alt="{{ product.get_name }}" class="equipment-card__image">
+            {% if categories %}
+            {% for category in categories %}
+            <div class="equipment-card js-observe fade-in">
+                {% if category.image %}
+                <img src="{{ category.image.url }}" alt="{{ category.get_name }}" class="equipment-card__image">
                 {% else %}
-                <div class="equipment-card__image"
-                    style="background: var(--gray-100); display: flex; align-items: center; justify-content: center;">
-                    <i class="fas fa-image" style="font-size: 3rem; color: var(--gray-400);"></i>
+                <div class="equipment-card__image">
+                    {% if category.icon %}
+                    <i class="{{ category.icon }}"></i>
+                    {% else %}
+                    ⚙️
+                    {% endif %}
                 </div>
                 {% endif %}
 
                 <div class="equipment-card__content">
-                    <h3 class="equipment-card__title">
-                        <a href="{{ product.get_absolute_url }}">{{ product.get_name }}</a>
-                    </h3>
+                    <a href="{{ category.get_absolute_url }}" class="equipment-card__title">
+                        {{ category.get_name }}
+                    </a>
 
+                    {% if category.get_description %}
                     <p class="equipment-card__description">
-                        {{ product.get_short_description }}
+                        {{ category.get_description|truncatewords:15 }}
                     </p>
+                    {% endif %}
 
-                    {% if product.price_usd %}
-                    <div class="card__meta">
-                        <span class="text-lg font-semibold color-brand-blue">
-                            ${{ product.price_usd }}
+                    {% if category.products.count %}
+                    <div class="equipment-card__meta">
+                        <span class="equipment-card__count">
+                            {{ category.products.count }} {% trans "товарів" %}
                         </span>
                     </div>
                     {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <div class="equipment-card js-observe">
+                <div class="equipment-card__image">🔧</div>
+                <div class="equipment-card__content">
+                    <a href="#" class="equipment-card__title">Оребрені труби</a>
+                </div>
+            </div>
+            <div class="equipment-card js-observe">
+                <div class="equipment-card__image">🏭</div>
+                <div class="equipment-card__content">
+                    <a href="#" class="equipment-card__title">АВО</a>
+                </div>
+            </div>
+            <div class="equipment-card js-observe">
+                <div class="equipment-card__image">⚙️</div>
+                <div class="equipment-card__content">
+                    <a href="#" class="equipment-card__title">Кожухотрубні теплообмінники</a>
+                </div>
+            </div>
+            <div class="equipment-card js-observe">
+                <div class="equipment-card__image">🔥</div>
+                <div class="equipment-card__content">
+                    <a href="#" class="equipment-card__title">Утилізатори тепла димових газів</a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
 
-                    <div class="card__meta" style="margin-top: var(--spacing-4);">
-                        <a href="{{ product.get_absolute_url }}" class="btn btn--primary btn--small">
+<!-- Featured Products Section -->
+{% if featured_products %}
+<section class="catalog-section">
+    <div class="container">
+        <div class="catalog-header js-observe">
+            <p class="catalog-subtitle">Рекомендовані</p>
+            <h2 class="catalog-title">
+                Популярні
+                <span class="catalog-title-accent">продукти</span>
+            </h2>
+            <div class="catalog-underline"></div>
+        </div>
+
+        <div class="equipment-grid">
+            {% for product in featured_products %}
+            <div class="equipment-card js-observe slide-in-up">
+                {% if product.hero_image %}
+                <img src="{{ product.hero_image.url }}" alt="{{ product.get_name }}" class="equipment-card__image">
+                {% else %}
+                <div class="equipment-card__image">
+                    ⚙️
+                </div>
+                {% endif %}
+
+                <div class="equipment-card__content">
+                    <a href="{{ product.get_absolute_url }}" class="equipment-card__title">
+                        {{ product.get_name }}
+                    </a>
+
+                    {% if product.get_short_description %}
+                    <p class="equipment-card__description">
+                        {{ product.get_short_description|truncatewords:10 }}
+                    </p>
+                    {% endif %}
+
+                    <div class="equipment-card__meta">
+                        {% if product.price_usd %}
+                        <span class="equipment-card__price">
+                            ${{ product.price_usd }}
+                        </span>
+                        {% endif %}
+                        <a href="{{ product.get_absolute_url }}" class="btn btn--outline btn--small">
                             {% trans "Детальніше" %}
                         </a>
                     </div>
@@ -102,57 +174,71 @@
 
 <!-- All Products Section -->
 {% if products %}
-<section class="section">
+<section class="catalog-section">
     <div class="container">
-        <h2 class="heading-section js-observe">Вся продукція</h2>
+        <div class="catalog-header js-observe">
+            <p class="catalog-subtitle">Весь асортимент</p>
+            <h2 class="catalog-title">
+                Всі
+                <span class="catalog-title-accent">продукти</span>
+            </h2>
+            <div class="catalog-underline"></div>
+        </div>
 
-        <div class="product-grid">
+        <div class="equipment-grid">
             {% for product in products %}
-            <div class="card js-observe">
+            <div class="equipment-card js-observe fade-in">
                 {% if product.hero_image %}
-                <img src="{{ product.hero_image.url }}" alt="{{ product.get_name }}" class="card__image">
+                <img src="{{ product.hero_image.url }}" alt="{{ product.get_name }}" class="equipment-card__image">
+                {% else %}
+                <div class="equipment-card__image">
+                    ⚙️
+                </div>
                 {% endif %}
 
-                <div class="card__content">
-                    <h3 class="card__title">
-                        <a href="{{ product.get_absolute_url }}">{{ product.get_name }}</a>
-                    </h3>
+                <div class="equipment-card__content">
+                    <a href="{{ product.get_absolute_url }}" class="equipment-card__title">
+                        {{ product.get_name }}
+                    </a>
 
-                    <p class="card__description">
-                        {{ product.get_short_description }}
+                    {% if product.get_short_description %}
+                    <p class="equipment-card__description">
+                        {{ product.get_short_description|truncatewords:10 }}
                     </p>
+                    {% endif %}
 
-                    <div class="card__meta">
-                        <span class="text-sm text-muted">{{ product.category.get_name }}</span>
-
+                    <div class="equipment-card__meta">
                         {% if product.price_usd %}
-                        <span class="text-lg font-semibold color-brand-blue">
+                        <span class="equipment-card__price">
                             ${{ product.price_usd }}
                         </span>
                         {% endif %}
+                        <a href="{{ product.get_absolute_url }}" class="btn btn--outline btn--small">
+                            {% trans "Детальніше" %}
+                        </a>
                     </div>
                 </div>
             </div>
             {% endfor %}
         </div>
 
-        <!-- Пагінація -->
+        <!-- Pagination -->
         {% if products.has_other_pages %}
-        <div class="pagination" style="text-align: center; margin-top: var(--spacing-8);">
+        <div class="pagination-wrapper">
             {% if products.has_previous %}
-            <a href="?page={{ products.previous_page_number }}" class="btn btn--secondary btn--small">
+            <a href="?page={{ products.previous_page_number }}" class="btn btn--outline">
                 {% trans "Попередня" %}
             </a>
             {% endif %}
 
-            <span class="pagination__info" style="margin: 0 var(--spacing-4);">
+            <span class="pagination-info">
                 {% blocktrans with page=products.number total=products.paginator.num_pages %}
                 Сторінка {{ page }} з {{ total }}
                 {% endblocktrans %}
             </span>
 
             {% if products.has_next %}
-            <a href="?page={{ products.next_page_number }}" class="btn btn--secondary btn--small">
+            <a href="?page={{ products.next_page_number }}" class="btn btn--outline">
                 {% trans "Наступна" %}
             </a>
             {% endif %}
@@ -161,4 +247,70 @@
     </div>
 </section>
 {% endif %}
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="cta-container">
+        <div class="cta-content js-observe">
+            <p class="cta-question">Хочете замовити теплообмінник?</p>
+            <h2 class="cta-title">
+                Ми зробимо розрахунок
+                <span class="cta-title-accent">безкоштовно!</span>
+            </h2>
+            <p class="cta-description">
+                Залиште заявку на теплообмінник на сайті і наші менеджери зв'яжуться з Вами в течії 15 хвилин
+            </p>
+            <a href="{% url 'leads:submit' %}" class="btn btn--primary btn--large">
+                Відправити заявку
+            </a>
+        </div>
+        <div class="js-observe">
+            <div class="promsteel-placeholder">
+                ⚙️ Обладнання
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="about-section">
+    <div class="about-container">
+        <div class="about-content js-observe">
+            <h3>ТОВ "ADIABATIC"</h3>
+            <h2 class="about-title">
+                Надійний постачальник
+                <span class="about-title-accent">енергетичного обладнання для промислових процесів</span>
+            </h2>
+            <p class="about-description">
+                ADIABATIC є сучасною динамічно розвиваючоюся компанією, яка прагне стати провідним постачальником
+                продуктів і рішень для організації процесів теплообміну та управління потоками. Ми розробляємо рішення в
+                таких напрямках, як оптимізація використання енергії, скорочення витрат підприємств на експлуатацію
+                технологічних позицій, пов'язаних з процесами теплообміну, а також по охороні навколишнього середовища.
+            </p>
+            <a href="{% url 'pages:about' %}" class="about-cta">
+                Про компанію
+            </a>
+        </div>
+
+        <div class="about-features js-observe">
+            <h3 class="about-features__title">
+                Кваліфіковані спеціалісти - сучасні рішення
+            </h3>
+            <ul class="about-features__list">
+                <li class="about-features__item">
+                    <span class="about-features__text">Нафтогазова галузь</span>
+                </li>
+                <li class="about-features__item">
+                    <span class="about-features__text">Хімічна галузь</span>
+                </li>
+                <li class="about-features__item">
+                    <span class="about-features__text">Енергетична галузь</span>
+                </li>
+                <li class="about-features__item">
+                    <span class="about-features__text">Металургічна галузь</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
 {% endblock %}

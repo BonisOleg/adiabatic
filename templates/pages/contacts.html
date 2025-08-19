@@ -6,19 +6,92 @@
 {% block og_description %}{{ page.get_meta_description }}{% endblock %}
 
 {% block content %}
-<section class="section">
+<!-- Contacts Section (Promsteel Style) -->
+<section class="catalog-section">
     <div class="container">
-        {% if page %}
-        <h1 class="heading-section">{{ page.get_title }}</h1>
-        <div class="text-lead">
-            {{ page.get_content|safe }}
+        <div class="catalog-header js-observe">
+            <p class="catalog-subtitle">Контактна інформація</p>
+            <h1 class="catalog-title">
+                Зв'яжіться з нами
+            </h1>
+            <div class="catalog-underline"></div>
         </div>
-        {% else %}
-        <h1 class="heading-section">Контакти</h1>
-        <div class="text-lead">
-            <p>Контактна інформація буде додана пізніше.</p>
+
+        <div class="about-container">
+            <div class="about-content js-observe">
+                <h2 class="about-title">
+                    Ми готові
+                    <span class="about-title-accent">допомогти вам</span>
+                </h2>
+                <p class="about-description">
+                    Напишіть, якщо у вас є питання. Ми розмістимо вашу інформацію в короткі терміни.
+                </p>
+                <div class="footer__contact-info">
+                    <div class="footer__contact-item" data-icon="📍">
+                        Україна, 61020, м. Харків, вул. Промислова, 6
+                    </div>
+                    <div class="footer__contact-item" data-icon="📞">
+                        <a href="tel:+380677584499">+38067 758 44 99</a>
+                    </div>
+                    <div class="footer__contact-item" data-icon="✉️">
+                        <a href="mailto:office@adiabatic.ua">office@adiabatic.ua</a>
+                    </div>
+                </div>
+                <a href="{% url 'leads:submit' %}" class="about-cta">
+                    Надіслати повідомлення
+                </a>
+            </div>
+
+            <div class="about-features js-observe">
+                <h3 class="about-features__title">
+                    Зв'яжіться з нами
+                </h3>
+                <ul class="about-features__list">
+                    <li class="about-features__item">
+                        <span class="about-features__text">📱 Telegram</span>
+                    </li>
+                    <li class="about-features__item">
+                        <span class="about-features__text">📞 Viber</span>
+                    </li>
+                    <li class="about-features__item">
+                        <span class="about-features__text">💬 WhatsApp</span>
+                    </li>
+                    <li class="about-features__item">
+                        <span class="about-features__text">✉️ Email</span>
+                    </li>
+                </ul>
+
+                <div class="contact-map">
+                    <div class="promsteel-placeholder contact-map__placeholder">
+                        🗺️ Мапа місцезнаходження
+                    </div>
+                </div>
+            </div>
         </div>
-        {% endif %}
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="cta-container">
+        <div class="cta-content js-observe">
+            <p class="cta-question">Маєте питання?</p>
+            <h2 class="cta-title">
+                Давайте разом вирішимо
+                <span class="cta-title-accent">вашу задачу</span>
+            </h2>
+            <p class="cta-description">
+                Наші фахівці готові надати професійну консультацію та допомогти з вибором обладнання
+            </p>
+            <a href="{% url 'leads:submit' %}" class="btn btn--primary btn--large">
+                Відправити заявку
+            </a>
+        </div>
+        <div class="js-observe">
+            <div class="promsteel-placeholder">
+                🏢 Контакти
+            </div>
+        </div>
     </div>
 </section>
 {% endblock %}

@@ -6,150 +6,162 @@
 {% block og_description %}Промислове обладнання та послуги{% endblock %}
 
 {% block content %}
-<!-- Hero Section -->
-{% if heroes %}
+<!-- Hero Section (Promsteel Style) -->
 <section class="hero">
-    {% for hero in heroes %}
-    {% if hero.background_image %}
-    <div class="hero__background">
-        <img src="{{ hero.background_image.url }}" alt="{{ hero.get_title }}" class="hero__image">
-    </div>
-    {% endif %}
-    <div class="hero__overlay"></div>
-    <div class="hero__content">
-        <p class="hero__subtitle">{{ hero.get_subtitle }}</p>
-        <h1 class="hero__title">{{ hero.get_title }}</h1>
-        <p class="hero__description">{{ hero.get_description }}</p>
-        <div class="hero__actions">
-            {% if hero.cta_url %}
-            <a href="{{ hero.cta_url }}" class="btn btn--primary btn--large">
-                {{ hero.get_cta_text }}
-            </a>
-            {% endif %}
+    <div class="hero__container">
+        <div class="hero__content js-observe">
+            <p class="hero__subtitle slide-in-left">
+                Енергетичне обладнання
+            </p>
+            <h1 class="hero__title fade-in">
+                Енергетичне
+                <span class="hero__title-accent">обладнання</span>
+            </h1>
+            <p class="hero__description slide-in-up">
+                і сервісне обслуговування
+            </p>
+            <div class="hero__actions">
+                <a href="{% url 'pages:contacts' %}" class="btn btn--primary btn--large">Контакти</a>
+                <a href="{% url 'pages:about' %}" class="btn btn--secondary btn--large">Про нас</a>
+            </div>
+        </div>
+        <div class="hero__image-container js-observe">
+            <div class="promsteel-placeholder">
+                🏗️ Промислове обладнання
+            </div>
         </div>
     </div>
-    {% endfor %}
+    <div class="hero__navigation">
+        <button class="hero__nav-arrow">←</button>
+        <span class="hero__nav-text">вліво</span>
+        <span class="hero__nav-text">вправо</span>
+        <button class="hero__nav-arrow">→</button>
+    </div>
 </section>
-{% else %}
-<!-- Fallback Hero Section -->
-<section class="hero" style="background: linear-gradient(135deg, var(--brand-blue), var(--brand-purple)); min-height: 60vh; display: flex; align-items: center; color: white; text-align: center;">
+
+<!-- Catalog Section (Promsteel Style) -->
+<section class="catalog-section">
     <div class="container">
-        <h1 style="font-size: 3rem; margin-bottom: var(--spacing-6); font-weight: bold;">Adiabatic</h1>
-        <p style="font-size: 1.25rem; margin-bottom: var(--spacing-8); max-width: 600px; margin-left: auto; margin-right: auto; opacity: 0.9;">
-            Промислове обладнання та послуги. Надійні рішення для вашого бізнесу.
-        </p>
-        <div style="display: flex; gap: var(--spacing-4); justify-content: center; flex-wrap: wrap;">
-            <a href="/catalog/" class="btn btn--primary btn--large">
-                Переглянути каталог
+        <div class="catalog-header js-observe">
+            <p class="catalog-subtitle">Каталог обладнання</p>
+            <h2 class="catalog-title">
+                Промислове
+                <span class="catalog-title-accent">технологічне обладнання</span>
+            </h2>
+            <div class="catalog-underline"></div>
+        </div>
+
+        <div class="equipment-grid">
+            <div class="equipment-card js-observe">
+                <div class="equipment-card__image">
+                    🔧
+                </div>
+                <div class="equipment-card__content">
+                    <a href="{% url 'catalog:catalog_list' %}" class="equipment-card__title">
+                        Оребрені труби
+                    </a>
+                </div>
+            </div>
+
+            <div class="equipment-card js-observe">
+                <div class="equipment-card__image">
+                    🏭
+                </div>
+                <div class="equipment-card__content">
+                    <a href="{% url 'catalog:catalog_list' %}" class="equipment-card__title">
+                        АВО
+                    </a>
+                </div>
+            </div>
+
+            <div class="equipment-card js-observe">
+                <div class="equipment-card__image">
+                    ⚙️
+                </div>
+                <div class="equipment-card__content">
+                    <a href="{% url 'catalog:catalog_list' %}" class="equipment-card__title">
+                        Кожухотрубні теплообмінники
+                    </a>
+                </div>
+            </div>
+
+            <div class="equipment-card js-observe">
+                <div class="equipment-card__image">
+                    🔥
+                </div>
+                <div class="equipment-card__content">
+                    <a href="{% url 'catalog:catalog_list' %}" class="equipment-card__title">
+                        Утилізатори тепла димових газів
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section (Promsteel Style) -->
+<section class="cta-section">
+    <div class="cta-container">
+        <div class="cta-content js-observe">
+            <p class="cta-question">Хочете замовити теплообмінник?</p>
+            <h2 class="cta-title">
+                Ми зробимо розрахунок
+                <span class="cta-title-accent">безкоштовно!</span>
+            </h2>
+            <p class="cta-description">
+                Залиште заявку на теплообмінник на сайті і наші менеджери зв'яжуться з Вами в течії 15 хвилин
+            </p>
+            <a href="{% url 'leads:submit' %}" class="btn btn--primary btn--large">
+                Відправити заявку
             </a>
-            <a href="/about/" class="btn btn--secondary btn--large">
+        </div>
+        <div class="js-observe">
+            <div class="promsteel-placeholder">
+                ⚙️ Обладнання
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section (Promsteel Style) -->
+<section class="about-section">
+    <div class="about-container">
+        <div class="about-content js-observe">
+            <h3>ТОВ "ADIABATIC"</h3>
+            <h2 class="about-title">
+                Надійний постачальник
+                <span class="about-title-accent">енергетичного обладнання для промислових процесів</span>
+            </h2>
+            <p class="about-description">
+                ADIABATIC є сучасною динамічно розвиваючоюся компанією, яка прагне стати провідним постачальником
+                продуктів і рішень для організації процесів теплообміну та управління потоками. Ми розробляємо рішення в
+                таких напрямках, як оптимізація використання енергії, скорочення витрат підприємств на експлуатацію
+                технологічних позицій, пов'язаних з процесами теплообміну, а також по охороні навколишнього середовища.
+                Замовляйте теплообмінне обладнання у нас!
+            </p>
+            <a href="{% url 'pages:about' %}" class="about-cta">
                 Про компанію
             </a>
         </div>
-    </div>
-</section>
-{% endif %}
 
-<!-- About Section -->
-{% if page and page.get_content %}
-<section class="section">
-    <div class="container">
-        <div class="about-content">
-            <h2 class="heading-section">{{ page.get_title }}</h2>
-            <div class="text-lead">
-                {{ page.get_content|safe }}
-            </div>
-        </div>
-    </div>
-</section>
-{% else %}
-<!-- Fallback About Section -->
-<section class="section">
-    <div class="container">
-        <div class="text-center" style="max-width: 800px; margin: 0 auto;">
-            <h2 class="heading-section">Про компанію Adiabatic</h2>
-            <p class="text-lead">
-                Ми спеціалізуємося на постачанні промислового обладнання та надаємо комплексні рішення для підприємств. 
-                Наша команда має багаторічний досвід у галузі теплообмінного обладнання та промислових систем.
-            </p>
-            <div style="margin-top: var(--spacing-8);">
-                <a href="/about/" class="btn btn--primary">Детальніше про нас</a>
-            </div>
-        </div>
-    </div>
-</section>
-{% endif %}
-
-<!-- Partners Section -->
-{% if partners %}
-<section class="section section--small">
-    <div class="container">
-        <h2 class="heading-section text-center">Наші партнери</h2>
-        <div class="partners-grid">
-            {% for partner in partners %}
-            <div class="partner-item">
-                {% if partner.logo %}
-                <div class="partner-item__logo">
-                    <img src="{{ partner.logo.url }}" alt="{{ partner.name }}" class="partner-logo">
-                </div>
-                {% endif %}
-                <h3 class="partner-item__name">{{ partner.name }}</h3>
-                {% if partner.description %}
-                <p class="partner-item__description">{{ partner.description }}</p>
-                {% endif %}
-                {% if partner.website_url %}
-                <a href="{{ partner.website_url }}" target="_blank" class="partner-item__link">
-                    Відвідати сайт
-                </a>
-                {% endif %}
-            </div>
-            {% empty %}
-            <div class="partner-item">
-                <h3 class="partner-item__name">Партнери</h3>
-                <p class="partner-item__description">Інформація про партнерів буде додана пізніше</p>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-</section>
-{% else %}
-<section class="section section--small">
-    <div class="container">
-        <h2 class="heading-section text-center">Наші переваги</h2>
-        <div class="stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--spacing-6); margin-top: var(--spacing-8);">
-            <div class="text-center">
-                <div style="font-size: 3rem; font-weight: bold; color: var(--brand-blue); margin-bottom: var(--spacing-2);">10+</div>
-                <p>Років досвіду</p>
-            </div>
-            <div class="text-center">
-                <div style="font-size: 3rem; font-weight: bold; color: var(--brand-blue); margin-bottom: var(--spacing-2);">100+</div>
-                <p>Реалізованих проектів</p>
-            </div>
-            <div class="text-center">
-                <div style="font-size: 3rem; font-weight: bold; color: var(--brand-blue); margin-bottom: var(--spacing-2);">24/7</div>
-                <p>Технічна підтримка</p>
-            </div>
-            <div class="text-center">
-                <div style="font-size: 3rem; font-weight: bold; color: var(--brand-blue); margin-bottom: var(--spacing-2);">ISO</div>
-                <p>Сертифікація якості</p>
-            </div>
-        </div>
-    </div>
-</section>
-{% endif %}
-
-<!-- CTA Section -->
-<section class="section section--small">
-    <div class="container">
-        <div class="cta-block text-center" style="background: var(--gray-50); padding: var(--spacing-12) var(--spacing-6); border-radius: 12px;">
-            <h2 class="heading-section">Готові почати співпрацю?</h2>
-            <p class="text-lead" style="margin: var(--spacing-4) 0 var(--spacing-8);">
-                Зв'яжіться з нами для консультації та розрахунку вартості обладнання
-            </p>
-            <div style="display: flex; gap: var(--spacing-4); justify-content: center; flex-wrap: wrap;">
-                <a href="/contacts/" class="btn btn--primary btn--large">Зв'язатися з нами</a>
-                <a href="/catalog/" class="btn btn--secondary btn--large">Переглянути каталог</a>
-            </div>
+        <div class="about-features js-observe">
+            <h3 class="about-features__title">
+                Кваліфіковані спеціалісти - сучасні рішення
+            </h3>
+            <ul class="about-features__list">
+                <li class="about-features__item">
+                    <span class="about-features__text">Нафтогазова галузь</span>
+                </li>
+                <li class="about-features__item">
+                    <span class="about-features__text">Хімічна галузь</span>
+                </li>
+                <li class="about-features__item">
+                    <span class="about-features__text">Енергетична галузь</span>
+                </li>
+                <li class="about-features__item">
+                    <span class="about-features__text">Металургічна галузь</span>
+                </li>
+            </ul>
         </div>
     </div>
 </section>

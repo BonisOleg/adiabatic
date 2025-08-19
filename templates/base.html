@@ -13,11 +13,13 @@
     <meta name="keywords" content="{{ page.get_meta_keywords }}">
     {% else %}
     <meta name="description" content="{{ site_settings.meta_description|default:'Промислове обладнання та послуги' }}">
-    <meta name="keywords" content="{{ site_settings.meta_keywords|default:'промислове обладнання, теплообмінники, Adiabatic' }}">
+    <meta name="keywords"
+        content="{{ site_settings.meta_keywords|default:'промислове обладнання, теплообмінники, Adiabatic' }}">
     {% endif %}
 
     <!-- Open Graph -->
-    <meta property="og:title" content="{% block og_title %}{{ site_settings.site_name|default:'Adiabatic' }}{% endblock %}">
+    <meta property="og:title"
+        content="{% block og_title %}{{ site_settings.site_name|default:'Adiabatic' }}{% endblock %}">
     <meta property="og:description"
         content="{% block og_description %}{{ site_settings.meta_description|default:'Промислове обладнання та послуги' }}{% endblock %}">
     <meta property="og:type" content="website">
@@ -40,46 +42,52 @@
 </head>
 
 <body class="{% block body_class %}{% endblock %}">
-    <!-- Header -->
+    <!-- Header (Promsteel Style) -->
     <header class="header">
         <div class="container">
             <div class="header__content">
                 <div class="header__logo">
                     <a href="{% url 'pages:home' %}" class="logo">
-                        <span class="logo__text">{{ site_settings.site_name|default:'Adiabatic' }}</span>
+                        {{ site_settings.site_name|default:'Adiabatic' }}
                     </a>
                 </div>
 
                 <nav class="header__nav">
-                    {% if header_menu %}
                     <ul class="nav">
-                        {% for item in header_menu.items.all %}
-                        {% if item.is_active %}
                         <li class="nav__item">
-                            <a href="{{ item.get_url }}" class="nav__link" {% if item.open_in_new_tab %}target="_blank"
-                                {% endif %}>
-                                {{ item.title }}
-                            </a>
+                            <a href="{% url 'catalog:catalog_list' %}" class="nav__link">Обладнання</a>
                         </li>
-                        {% endif %}
-                        {% endfor %}
+                        <li class="nav__item">
+                            <a href="{% url 'pages:products' %}" class="nav__link">Процеси</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="{% url 'pages:about' %}" class="nav__link">Галузі</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="{% url 'pages:about' %}" class="nav__link">Про компанію</a>
+                        </li>
                     </ul>
-                    {% endif %}
                 </nav>
 
                 <div class="header__actions">
+                    <!-- Contact Phone -->
+                    {% if site_settings.contact_phone %}
+                    <a href="tel:{{ site_settings.contact_phone }}" class="header__contact">
+                        {{ site_settings.contact_phone|default:"+38067 758 44 99" }}
+                    </a>
+                    {% endif %}
+
                     <!-- Language Switcher -->
                     <div class="language-switcher">
-                        {% for lang in languages %}
-                        {% if lang.is_active %}
-                        <a href="{% url 'set_language' %}?next={{ request.path }}"
-                            class="language-switcher__link {% if LANGUAGE_CODE == lang.code %}active{% endif %}"
-                            data-language="{{ lang.code }}">
-                            {{ lang.code|upper }}
-                        </a>
-                        {% endif %}
-                        {% endfor %}
+                        <a href="#" class="language-switcher__link active">UA</a>
+                        <a href="#" class="language-switcher__link">RU</a>
+                        <a href="#" class="language-switcher__link">EN</a>
                     </div>
+
+                    <!-- CTA Button -->
+                    <a href="{% url 'leads:submit' %}" class="header__cta">
+                        Зворотний дзвінок
+                    </a>
 
                     <!-- Mobile Menu Toggle -->
                     <button class="mobile-menu-toggle" aria-label="Відкрити меню">
@@ -97,52 +105,68 @@
         {% block content %}{% endblock %}
     </main>
 
-    <!-- Footer -->
+    <!-- Footer (Promsteel Style) -->
     <footer class="footer">
         <div class="container">
             <div class="footer__content">
                 <div class="footer__section">
-                    <h3 class="footer__title">{{ site_settings.site_name|default:'Adiabatic' }}</h3>
-                    <p class="footer__description">{{ site_settings.site_description|default:'Промислове обладнання та послуги для вашого бізнесу' }}</p>
-                </div>
-
-                <div class="footer__section">
-                    <h4 class="footer__subtitle">Контакти</h4>
-                    {% if site_settings.contact_email %}
-                    <p class="footer__contact">
-                        <a href="mailto:{{ site_settings.contact_email }}">{{ site_settings.contact_email }}</a>
-                    </p>
-                    {% endif %}
-                    {% if site_settings.contact_phone %}
-                    <p class="footer__contact">
-                        <a href="tel:{{ site_settings.contact_phone }}">{{ site_settings.contact_phone }}</a>
-                    </p>
-                    {% endif %}
-                </div>
-
-                <div class="footer__section">
-                    <h4 class="footer__subtitle">Соціальні мережі</h4>
+                    <h3 class="footer__title">Зв'яжіться з нами</h3>
                     <div class="footer__social">
-                        {% if site_settings.facebook_url %}
-                        <a href="{{ site_settings.facebook_url }}" target="_blank" class="social-link">Facebook</a>
-                        {% endif %}
-                        {% if site_settings.instagram_url %}
-                        <a href="{{ site_settings.instagram_url }}" target="_blank" class="social-link">Instagram</a>
-                        {% endif %}
-                        {% if site_settings.linkedin_url %}
-                        <a href="{{ site_settings.linkedin_url }}" target="_blank" class="social-link">LinkedIn</a>
-                        {% endif %}
+                        <a href="#" class="social-link" title="Telegram">📱</a>
+                        <a href="#" class="social-link" title="Viber">📞</a>
+                        <a href="#" class="social-link" title="WhatsApp">💬</a>
+                    </div>
+                </div>
+
+                <div class="footer__section">
+                    <h3 class="footer__title">{{ site_settings.site_name|default:'Adiabatic' }}</h3>
+                    <ul class="footer__nav">
+                        <li><a href="{% url 'pages:contacts' %}">Контакти</a></li>
+                        <li><a href="{% url 'pages:about' %}">Про компанію</a></li>
+                        <li><a href="#">Новини</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer__section">
+                    <h3 class="footer__title">Каталог</h3>
+                    <ul class="footer__nav">
+                        <li><a href="{% url 'catalog:catalog_list' %}">Обладнання</a></li>
+                        <li><a href="{% url 'pages:products' %}">Процеси</a></li>
+                        <li><a href="{% url 'pages:about' %}">Галузі</a></li>
+                        <li><a href="#">Виробництво</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer__section">
+                    <h3 class="footer__title">Зв'яжіться з нами</h3>
+                    <div class="footer__contact-info">
+                        <div class="footer__contact-item" data-icon="📍">
+                            {{ site_settings.address|default:"Україна, 61020, м. Харків, вул. Промислова, 6" }}
+                        </div>
+                        <div class="footer__contact-item" data-icon="📞">
+                            <a href="tel:{{ site_settings.contact_phone|default:'+380677584499' }}">{{
+                                site_settings.contact_phone|default:"+38067 758 44 99" }}</a>
+                        </div>
+                        <div class="footer__contact-item" data-icon="✉️">
+                            <a href="mailto:{{ site_settings.contact_email|default:'office@adiabatic.ua' }}">{{
+                                site_settings.contact_email|default:"office@adiabatic.ua" }}</a>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="footer__bottom">
                 <p class="footer__copyright">
-                    © {% now "Y" %} {{ site_settings.site_name|default:'Adiabatic' }}. Всі права захищені.
+                    ©Copyright {% now "Y" %} {{ site_settings.site_name|default:'Adiabatic.ua' }}
                 </p>
             </div>
         </div>
     </footer>
+
+    <!-- Up Button -->
+    <button class="footer__up-button" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Вгору">
+        ↑
+    </button>
 
     <!-- JavaScript -->
     <script src="/static/js/main.js"></script>

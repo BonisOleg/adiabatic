@@ -6,86 +6,96 @@
 {% block og_description %}{{ meta_description|default:"Продукція категорії"|truncatewords:20 }}{% endblock %}
 
 {% block content %}
-<!-- Category Hero Section -->
-<section class="section section--small">
-    <div class="container">
-        <!-- Breadcrumbs -->
-        <nav class="breadcrumbs">
-            <a href="{% url 'pages:home' %}" class="breadcrumbs__item">{% trans "Головна" %}</a>
-            <span class="breadcrumbs__separator">/</span>
-            <a href="{% url 'catalog:catalog_list' %}" class="breadcrumbs__item">{% trans "Каталог" %}</a>
-            <span class="breadcrumbs__separator">/</span>
-            <span class="breadcrumbs__current">{{ category.get_name }}</span>
-        </nav>
-
-        <div style="display: flex; align-items: center; gap: var(--spacing-4); margin-top: var(--spacing-6);">
-            {% if category.icon %}
-            <div class="industry-item__icon" style="margin: 0;">
-                <i class="{{ category.icon }}"></i>
-            </div>
+<!-- Hero Section (Promsteel Style) -->
+<section class="hero">
+    <div class="hero__container">
+        <div class="hero__content js-observe">
+            <p class="hero__subtitle slide-in-left">
+                Категорія обладнання
+            </p>
+            <h1 class="hero__title fade-in">
+                {{ category.get_name }}
+            </h1>
+            {% if category.get_description %}
+            <p class="hero__description slide-in-up">
+                {{ category.get_description }}
+            </p>
             {% endif %}
-
-            <div>
-                <h1 class="heading-section" style="margin-bottom: var(--spacing-2);">{{ category.get_name }}</h1>
-                {% if category.get_description %}
-                <p class="text-lead">{{ category.get_description }}</p>
+            <div class="hero__actions">
+                <a href="{% url 'catalog:catalog_list' %}" class="btn btn--secondary btn--large">Назад до каталогу</a>
+                <a href="{% url 'leads:submit' %}" class="btn btn--primary btn--large">Замовити</a>
+            </div>
+        </div>
+        <div class="hero__image-container js-observe">
+            <div class="promsteel-placeholder">
+                {% if category.icon %}
+                <i class="{{ category.icon }}"></i>
                 {% endif %}
+                {{ category.get_name }}
             </div>
         </div>
     </div>
 </section>
 
-<!-- Products Section -->
+<!-- Products Grid (Promsteel Style) -->
 {% if products %}
-<section class="section">
+<section class="catalog-section">
     <div class="container">
+        <div class="catalog-header js-observe">
+            <p class="catalog-subtitle">Продукція категорії</p>
+            <h2 class="catalog-title">
+                {{ category.get_name }}
+            </h2>
+            <div class="catalog-underline"></div>
+        </div>
+
         <div class="equipment-grid">
             {% for product in products %}
-            <div class="equipment-card">
+            <div class="equipment-card js-observe">
                 {% if product.hero_image %}
                 <img src="{{ product.hero_image.url }}" alt="{{ product.get_name }}" class="equipment-card__image">
                 {% else %}
-                <div class="equipment-card__image"
-                    style="background: var(--gray-100); display: flex; align-items: center; justify-content: center;">
-                    <i class="fas fa-image" style="font-size: 3rem; color: var(--gray-400);"></i>
+                <div class="equipment-card__image">
+                    ⚙️
                 </div>
                 {% endif %}
 
                 <div class="equipment-card__content">
-                    <h3 class="equipment-card__title">
-                        <a href="{{ product.get_absolute_url }}">{{ product.get_name }}</a>
-                    </h3>
+                    <a href="{{ product.get_absolute_url }}" class="equipment-card__title">
+                        {{ product.get_name }}
+                    </a>
 
+                    {% if product.get_short_description %}
                     <p class="equipment-card__description">
-                        {{ product.get_short_description }}
+                        {{ product.get_short_description|truncatewords:15 }}
                     </p>
+                    {% endif %}
 
                     <!-- Основні характеристики -->
                     {% if product.specifications.all %}
-                    <div class="product-specs-preview" style="margin: var(--spacing-3) 0;">
+                    <div class="tech-specs">
                         {% for spec in product.specifications.all|slice:":3" %}
-                        <div class="spec-item"
-                            style="display: flex; justify-content: space-between; font-size: var(--text-sm); margin-bottom: var(--spacing-1);">
-                            <span class="spec-label">{{ spec.get_name }}:</span>
-                            <span class="spec-value">{{ spec.value }}{% if spec.unit %} {{ spec.unit }}{% endif %}</span>
+                        <div class="tech-specs__row">
+                            <div class="tech-specs__label">{{ spec.get_name }}:</div>
+                            <div class="tech-specs__value">{{ spec.value }}{% if spec.unit %} {{ spec.unit }}{% endif %}
+                            </div>
                         </div>
                         {% endfor %}
                         {% if product.specifications.count > 3 %}
-                        <div class="text-sm text-muted">
+                        <div class="tech-specs__more">
                             +{{ product.specifications.count|add:"-3" }} {% trans "характеристик" %}
                         </div>
                         {% endif %}
                     </div>
                     {% endif %}
 
-                    <div class="card__meta" style="margin-top: auto;">
+                    <div class="equipment-card__meta">
                         {% if product.price_usd %}
-                        <span class="text-lg font-semibold color-brand-blue">
+                        <span class="equipment-card__price">
                             ${{ product.price_usd }}
                         </span>
                         {% endif %}
-
-                        <a href="{{ product.get_absolute_url }}" class="btn btn--primary btn--small">
+                        <a href="{{ product.get_absolute_url }}" class="btn btn--outline btn--small">
                             {% trans "Детальніше" %}
                         </a>
                     </div>
@@ -94,23 +104,23 @@
             {% endfor %}
         </div>
 
-        <!-- Пагінація -->
+        <!-- Pagination -->
         {% if products.has_other_pages %}
-        <div class="pagination" style="text-align: center; margin-top: var(--spacing-8);">
+        <div class="pagination-wrapper">
             {% if products.has_previous %}
-            <a href="?page={{ products.previous_page_number }}" class="btn btn--secondary btn--small">
+            <a href="?page={{ products.previous_page_number }}" class="btn btn--outline btn--small">
                 {% trans "Попередня" %}
             </a>
             {% endif %}
 
-            <span class="pagination__info" style="margin: 0 var(--spacing-4);">
+            <span class="pagination-info">
                 {% blocktrans with page=products.number total=products.paginator.num_pages %}
                 Сторінка {{ page }} з {{ total }}
                 {% endblocktrans %}
             </span>
 
             {% if products.has_next %}
-            <a href="?page={{ products.next_page_number }}" class="btn btn--secondary btn--small">
+            <a href="?page={{ products.next_page_number }}" class="btn btn--outline btn--small">
                 {% trans "Наступна" %}
             </a>
             {% endif %}
@@ -119,15 +129,46 @@
     </div>
 </section>
 {% else %}
-<!-- No Products -->
-<section class="section">
-    <div class="container text-center">
-        <h2 class="heading-subsection">{% trans "Продукти в розробці" %}</h2>
-        <p class="text-lead">{% trans "Продукція цієї категорії незабаром з'явиться в нашому каталозі." %}</p>
-        <a href="{% url 'catalog:catalog_list' %}" class="btn btn--primary">
-            {% trans "Повернутися до каталогу" %}
-        </a>
+<!-- No Products Section -->
+<section class="catalog-section">
+    <div class="container">
+        <div class="text-center no-products">
+            <div class="no-products__icon">📦</div>
+            <h2 class="no-products__title">
+                {% trans "Продукцію не знайдено" %}
+            </h2>
+            <p class="no-products__description">
+                {% trans "У цій категорії поки немає доступних продуктів" %}
+            </p>
+            <a href="{% url 'catalog:catalog_list' %}" class="btn btn--primary">
+                {% trans "Повернутися до каталогу" %}
+            </a>
+        </div>
     </div>
 </section>
 {% endif %}
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="cta-container">
+        <div class="cta-content js-observe">
+            <p class="cta-question">Потрібна консультація?</p>
+            <h2 class="cta-title">
+                Наші фахівці готові
+                <span class="cta-title-accent">допомогти з вибором!</span>
+            </h2>
+            <p class="cta-description">
+                Зв'яжіться з нами для отримання професійної консультації та підбору обладнання для ваших потреб
+            </p>
+            <a href="{% url 'leads:submit' %}" class="btn btn--primary btn--large">
+                Отримати консультацію
+            </a>
+        </div>
+        <div class="js-observe">
+            <div class="promsteel-placeholder">
+                👨‍💼 Консультація
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
