@@ -1,6 +1,9 @@
 // ===== Main JavaScript File =====
 
 document.addEventListener('DOMContentLoaded', function () {
+    // Позначити сторінку як завантажену
+    document.body.classList.add('loaded');
+
     // Mobile menu toggle
     initMobileMenu();
 
@@ -15,6 +18,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Lazy loading for images
     initLazyLoading();
+
+    // Анімації при прокрутці
+    initScrollAnimations();
+
+    // Перемикання fade-in/fade-out
+    initToggleAnimations();
 });
 
 // ===== Mobile Menu =====
@@ -311,6 +320,13 @@ const optimizedScrollHandler = throttle(function () {
             header.classList.remove('scrolled');
         }
     }
+
+    // Параллакс ефект для hero секції
+    const heroImage = document.querySelector('.hero__image');
+    if (heroImage && !shouldReduceMotion()) {
+        const scrollPercent = scrolled / window.innerHeight;
+        heroImage.style.transform = `translateY(${scrollPercent * 30}px)`;
+    }
 }, 16); // ~60fps
 
 window.addEventListener('scroll', optimizedScrollHandler);
@@ -370,3 +386,102 @@ const mainContent = document.querySelector('.main');
 if (mainContent) {
     mainContent.id = 'main';
 }
+
+// ===== Анімації при прокрутці =====
+
+function initScrollAnimations() {
+    // Налаштування IntersectionObserver
+    const options = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.5
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, options);
+
+    // Спостерігати за елементами
+    const animatedElements = document.querySelectorAll('.js-observe');
+    animatedElements.forEach(el => observer.observe(el));
+}
+
+// ===== Перемикання анімацій =====
+
+function initToggleAnimations() {
+    const toggleElements = document.querySelectorAll('.toggle-target');
+
+    toggleElements.forEach(elem => {
+        elem.addEventListener('click', function () {
+            if (this.classList.contains('fade-in')) {
+                this.classList.replace('fade-in', 'fade-out');
+            } else {
+                this.classList.replace('fade-out', 'fade-in');
+            }
+        });
+    });
+}
+
+// ===== Допоміжні функції для анімацій =====
+
+// Додати клас анімації до елемента
+function addAnimationClass(element, animationClass) {
+    if (element && !element.classList.contains(animationClass)) {
+        element.classList.add(animationClass);
+    }
+}
+
+// Установити затримку для анімацій
+function setAnimationDelay(element, delay) {
+    if (element) {
+        element.style.animationDelay = delay + 'ms';
+    }
+}
+
+// Анімація списку елементів з затримкою
+function animateListWithDelay(selector, animationClass, delayStep = 100) {
+    const elements = document.querySelectorAll(selector);
+    elements.forEach((element, index) => {
+        setTimeout(() => {
+            addAnimationClass(element, animationClass);
+        }, index * delayStep);
+    });
+}
+
+// Перевірка на prefers-reduced-motion
+function shouldReduceMotion() {
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+// Пульсація кнопки при кліку
+function addPulseEffect(buttonSelector) {
+    const buttons = document.querySelectorAll(buttonSelector);
+
+    buttons.forEach(button => {
+        button.addEventListener('click', function (e) {
+            if (shouldReduceMotion()) return;
+
+            this.classList.add('pulse');
+
+            setTimeout(() => {
+                this.classList.remove('pulse');
+            }, 600);
+        });
+    });
+}
+
+// Ініціалізація ефектів
+setTimeout(() => {
+    addPulseEffect('.btn--primary');
+
+    // Анімація карток з затримкою
+    if (!shouldReduceMotion()) {
+        animateListWithDelay('.card', 'fade-in', 150);
+        animateListWithDelay('.equipment-card', 'slide-in-up', 100);
+    }
+}, 500);

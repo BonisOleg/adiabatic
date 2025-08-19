@@ -1,14 +1,22 @@
 /* ===== CSS Variables (Design System) ===== */
 :root {
-    /* Фірмові кольори */
-    --brand-blue: #1B365D;
-    /* Основний синій (як промисловий стиль promsteel) */
-    --brand-blue-light: #2E5984;
+    /* Фірмові кольори - стильні відтінки */
+    --brand-blue: #0F2A44;
+    /* Глибокий синій */
+    --brand-blue-light: #1E4A6B;
     /* Світліший синій */
-    --brand-red: #C4384D;
-    /* Акцентний червоний */
-    --brand-purple: #8B5FBF;
-    /* Фіолетовий акцент (з референсних зображень) */
+    --brand-blue-accent: #2C5F87;
+    /* Акцентний синій */
+    --brand-red: #D32F2F;
+    /* Стильний червоний */
+    --brand-red-light: #F44336;
+    /* Світліший червоний */
+    --brand-red-dark: #B71C1C;
+    /* Темний червоний */
+    --brand-purple: #7B1FA2;
+    /* Стильний фіолетовий */
+    --brand-gradient-primary: linear-gradient(135deg, #0F2A44 0%, #D32F2F 100%);
+    /* Основний градієнт */
 
     /* Нейтральні кольори */
     --white: #FFFFFF;
@@ -31,9 +39,11 @@
     --info: var(--brand-blue);
 
     /* Градієнти та ефекти */
-    --gradient-hero: linear-gradient(135deg, rgba(27, 54, 93, 0.8) 0%, rgba(139, 95, 191, 0.6) 100%);
-    --gradient-overlay: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.3) 100%);
+    --gradient-hero: linear-gradient(135deg, rgba(15, 42, 68, 0.9) 0%, rgba(211, 47, 47, 0.7) 100%);
+    --gradient-overlay: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 100%);
     --gradient-card: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+    --gradient-animated: linear-gradient(270deg, #0F2A44, #D32F2F, #7B1FA2);
+    --gradient-button: linear-gradient(45deg, #1E4A6B 0%, #2C5F87 100%);
 
     /* Тіні */
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
@@ -124,6 +134,136 @@
     --transition-fast: 0.15s ease;
     --transition-normal: 0.3s ease;
     --transition-slow: 0.5s ease;
+    --transition-bounce: 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ===== Анімації ===== */
+
+/* Базова поява */
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fade-out {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+/* Сдвиг та поява зліва */
+@keyframes slide-in-left {
+    from {
+        transform: translateX(-150vw) scale(2);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+    }
+}
+
+/* Сдвиг та поява зверху */
+@keyframes slide-in-up {
+    from {
+        transform: translateY(30vh);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Анімований градієнт */
+@keyframes gradient-move {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Пульсація */
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Класи анімацій */
+.fade-in {
+    animation: fade-in 0.6s ease-out forwards;
+}
+
+.fade-out {
+    animation: fade-out 0.6s ease-in forwards;
+}
+
+.slide-in-left {
+    animation: slide-in-left 0.8s ease-out forwards;
+}
+
+.slide-in-up {
+    animation: slide-in-up 0.8s var(--transition-bounce) forwards;
+}
+
+.animated-gradient {
+    background: var(--gradient-animated);
+    background-size: 600% 600%;
+    animation: gradient-move 8s ease infinite;
+}
+
+.pulse {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* Елементи для спостереження */
+.js-observe {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.js-observe.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Поддержка prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    .js-observe {
+        opacity: 1;
+        transform: none;
+    }
 }
 
 /* ===== Reset & Base Styles ===== */
@@ -474,16 +614,36 @@ body {
 }
 
 .btn--primary {
-    background: var(--brand-blue);
+    background: var(--gradient-button);
     color: var(--white);
     border-color: var(--brand-blue);
+    position: relative;
+    overflow: hidden;
 }
 
 .btn--primary:hover {
     background: var(--brand-blue-light);
     border-color: var(--brand-blue-light);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: var(--shadow-xl);
+}
+
+.btn--primary::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn--primary:hover::before {
+    width: 300px;
+    height: 300px;
 }
 
 .btn--secondary {
@@ -502,6 +662,175 @@ body {
     padding: 1rem 2.5rem;
     font-size: var(--text-lg);
     min-width: 200px;
+}
+
+/* ===== Cards ===== */
+.card {
+    background: var(--white);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-normal);
+    display: flex;
+    flex-direction: column;
+    border: 1px solid transparent;
+}
+
+.card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(15, 42, 68, 0.15);
+    border-color: var(--brand-blue-accent);
+}
+
+.card__image {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    display: block;
+}
+
+.card__content {
+    padding: var(--spacing-6);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.card__title {
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    font-weight: var(--font-semibold);
+    color: var(--gray-900);
+    margin-bottom: var(--spacing-3);
+    line-height: var(--leading-tight);
+}
+
+.card__description {
+    font-family: var(--font-primary);
+    font-size: var(--text-base);
+    color: var(--gray-600);
+    line-height: var(--leading-normal);
+    margin-bottom: var(--spacing-4);
+    flex: 1;
+}
+
+.card__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+}
+
+/* Стилі для product grid */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--spacing-8);
+    padding: var(--spacing-8) 0;
+}
+
+@media (max-width: 768px) {
+    .product-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-6);
+    }
+}
+
+/* ===== Equipment Cards ===== */
+.equipment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-6);
+    padding: var(--spacing-8) 0;
+}
+
+.equipment-card {
+    background: var(--white);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-normal);
+    border: 1px solid var(--gray-200);
+}
+
+.equipment-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(211, 47, 47, 0.15);
+    border-color: var(--brand-red);
+}
+
+.equipment-card__image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    background: var(--gray-100);
+}
+
+.equipment-card__content {
+    padding: var(--spacing-6);
+}
+
+.equipment-card__title {
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    font-weight: var(--font-semibold);
+    color: var(--brand-blue);
+    margin-bottom: var(--spacing-3);
+    transition: color var(--transition-normal);
+}
+
+.equipment-card:hover .equipment-card__title {
+    color: var(--brand-red);
+}
+
+.equipment-card__description {
+    font-family: var(--font-primary);
+    font-size: var(--text-sm);
+    color: var(--gray-600);
+    line-height: var(--leading-normal);
+    margin-bottom: var(--spacing-4);
+}
+
+/* ===== Industries Grid ===== */
+.industries-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-6);
+}
+
+.industry-item {
+    text-align: center;
+    padding: var(--spacing-6);
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-normal);
+}
+
+.industry-item:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.industry-item__icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto var(--spacing-4);
+    background: var(--brand-blue);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-size: var(--text-2xl);
+}
+
+.industry-item__title {
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    font-weight: var(--font-semibold);
+    color: var(--gray-900);
+    margin-bottom: var(--spacing-2);
 }
 
 /* ===== Partners Grid ===== */

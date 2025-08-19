@@ -10,8 +10,8 @@
 <!-- Hero Section -->
 <section class="section section--small">
     <div class="container">
-        <h1 class="heading-section text-center">{{ page_title }}</h1>
-        <p class="text-lead text-center">
+        <h1 class="heading-section text-center fade-in">{{ page_title }}</h1>
+        <p class="text-lead text-center slide-in-up">
             Професійне промислове обладнання для вашого бізнесу
         </p>
     </div>
@@ -21,11 +21,11 @@
 {% if categories %}
 <section class="section">
     <div class="container">
-        <h2 class="heading-section">Категорії продукції</h2>
+        <h2 class="heading-section js-observe">Категорії продукції</h2>
 
         <div class="industries-grid">
             {% for category in categories %}
-            <div class="industry-item">
+            <div class="industry-item js-observe">
                 {% if category.icon %}
                 <div class="industry-item__icon">
                     <i class="{{ category.icon }}"></i>
@@ -56,11 +56,11 @@
 {% if featured_products %}
 <section class="section section--small">
     <div class="container">
-        <h2 class="heading-section">Рекомендована продукція</h2>
+        <h2 class="heading-section js-observe">Рекомендована продукція</h2>
 
         <div class="equipment-grid">
             {% for product in featured_products %}
-            <div class="equipment-card">
+            <div class="equipment-card js-observe">
                 {% if product.hero_image %}
                 <img src="{{ product.hero_image.url }}" alt="{{ product.get_name }}" class="equipment-card__image">
                 {% else %}
@@ -104,11 +104,11 @@
 {% if products %}
 <section class="section">
     <div class="container">
-        <h2 class="heading-section">Вся продукція</h2>
+        <h2 class="heading-section js-observe">Вся продукція</h2>
 
         <div class="product-grid">
             {% for product in products %}
-            <div class="card">
+            <div class="card js-observe">
                 {% if product.hero_image %}
                 <img src="{{ product.hero_image.url }}" alt="{{ product.get_name }}" class="card__image">
                 {% endif %}
