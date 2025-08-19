@@ -9,7 +9,7 @@ dj-database-url==2.1.0
 
 # Utilities
 python-dotenv==1.0.1
-Pillow==10.4.0
+Pillow==11.3.0
 requests==2.32.3
 qrcode[pil]==7.4.2
 
@@ -22,9 +22,9 @@ whitenoise==6.7.0
 # Production
 gunicorn==22.0.0
 
-# Development (only for local)
-django-debug-toolbar==4.3.0
-django-extensions==3.2.3
+# Development (only for local) - commented out for production
+# django-debug-toolbar==4.3.0
+# django-extensions==3.2.3
 
 # Testing
 pytest==7.4.3

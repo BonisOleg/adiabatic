@@ -43,10 +43,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
-    # Third party apps
-    'debug_toolbar',
-    'django_extensions',
-    
     # Local apps
     'core.apps.CoreConfig',
     'pages.apps.PagesConfig',
@@ -68,10 +64,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-# Debug Toolbar middleware (тільки для розробки)
-if DEBUG:
-    MIDDLEWARE.insert(0, 'debug_toolbar.middleware.DebugToolbarMiddleware')
 
 ROOT_URLCONF = 'adiabatic.urls'
 
