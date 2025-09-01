@@ -1,0 +1,399 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}Корисна інформація - Adiabatic{% endblock %}
+{% block og_title %}Корисна інформація - Adiabatic{% endblock %}
+{% block og_description %}Корисні статті про теплообмінне обладнання, технічні рішення, експлуатацію та обслуговування
+промислового обладнання.{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <p class="hero-subtitle">
+                База знань
+            </p>
+            <h1 class="hero-title">
+                Корисна
+                <span class="hero-accent">інформація</span>
+            </h1>
+            <p class="hero-description">
+                Технічні статті, інструкції та рекомендації експертів
+            </p>
+            <div class="hero-actions">
+                <a href="#articles" class="btn btn--primary btn--large">Переглянути статті</a>
+                <a href="{% url 'leads:submit' %}" class="btn btn--secondary btn--large">Задати питання</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Categories Section -->
+<section class="section" id="articles">
+    <div class="container">
+        <div class="section-header">
+            <p class="section-subtitle">Категорії</p>
+            <h2 class="section-title">
+                Тематичні
+                <span class="section-accent">розділи</span>
+            </h2>
+            <div class="section-underline"></div>
+        </div>
+
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-image">📚</div>
+                <div class="card-content">
+                    <h3 class="card-title">Основи теплообміну</h3>
+                    <p class="card-description">
+                        Теоретичні основи процесів теплообміну, типи теплообмінників, принципи роботи
+                    </p>
+                    <div class="card-meta">
+                        <span class="card-count">12 статей</span>
+                        <a href="#basics" class="btn btn--small">Читати</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">🔧</div>
+                <div class="card-content">
+                    <h3 class="card-title">Монтаж та налаштування</h3>
+                    <p class="card-description">
+                        Інструкції з монтажу, налаштування та введення в експлуатацію теплообмінного обладнання
+                    </p>
+                    <div class="card-meta">
+                        <span class="card-count">8 статей</span>
+                        <a href="#installation" class="btn btn--small">Читати</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">⚙️</div>
+                <div class="card-content">
+                    <h3 class="card-title">Експлуатація та сервіс</h3>
+                    <p class="card-description">
+                        Рекомендації щодо експлуатації, технічного обслуговування та ремонту обладнання
+                    </p>
+                    <div class="card-meta">
+                        <span class="card-count">15 статей</span>
+                        <a href="#maintenance" class="btn btn--small">Читати</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">🏭</div>
+                <div class="card-content">
+                    <h3 class="card-title">Галузеві рішення</h3>
+                    <p class="card-description">
+                        Спеціалізовані рішення для різних галузей промисловості та їх особливості
+                    </p>
+                    <div class="card-meta">
+                        <span class="card-count">10 статей</span>
+                        <a href="#industry" class="btn btn--small">Читати</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">📊</div>
+                <div class="card-content">
+                    <h3 class="card-title">Розрахунки та проектування</h3>
+                    <p class="card-description">
+                        Методики розрахунків, вибір оптимальних параметрів, проектування систем
+                    </p>
+                    <div class="card-meta">
+                        <span class="card-count">6 статей</span>
+                        <a href="#calculations" class="btn btn--small">Читати</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">🌱</div>
+                <div class="card-content">
+                    <h3 class="card-title">Енергоефективність</h3>
+                    <p class="card-description">
+                        Способи підвищення енергоефективності, економія ресурсів, екологічні аспекти
+                    </p>
+                    <div class="card-meta">
+                        <span class="card-count">9 статей</span>
+                        <a href="#efficiency" class="btn btn--small">Читати</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Popular Articles Section -->
+<section class="section" style="background: var(--gray-50);" id="basics">
+    <div class="container">
+        <div class="section-header">
+            <p class="section-subtitle">Популярні статті</p>
+            <h2 class="section-title">
+                Найбільш
+                <span class="section-accent">читані</span>
+            </h2>
+            <div class="section-underline"></div>
+        </div>
+
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-image">📖</div>
+                <div class="card-content">
+                    <h3 class="card-title">Як вибрати теплообмінник: повний гід</h3>
+                    <p class="card-description">
+                        Детальний огляд факторів, які потрібно враховувати при виборі теплообмінного обладнання
+                        для вашого підприємства. Типи, характеристики, переваги...
+                    </p>
+                    <div class="card-meta">
+                        <span style="color: var(--gray-600); font-size: 0.9rem;">15 хв читання</span>
+                        <a href="#" class="btn btn--small">Читати повністю</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">🔧</div>
+                <div class="card-content">
+                    <h3 class="card-title">Технічне обслуговування теплообмінників</h3>
+                    <p class="card-description">
+                        Практичні рекомендації щодо регулярного технічного обслуговування, графіки ТО,
+                        типові несправності та способи їх усунення...
+                    </p>
+                    <div class="card-meta">
+                        <span style="color: var(--gray-600); font-size: 0.9rem;">12 хв читання</span>
+                        <a href="#" class="btn btn--small">Читати повністю</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">💡</div>
+                <div class="card-content">
+                    <h3 class="card-title">Енергозбереження в промисловості</h3>
+                    <p class="card-description">
+                        Сучасні підходи до енергозбереження за допомогою ефективного теплообмінного обладнання.
+                        Утилізація тепла, рекуперація енергії...
+                    </p>
+                    <div class="card-meta">
+                        <span style="color: var(--gray-600); font-size: 0.9rem;">18 хв читання</span>
+                        <a href="#" class="btn btn--small">Читати повністю</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">⚠️</div>
+                <div class="card-content">
+                    <h3 class="card-title">Типові помилки при монтажі</h3>
+                    <p class="card-description">
+                        Найпоширеніші помилки при монтажі теплообмінного обладнання та способи їх уникнення.
+                        Чек-лист для контролю якості монтажу...
+                    </p>
+                    <div class="card-meta">
+                        <span style="color: var(--gray-600); font-size: 0.9rem;">10 хв читання</span>
+                        <a href="#" class="btn btn--small">Читати повністю</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">📊</div>
+                <div class="card-content">
+                    <h3 class="card-title">Розрахунок теплообмінника: основи</h3>
+                    <p class="card-description">
+                        Основні принципи теплового розрахунку теплообмінників. Формули, методики,
+                        практичні приклади розрахунків для різних типів обладнання...
+                    </p>
+                    <div class="card-meta">
+                        <span style="color: var(--gray-600); font-size: 0.9rem;">25 хв читання</span>
+                        <a href="#" class="btn btn--small">Читати повністю</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">🏭</div>
+                <div class="card-content">
+                    <h3 class="card-title">Теплообмінники в нафтогазовій галузі</h3>
+                    <p class="card-description">
+                        Особливості застосування теплообмінного обладнання в нафтогазовій промисловості.
+                        Вимоги до матеріалів, безпека експлуатації...
+                    </p>
+                    <div class="card-meta">
+                        <span style="color: var(--gray-600); font-size: 0.9rem;">20 хв читання</span>
+                        <a href="#" class="btn btn--small">Читати повністю</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Video Guides Section -->
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <p class="section-subtitle">Відео-гіди</p>
+            <h2 class="section-title">
+                Навчальні
+                <span class="section-accent">відео</span>
+            </h2>
+            <div class="section-underline"></div>
+        </div>
+
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-image">🎥</div>
+                <div class="card-content">
+                    <h3 class="card-title">Огляд типів теплообмінників</h3>
+                    <p class="card-description">
+                        Відео-огляд основних типів теплообмінного обладнання, їх переваги та сфери застосування
+                    </p>
+                    <div class="card-meta">
+                        <span style="color: var(--gray-600); font-size: 0.9rem;">15 хв</span>
+                        <a href="#" class="btn btn--small">Дивитись</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">🔧</div>
+                <div class="card-content">
+                    <h3 class="card-title">Інструкція з монтажу</h3>
+                    <p class="card-description">
+                        Покрокова відео-інструкція з правильного монтажу та підключення теплообмінника
+                    </p>
+                    <div class="card-meta">
+                        <span style="color: var(--gray-600); font-size: 0.9rem;">25 хв</span>
+                        <a href="#" class="btn btn--small">Дивитись</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">🛠️</div>
+                <div class="card-content">
+                    <h3 class="card-title">Технічне обслуговування</h3>
+                    <p class="card-description">
+                        Практичне відео з проведення регламентного технічного обслуговування обладнання
+                    </p>
+                    <div class="card-meta">
+                        <span style="color: var(--gray-600); font-size: 0.9rem;">20 хв</span>
+                        <a href="#" class="btn btn--small">Дивитись</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="section" style="background: var(--gray-50);">
+    <div class="container">
+        <div class="section-header">
+            <p class="section-subtitle">Питання та відповіді</p>
+            <h2 class="section-title">
+                Часті
+                <span class="section-accent">питання</span>
+            </h2>
+            <div class="section-underline"></div>
+        </div>
+
+        <div style="max-width: 800px; margin: 0 auto;">
+            <div class="card" style="margin-bottom: var(--space-6);">
+                <div class="card-content">
+                    <h3 class="card-title">Який термін служби теплообмінників?</h3>
+                    <p class="card-description">
+                        Термін служби залежить від умов експлуатації та якості обслуговування.
+                        При правильній експлуатації теплообмінники можуть працювати 15-25 років.
+                        Важливо проводити регулярне технічне обслуговування та своєчасну очистку.
+                    </p>
+                </div>
+            </div>
+
+            <div class="card" style="margin-bottom: var(--space-6);">
+                <div class="card-content">
+                    <h3 class="card-title">Як часто потрібно проводити технічне обслуговування?</h3>
+                    <p class="card-description">
+                        Рекомендується проводити планове ТО кожні 6-12 місяців в залежності від інтенсивності
+                        використання та умов роботи. Очистку теплообмінних поверхонь - кожні 3-6 місяців.
+                    </p>
+                </div>
+            </div>
+
+            <div class="card" style="margin-bottom: var(--space-6);">
+                <div class="card-content">
+                    <h3 class="card-title">Які матеріали використовуються для виготовлення?</h3>
+                    <p class="card-description">
+                        Використовуємо високоякісні матеріали: нержавіюча сталь, вуглецева сталь,
+                        титан, мідні сплави. Вибір матеріалу залежить від робочого середовища,
+                        температури та тиску в системі.
+                    </p>
+                </div>
+            </div>
+
+            <div class="card" style="margin-bottom: var(--space-6);">
+                <div class="card-content">
+                    <h3 class="card-title">Чи надаєте ви гарантію на обладнання?</h3>
+                    <p class="card-description">
+                        Так, ми надаємо гарантію на всю нашу продукцію. Термін гарантії залежить від
+                        типу обладнання та становить від 12 до 36 місяців. Також надаємо
+                        післягарантійне сервісне обслуговування.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section section">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="cta-title">
+                Не знайшли потрібну
+                <span class="hero-accent">інформацію?</span>
+            </h2>
+            <p class="cta-description">
+                Задайте питання нашим експертам і отримайте кваліфіковану консультацію протягом години
+            </p>
+            <div class="hero-actions">
+                <a href="{% url 'leads:submit' %}" class="btn btn--primary btn--large">
+                    Задати питання експерту
+                </a>
+                <a href="{% url 'pages:contacts' %}" class="btn btn--secondary btn--large">
+                    Зв'язатися з нами
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter Section -->
+<section class="section" style="background: var(--gray-50);">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-title">
+                Підпишіться на
+                <span class="section-accent">розсилку</span>
+            </h2>
+            <p
+                style="font-size: 1.1rem; margin-bottom: var(--space-8); max-width: 600px; margin-left: auto; margin-right: auto;">
+                Отримуйте нові статті, технічні рекомендації та новини галузі прямо на вашу пошту
+            </p>
+
+            <form style="max-width: 500px; margin: 0 auto; display: flex; gap: var(--space-3); flex-wrap: wrap;">
+                <input type="email" placeholder="Ваш email" class="form-input" style="flex: 1; min-width: 250px;"
+                    required>
+                <button type="submit" class="btn btn--primary">Підписатися</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

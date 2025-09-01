@@ -12,7 +12,7 @@ python manage.py collectstatic --noinput
 python manage.py migrate
 
 # Create superuser if it doesn't exist
-echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.filter(username='admin').exists() or User.objects.create_superuser('admin', 'admin@adiabatic.com', 'admin123')" | python manage.py shell
+echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.filter(username='admin').exists() or User.objects.create_superuser('admin', 'admin@abiabatic.com', 'admin123')" | python manage.py shell
 
 # Setup initial data
 python manage.py setup_data

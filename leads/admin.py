@@ -31,7 +31,7 @@ class LeadAdmin(admin.ModelAdmin):
     search_fields = ['name', 'email', 'phone', 'company', 'message']
     list_editable = ['status']
     readonly_fields = [
-        'uuid', 'created_at', 'updated_at', 'ip_address', 
+        'created_at', 'updated_at', 'ip_address', 
         'user_agent', 'referrer', 'get_full_contact'
     ]
     
@@ -39,7 +39,7 @@ class LeadAdmin(admin.ModelAdmin):
     
     fieldsets = (
         (_('Основна інформація'), {
-            'fields': ('uuid', 'name', 'email', 'phone', 'company', 'position')
+            'fields': ('name', 'email', 'phone', 'company', 'position')
         }),
         (_('Деталі заявки'), {
             'fields': ('inquiry_type', 'product', 'subject', 'message', 'budget_range', 'project_timeline')

@@ -1,96 +1,202 @@
 {% extends 'base.html' %}
 {% load i18n %}
 
-{% block title %}{{ page.get_title|default:"Продукти" }}{% endblock %}
-{% block og_title %}{{ page.get_title|default:"Продукти" }}{% endblock %}
-{% block og_description %}{{ page.get_meta_description|default:"Наші продукти та послуги" }}{% endblock %}
+{% block title %}Сфери застосування - Adiabatic{% endblock %}
+{% block og_title %}Сфери застосування - Adiabatic{% endblock %}
+{% block og_description %}Сфери застосування теплообмінного обладнання Adiabatic: нафтогазова галузь, енергетика,
+хімічна промисловість, металургія та інші.{% endblock %}
 
 {% block content %}
-<!-- Products Section (Promsteel Style) -->
-<section class="catalog-section">
+<!-- Hero Section -->
+<section class="hero">
     <div class="container">
-        <div class="catalog-header js-observe">
-            <p class="catalog-subtitle">Наші продукти</p>
-            <h1 class="catalog-title">
-                Промислове
-                <span class="catalog-title-accent">обладнання</span>
+        <div class="hero-content">
+            <p class="hero-subtitle">
+                Сфери застосування
+            </p>
+            <h1 class="hero-title">
+                Галузі які ми
+                <span class="hero-accent">обслуговуємо</span>
             </h1>
-            <div class="catalog-underline"></div>
-        </div>
-
-        {% if page and page.get_content %}
-        <div class="about-content js-observe">
-            <div class="about-description">
-                {{ page.get_content|safe }}
+            <p class="hero-description">
+                Професійні рішення для різних галузей промисловості
+            </p>
+            <div class="hero-actions">
+                <a href="{% url 'leads:submit' %}" class="btn btn--primary btn--large">Розрахунок теплообмінника</a>
+                <a href="{% url 'pages:contacts' %}" class="btn btn--secondary btn--large">Консультація</a>
             </div>
         </div>
-        {% else %}
-        <div class="about-content js-observe">
-            <h2 class="about-title">
-                Широкий спектр
-                <span class="about-title-accent">промислового обладнання</span>
+    </div>
+</section>
+
+<!-- Industries Overview -->
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <p class="section-subtitle">Галузі промисловості</p>
+            <h2 class="section-title">
+                Наші основні
+                <span class="section-accent">напрямки</span>
             </h2>
-            <p class="about-description">
-                Ми пропонуємо комплексні рішення для різних галузей промисловості, включаючи теплообмінне обладнання,
-                системи очищення та інші технологічні рішення.
+            <div class="section-underline"></div>
+        </div>
+
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-image">🛢️</div>
+                <div class="card-content">
+                    <h3 class="card-title">Нафтогазова галузь</h3>
+                    <p class="card-description">
+                        Комплексні рішення для нафтопереробних заводів, газопереробних підприємств,
+                        хімічних комбінатів. Обладнання для роботи з агресивними середовищами.
+                    </p>
+                    <div class="card-meta">
+                        <a href="#oil-gas" class="btn btn--small">Детальніше</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">⚡</div>
+                <div class="card-content">
+                    <h3 class="card-title">Енергетична галузь</h3>
+                    <p class="card-description">
+                        Теплообмінне обладнання для ТЕС, АЕС, когенераційних установок,
+                        відновлювальної енергетики та систем централізованого теплопостачання.
+                    </p>
+                    <div class="card-meta">
+                        <a href="#energy" class="btn btn--small">Детальніше</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">🏭</div>
+                <div class="card-content">
+                    <h3 class="card-title">Хімічна промисловість</h3>
+                    <p class="card-description">
+                        Спеціалізовані теплообмінники для хімічних процесів, реакторів,
+                        дистиляційних установок та виробництва полімерів.
+                    </p>
+                    <div class="card-meta">
+                        <a href="#chemical" class="btn btn--small">Детальніше</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">🏗️</div>
+                <div class="card-content">
+                    <h3 class="card-title">Металургійна галузь</h3>
+                    <p class="card-description">
+                        Системи охолодження для металургійних печей, прокатних станів,
+                        утилізації тепла та очищення газів.
+                    </p>
+                    <div class="card-meta">
+                        <a href="#metallurgy" class="btn btn--small">Детальніше</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">🍼</div>
+                <div class="card-content">
+                    <h3 class="card-title">Харчова промисловість</h3>
+                    <p class="card-description">
+                        Пастеризатори, охолоджувачі, випарники для молочної, м'ясної,
+                        пивної та кондитерської промисловості.
+                    </p>
+                    <div class="card-meta">
+                        <a href="#food" class="btn btn--small">Детальніше</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">🚢</div>
+                <div class="card-content">
+                    <h3 class="card-title">Морське та суднове обладнання</h3>
+                    <p class="card-description">
+                        Теплообмінники для суднових двигунів, опріснювальних установок,
+                        морських платформ та портового обладнання.
+                    </p>
+                    <div class="card-meta">
+                        <a href="#marine" class="btn btn--small">Детальніше</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Oil & Gas Detailed Section -->
+<section class="section" style="background: var(--gray-50);" id="oil-gas">
+    <div class="container">
+        <div class="section-header">
+            <p class="section-subtitle">Нафтогазова галузь</p>
+            <h2 class="section-title">
+                Рішення для
+                <span class="section-accent">нафтогазової промисловості</span>
+            </h2>
+            <div class="section-underline"></div>
+        </div>
+
+        <div style="max-width: 800px; margin: 0 auto 3rem auto; text-align: center;">
+            <p style="font-size: 1.1rem; line-height: 1.7;">
+                Наше обладнання успішно працює на великих нафтопереробних заводах, газопереробних підприємствах
+                та хімічних комбінатах. Ми маємо досвід роботи з найскладнішими технологічними процесами.
             </p>
         </div>
-        {% endif %}
 
-        <!-- Products Grid -->
-        <div class="equipment-grid">
-            <div class="equipment-card js-observe">
-                <div class="equipment-card__image">
-                    🔧
-                </div>
-                <div class="equipment-card__content">
-                    <div class="equipment-card__title">
-                        Теплообмінне обладнання
-                    </div>
-                    <p class="equipment-card__description">
-                        Ефективні рішення для теплообміну в промислових процесах
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-image">🔥</div>
+                <div class="card-content">
+                    <h3 class="card-title">Нафтопереробка</h3>
+                    <p class="card-description">
+                        • Конденсатори та випарники для дистиляційних колон<br>
+                        • Теплообмінники для установок каталітичного крекінгу<br>
+                        • Охолоджувачі продуктів та сировини<br>
+                        • Утилізатори тепла димових газів
                     </p>
                 </div>
             </div>
 
-            <div class="equipment-card js-observe">
-                <div class="equipment-card__image">
-                    🏭
-                </div>
-                <div class="equipment-card__content">
-                    <div class="equipment-card__title">
-                        Системи очищення
-                    </div>
-                    <p class="equipment-card__description">
-                        Технології очищення для захисту навколишнього середовища
+            <div class="card">
+                <div class="card-image">💨</div>
+                <div class="card-content">
+                    <h3 class="card-title">Газопереробка</h3>
+                    <p class="card-description">
+                        • Теплообмінники для низькотемпературної сепарації<br>
+                        • Конденсатори для установок зрідження газу<br>
+                        • Регенератори тепла в циклах очищення<br>
+                        • Охолоджувачі компресорних станцій
                     </p>
                 </div>
             </div>
 
-            <div class="equipment-card js-observe">
-                <div class="equipment-card__image">
-                    ⚙️
-                </div>
-                <div class="equipment-card__content">
-                    <div class="equipment-card__title">
-                        Автоматизація
-                    </div>
-                    <p class="equipment-card__description">
-                        Рішення для автоматизації промислових процесів
+            <div class="card">
+                <div class="card-image">⚗️</div>
+                <div class="card-content">
+                    <h3 class="card-title">Хімічні процеси</h3>
+                    <p class="card-description">
+                        • Реактори з теплообмінними рубашками<br>
+                        • Конденсатори для ректифікаційних колон<br>
+                        • Охолоджувачі для полімеризації<br>
+                        • Випарники для концентрування розчинів
                     </p>
                 </div>
             </div>
 
-            <div class="equipment-card js-observe">
-                <div class="equipment-card__image">
-                    🔥
-                </div>
-                <div class="equipment-card__content">
-                    <div class="equipment-card__title">
-                        Енергоефективність
-                    </div>
-                    <p class="equipment-card__description">
-                        Технології для зниження енергоспоживання
+            <div class="card">
+                <div class="card-image">🛡️</div>
+                <div class="card-content">
+                    <h3 class="card-title">Спеціальні вимоги</h3>
+                    <p class="card-description">
+                        • Корозійностійкі матеріали (Hastelloy, Inconel)<br>
+                        • Високі температури (до 600°C) та тиски (до 100 бар)<br>
+                        • Вибухозахищене виконання<br>
+                        • Сертифікація за стандартами ASME, PED
                     </p>
                 </div>
             </div>
@@ -98,25 +204,225 @@
     </div>
 </section>
 
+<!-- Energy Detailed Section -->
+<section class="section" id="energy">
+    <div class="container">
+        <div class="section-header">
+            <p class="section-subtitle">Енергетика</p>
+            <h2 class="section-title">
+                Обладнання для
+                <span class="section-accent">енергетичної галузі</span>
+            </h2>
+            <div class="section-underline"></div>
+        </div>
+
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-image">🏭</div>
+                <div class="card-content">
+                    <h3 class="card-title">Теплові електростанції</h3>
+                    <p class="card-description">
+                        • Регенеративні підігрівачі живильної води<br>
+                        • Конденсатори парових турбін<br>
+                        • Охолоджувачі генераторного газу<br>
+                        • Підігрівачі паливного газу
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">⚛️</div>
+                <div class="card-content">
+                    <h3 class="card-title">Атомні електростанції</h3>
+                    <p class="card-description">
+                        • Парогенератори допоміжних систем<br>
+                        • Теплообмінники систем безпеки<br>
+                        • Охолоджувачі басейнів витримки<br>
+                        • Вентиляційні охолоджувачі
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">♻️</div>
+                <div class="card-content">
+                    <h3 class="card-title">Когенерація</h3>
+                    <p class="card-description">
+                        • Утилізатори тепла відхідних газів<br>
+                        • Теплообмінники для тригенерації<br>
+                        • Абсорбційні холодильні машини<br>
+                        • Системи акумулювання тепла
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">🌿</div>
+                <div class="card-content">
+                    <h3 class="card-title">Відновлювальна енергетика</h3>
+                    <p class="card-description">
+                        • Теплообмінники для геотермальних систем<br>
+                        • Охолоджувачі для сонячних електростанцій<br>
+                        • Системи акумулювання енергії<br>
+                        • Теплові насоси великої потужності
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Application Examples Section -->
+<section class="section" style="background: var(--gray-50);">
+    <div class="container">
+        <div class="section-header">
+            <p class="section-subtitle">Приклади застосування</p>
+            <h2 class="section-title">
+                Реалізовані
+                <span class="section-accent">проекти</span>
+            </h2>
+            <div class="section-underline"></div>
+        </div>
+
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-image">🏭</div>
+                <div class="card-content">
+                    <h3 class="card-title">Лисичанський НПЗ</h3>
+                    <p class="card-description">
+                        Модернізація установки первинної переробки нафти. Поставка 15 теплообмінників
+                        різних типів для технологічних процесів.
+                    </p>
+                    <div class="card-meta">
+                        <span style="color: var(--accent); font-weight: 600;">Потужність: 2.6 млн т/рік</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">⚡</div>
+                <div class="card-content">
+                    <h3 class="card-title">Трипільська ТЕС</h3>
+                    <p class="card-description">
+                        Заміна застарілих підігрівачів живильної води на енергоефективні моделі.
+                        Економія палива склала 8%.
+                    </p>
+                    <div class="card-meta">
+                        <span style="color: var(--accent); font-weight: 600;">Потужність: 1800 МВт</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">🧪</div>
+                <div class="card-content">
+                    <h3 class="card-title">Концерн "Стирол"</h3>
+                    <p class="card-description">
+                        Постачання спеціалізованих теплообмінників для виробництва аміаку.
+                        Робота при температурі до 450°C.
+                    </p>
+                    <div class="card-meta">
+                        <span style="color: var(--accent); font-weight: 600;">Продуктивність: 1350 т/добу</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">🏗️</div>
+                <div class="card-content">
+                    <h3 class="card-title">ArcelorMittal Кривий Ріг</h3>
+                    <p class="card-description">
+                        Система охолодження доменного газу та утилізації тепла.
+                        Підвищення енергоефективності на 12%.
+                    </p>
+                    <div class="card-meta">
+                        <span style="color: var(--accent); font-weight: 600;">Виробництво: 6 млн т сталі/рік</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Technical Requirements Section -->
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <p class="section-subtitle">Технічні можливості</p>
+            <h2 class="section-title">
+                Параметри
+                <span class="section-accent">обладнання</span>
+            </h2>
+            <div class="section-underline"></div>
+        </div>
+
+        <div class="cards-grid">
+            <div class="card" style="text-align: center; padding: var(--space-8);">
+                <div class="card-image">🌡️</div>
+                <h3 style="color: var(--primary); margin-bottom: var(--space-3);">Температура</h3>
+                <div style="font-size: 2rem; font-weight: 800; color: var(--accent); margin-bottom: var(--space-2);">
+                    -50°C до +600°C</div>
+                <p style="color: var(--gray-600);">Широкий діапазон робочих температур</p>
+            </div>
+
+            <div class="card" style="text-align: center; padding: var(--space-8);">
+                <div class="card-image">💪</div>
+                <h3 style="color: var(--primary); margin-bottom: var(--space-3);">Тиск</h3>
+                <div style="font-size: 2rem; font-weight: 800; color: var(--accent); margin-bottom: var(--space-2);">до
+                    100 бар</div>
+                <p style="color: var(--gray-600);">Високонапірне обладнання</p>
+            </div>
+
+            <div class="card" style="text-align: center; padding: var(--space-8);">
+                <div class="card-image">⚡</div>
+                <h3 style="color: var(--primary); margin-bottom: var(--space-3);">Потужність</h3>
+                <div style="font-size: 2rem; font-weight: 800; color: var(--accent); margin-bottom: var(--space-2);">до
+                    50 МВт</div>
+                <p style="color: var(--gray-600);">Високопродуктивні системи</p>
+            </div>
+
+            <div class="card" style="text-align: center; padding: var(--space-8);">
+                <div class="card-image">📏</div>
+                <h3 style="color: var(--primary); margin-bottom: var(--space-3);">Площа теплообміну</h3>
+                <div style="font-size: 2rem; font-weight: 800; color: var(--accent); margin-bottom: var(--space-2);">до
+                    10,000 м²</div>
+                <p style="color: var(--gray-600);">Великогабаритне обладнання</p>
+            </div>
+        </div>
+
+        <div style="max-width: 800px; margin: 3rem auto 0 auto; text-align: center;">
+            <h3 style="color: var(--primary); margin-bottom: var(--space-4);">Матеріали виготовлення:</h3>
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-4);">
+                <div>• Нержавіюча сталь 304, 316, 321</div>
+                <div>• Вуглецева сталь 20, 09Г2С</div>
+                <div>• Титан ВТ1-0, ВТ1-00</div>
+                <div>• Мідь та мідні сплави</div>
+                <div>• Hastelloy, Inconel</div>
+                <div>• Дуплексні сталі</div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- CTA Section -->
-<section class="cta-section">
-    <div class="cta-container">
-        <div class="cta-content js-observe">
-            <p class="cta-question">Потрібна консультація?</p>
+<section class="cta-section section">
+    <div class="container">
+        <div class="text-center">
             <h2 class="cta-title">
-                Наші фахівці готові
-                <span class="cta-title-accent">допомогти з вибором!</span>
+                Потрібне обладнання для
+                <span class="hero-accent">вашої галузі?</span>
             </h2>
             <p class="cta-description">
-                Зв'яжіться з нами для отримання професійної консультації та підбору обладнання
+                Наші інженери розроблять оптимальне рішення для ваших технічних вимог та умов експлуатації
             </p>
-            <a href="{% url 'leads:submit' %}" class="btn btn--primary btn--large">
-                Отримати консультацію
-            </a>
-        </div>
-        <div class="js-observe">
-            <div class="promsteel-placeholder">
-                🚀 Продукти
+            <div class="hero-actions">
+                <a href="{% url 'leads:submit' %}" class="btn btn--primary btn--large">
+                    Розрахунок теплообмінника
+                </a>
+                <a href="{% url 'pages:contacts' %}" class="btn btn--secondary btn--large">
+                    Консультація інженера
+                </a>
             </div>
         </div>
     </div>

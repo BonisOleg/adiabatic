@@ -52,14 +52,14 @@ class Command(BaseCommand):
         settings, created = SiteSettings.objects.get_or_create(
             pk=1,
             defaults={
-                'site_name': 'Adiabatic',
+                'site_name': 'Abiabatic',
                 'site_description': 'Промислове обладнання та послуги',
-                'contact_email': 'info@adiabatic.com',
+                'contact_email': 'info@abiabatic.com',
                 'contact_phone': '+380 44 123 45 67',
                 'address': 'Київ, Україна',
-                'meta_title': 'Adiabatic - Промислове обладнання',
-                'meta_description': 'Промислове обладнання та послуги від компанії Adiabatic',
-                'meta_keywords': 'промислове обладнання, adiabatic, промисловість',
+                'meta_title': 'Abiabatic - Промислове обладнання',
+                'meta_description': 'Промислове обладнання та послуги від компанії Abiabatic',
+                'meta_keywords': 'промислове обладнання, abiabatic, промисловість',
             }
         )
         
@@ -109,9 +109,9 @@ class Command(BaseCommand):
                 'title_uk': 'Головна сторінка',
                 'title_ru': 'Главная страница',
                 'title_en': 'Home page',
-                'content_uk': 'Ласкаво просимо на сайт компанії Adiabatic. Ми спеціалізуємося на промисловому обладнанні та послугах.',
-                'content_ru': 'Добро пожаловать на сайт компании Adiabatic. Мы специализируемся на промышленном оборудовании и услугах.',
-                'content_en': 'Welcome to Adiabatic company website. We specialize in industrial equipment and services.',
+                'content_uk': 'Ласкаво просимо на сайт компанії Abiabatic. Ми спеціалізуємося на промисловому обладнанні та послугах.',
+                'content_ru': 'Добро пожаловать на сайт компании Abiabatic. Мы специализируемся на промышленном оборудовании и услугах.',
+                'content_en': 'Welcome to Abiabatic company website. We specialize in industrial equipment and services.',
             },
             {
                 'page_type': 'about',
@@ -119,9 +119,9 @@ class Command(BaseCommand):
                 'title_uk': 'Про компанію',
                 'title_ru': 'О компании',
                 'title_en': 'About company',
-                'content_uk': 'Компанія Adiabatic - це надійний партнер у сфері промислового обладнання. Ми маємо багаторічний досвід та забезпечуємо якісні послуги.',
-                'content_ru': 'Компания Adiabatic - это надежный партнер в сфере промышленного оборудования. Мы имеем многолетний опыт и обеспечиваем качественные услуги.',
-                'content_en': 'Adiabatic company is a reliable partner in industrial equipment. We have years of experience and provide quality services.',
+                'content_uk': 'Компанія Abiabatic - це надійний партнер у сфері промислового обладнання. Ми маємо багаторічний досвід та забезпечуємо якісні послуги.',
+                'content_ru': 'Компания Abiabatic - это надежный партнер в сфере промышленного оборудования. Мы имеем многолетний опыт и обеспечиваем качественные услуги.',
+                'content_en': 'Abiabatic company is a reliable partner in industrial equipment. We have years of experience and provide quality services.',
             },
             {
                 'page_type': 'contacts',
@@ -156,9 +156,9 @@ class Command(BaseCommand):
     def create_hero_sections(self):
         """Створення hero секцій"""
         hero_data = {
-            'title_uk': 'Промислове обладнання Adiabatic',
-            'title_ru': 'Промышленное оборудование Adiabatic',
-            'title_en': 'Adiabatic Industrial Equipment',
+            'title_uk': 'Промислове обладнання Abiabatic',
+            'title_ru': 'Промышленное оборудование Abiabatic',
+            'title_en': 'Abiabatic Industrial Equipment',
             'subtitle_uk': 'Якість та надійність',
             'subtitle_ru': 'Качество и надежность',
             'subtitle_en': 'Quality and reliability',

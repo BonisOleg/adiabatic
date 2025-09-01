@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 class SiteSettings(models.Model):
     """Глобальні налаштування сайту"""
-    site_name = models.CharField(_('Назва сайту'), max_length=100, default='Adiabatic')
+    site_name = models.CharField(_('Назва сайту'), max_length=100, default='Abiabatic')
     site_description = models.TextField(_('Опис сайту'), blank=True, max_length=500)
     contact_email = models.EmailField(_('Контактний email'), blank=True)
     contact_phone = models.CharField(_('Контактний телефон'), max_length=20, blank=True)

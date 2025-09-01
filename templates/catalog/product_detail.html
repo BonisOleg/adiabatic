@@ -7,7 +7,7 @@
 }}{% endblock %}
 
 {% block content %}
-<!-- Hero Section (Promsteel Style) -->
+<!-- Hero Section (ABIABATIC Style) -->
 <section class="hero">
     <div class="hero__container">
         <div class="hero__content js-observe">
@@ -32,7 +32,7 @@
             {% if product.hero_image %}
             <img src="{{ product.hero_image.url }}" alt="{{ product.get_name }}" class="hero__image">
             {% else %}
-            <div class="promsteel-placeholder">
+            <div class="adiabatic-placeholder">
                 ⚙️ {{ product.get_name }}
             </div>
             {% endif %}
@@ -267,7 +267,7 @@
             </a>
         </div>
         <div class="js-observe">
-            <div class="promsteel-placeholder">
+            <div class="adiabatic-placeholder">
                 🛒 Замовлення
             </div>
         </div>

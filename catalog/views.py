@@ -58,7 +58,7 @@ def product_detail(request, slug):
     """Детальна сторінка продукту"""
     product = get_object_or_404(
         Product.objects.select_related('category').prefetch_related(
-            'specifications', 'gallery', 'advantages', 'documents'
+            'specifications', 'gallery', 'advantages'
         ),
         slug=slug, 
         is_published=True
@@ -78,6 +78,5 @@ def product_detail(request, slug):
         'specifications': product.specifications.all(),
         'gallery': product.gallery.all(),
         'advantages': product.advantages.all(),
-        'documents': product.documents.filter(is_public=True),
     }
     return render(request, 'catalog/product_detail.html', context)

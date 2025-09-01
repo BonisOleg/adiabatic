@@ -1,0 +1,21 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://abiabatic.com/sitemap.xml
+
+# Дозволені сторінки
+Allow: /uk/
+Allow: /ru/
+Allow: /en/
+Allow: /static/
+Allow: /media/
+
+# Заборонені сторінки
+Disallow: /admin/
+Disallow: /leads/
+Disallow: /payment/
+Disallow: /documents/qr/
+
+# Затримка між запитами (в секундах)
+Crawl-delay: 1

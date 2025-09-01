@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
-from .models import Category, Product, ProductSpec, ProductGallery, ProductAdvantage, ProductDocument
+from .models import Category, Product, ProductSpec, ProductGallery, ProductAdvantage
 
 
 class ProductSpecInline(admin.TabularInline):
@@ -11,10 +11,11 @@ class ProductSpecInline(admin.TabularInline):
 
 
 class ProductGalleryInline(admin.TabularInline):
-    """Inline для галереї зображень"""
+    """Inline для мультимедійної галереї"""
     model = ProductGallery
     extra = 2
-    fields = ['image', 'alt_text', 'order']
+    fields = ['content_type', 'image', 'file_3d', 'preview_image', 'title_uk', 'alt_text', 'order', 'is_downloadable']
+    readonly_fields = ['file_size', 'download_count']
 
 
 class ProductAdvantageInline(admin.TabularInline):
@@ -24,11 +25,7 @@ class ProductAdvantageInline(admin.TabularInline):
     fields = ['title_uk', 'title_ru', 'title_en', 'description_uk', 'icon', 'order']
 
 
-class ProductDocumentInline(admin.TabularInline):
-    """Inline для документів продукту"""
-    model = ProductDocument
-    extra = 1
-    fields = ['title_uk', 'document_type', 'file', 'is_public', 'order']
+
 
 
 @admin.register(Category)
@@ -59,18 +56,26 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     """Адмінка для продуктів"""
-    list_display = ['name_uk', 'category', 'price_usd', 'is_featured', 'is_published', 'created_at']
-    list_filter = ['category', 'is_featured', 'is_published', 'created_at']
-    search_fields = ['name_uk', 'name_ru', 'name_en', 'short_description_uk']
+    list_display = ['name_uk', 'category', 'application_type', 'power_kw', 'price_usd', 'is_featured', 'is_published']
+    list_filter = ['category', 'application_type', 'fluid_type', 'is_featured', 'is_published', 'created_at']
+    search_fields = ['name_uk', 'name_ru', 'name_en', 'short_description_uk', 'standards']
     list_editable = ['is_featured', 'is_published', 'price_usd']
     prepopulated_fields = {'slug': ('name_en',)}
     readonly_fields = ['created_at', 'updated_at']
     
-    inlines = [ProductSpecInline, ProductGalleryInline, ProductAdvantageInline, ProductDocumentInline]
+    inlines = [ProductSpecInline, ProductGalleryInline, ProductAdvantageInline]
     
     fieldsets = (
         (_('Основна інформація'), {
             'fields': ('category', 'slug', 'hero_image', 'price_usd', 'is_featured', 'is_published')
+        }),
+        (_('Технічні характеристики'), {
+            'fields': ('application_type', 'fluid_type', 'power_kw', 'max_pressure_bar', 'max_temperature_c', 'standards'),
+            'classes': ('wide',)
+        }),
+        (_('Матеріали'), {
+            'fields': ('material_shell', 'material_tubes'),
+            'classes': ('collapse',)
         }),
         (_('Українська мова'), {
             'fields': ('name_uk', 'short_description_uk', 'description_uk', 'meta_title_uk', 'meta_description_uk')
@@ -111,11 +116,37 @@ class ProductSpecAdmin(admin.ModelAdmin):
 
 @admin.register(ProductGallery)
 class ProductGalleryAdmin(admin.ModelAdmin):
-    """Адмінка для галереї"""
-    list_display = ['product', 'image', 'alt_text', 'order']
-    list_filter = ['product__category']
-    search_fields = ['product__name_uk', 'alt_text']
-    list_editable = ['order']
+    """Адмінка для мультимедійної галереї"""
+    list_display = ['product', 'content_type', 'get_title', 'get_preview_thumb', 'download_count', 'order', 'is_downloadable']
+    list_filter = ['content_type', 'product__category', 'is_downloadable']
+    search_fields = ['product__name_uk', 'title_uk', 'alt_text', 'description']
+    list_editable = ['order', 'is_downloadable']
+    readonly_fields = ['file_size', 'download_count', 'created_at']
+    
+    fieldsets = (
+        (_('Основна інформація'), {
+            'fields': ('product', 'content_type', 'order', 'is_downloadable')
+        }),
+        (_('Файли'), {
+            'fields': ('image', 'file_3d', 'preview_image')
+        }),
+        (_('Мультимовні назви'), {
+            'fields': ('title_uk', 'title_ru', 'title_en', 'alt_text', 'description')
+        }),
+        (_('Статистика'), {
+            'fields': ('file_size', 'download_count', 'created_at'),
+            'classes': ('collapse',)
+        }),
+    )
+    
+    def get_preview_thumb(self, obj):
+        """Показати мініатюру превью"""
+        preview = obj.get_preview()
+        if preview:
+            return f'<img src="{preview.url}" width="50" height="50" style="object-fit: cover;" />'
+        return '-'
+    get_preview_thumb.short_description = _('Превью')
+    get_preview_thumb.allow_tags = True
 
 
 @admin.register(ProductAdvantage)
@@ -142,25 +173,4 @@ class ProductAdvantageAdmin(admin.ModelAdmin):
     )
 
 
-@admin.register(ProductDocument)
-class ProductDocumentAdmin(admin.ModelAdmin):
-    """Адмінка для документів"""
-    list_display = ['product', 'title_uk', 'document_type', 'is_public', 'created_at']
-    list_filter = ['document_type', 'is_public', 'product__category']
-    search_fields = ['product__name_uk', 'title_uk']
-    list_editable = ['is_public']
-    
-    fieldsets = (
-        (_('Основна інформація'), {
-            'fields': ('product', 'document_type', 'file', 'is_public', 'order')
-        }),
-        (_('Українська мова'), {
-            'fields': ('title_uk',)
-        }),
-        (_('Російська мова'), {
-            'fields': ('title_ru',)
-        }),
-        (_('Англійська мова'), {
-            'fields': ('title_en',)
-        }),
-    )
+

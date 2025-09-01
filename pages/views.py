@@ -75,6 +75,39 @@ def products(request):
     }
     return render(request, 'pages/products.html', context)
 
+def partners(request):
+    """Сторінка партнерів"""
+    try:
+        page = Page.objects.get(page_type='partners', is_published=True)
+    except Page.DoesNotExist:
+        page = None
+    
+    try:
+        # Отримуємо тільки активних партнерів
+        partners = Partner.objects.filter(is_published=True).order_by('order')
+    except Exception:
+        partners = []
+    
+    context = {
+        'page': page,
+        'partners': partners,
+    }
+    return render(request, 'pages/partners.html', context)
+
+
+def blog(request):
+    """Сторінка корисної інформації"""
+    try:
+        page = Page.objects.get(page_type='blog', is_published=True)
+    except Page.DoesNotExist:
+        page = None
+    
+    context = {
+        'page': page,
+    }
+    return render(request, 'pages/blog.html', context)
+
+
 def page_detail(request, slug):
     """Детальна сторінка за slug"""
     page = get_object_or_404(Page, slug=slug, is_published=True)

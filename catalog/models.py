@@ -63,6 +63,30 @@ class Category(models.Model):
 class Product(models.Model):
     """Продукти компанії"""
     
+    # Типи застосування
+    APPLICATION_TYPES = [
+        ('INDUSTRIAL', _('Промислові системи')),
+        ('ENERGY', _('Енергетичне обладнання')),
+        ('COMPACT', _('Компактні рішення')),
+        ('CUSTOM', _('Спеціальні рішення')),
+        ('FOOD', _('Харчова промисловість')),
+        ('OIL_GAS', _('Нафтогазова галузь')),
+        ('HVAC', _('Системи кондиціонування')),
+        ('MARINE', _('Морське обладнання')),
+    ]
+    
+    # Типи теплоносіїв
+    FLUID_TYPES = [
+        ('WATER', _('Вода')),
+        ('STEAM', _('Пара')),
+        ('OIL', _('Мастило/Нафтопродукти')),
+        ('GAS', _('Газ')),
+        ('AIR', _('Повітря')),
+        ('REFRIGERANT', _('Хладагент')),
+        ('CHEMICAL', _('Хімічні речовини')),
+        ('MIXED', _('Змішані середовища')),
+    ]
+    
     category = models.ForeignKey(Category, on_delete=models.CASCADE, 
                                 verbose_name=_('Категорія'), related_name='products')
     
@@ -82,6 +106,27 @@ class Product(models.Model):
     
     hero_image = models.ImageField(_('Головне зображення'), upload_to='products/hero/', 
                                   blank=True, null=True)
+    
+    # Технічні характеристики
+    application_type = models.CharField(_('Тип застосування'), max_length=20, 
+                                       choices=APPLICATION_TYPES, blank=True)
+    fluid_type = models.CharField(_('Тип теплоносія'), max_length=20, 
+                                 choices=FLUID_TYPES, blank=True)
+    
+    power_kw = models.DecimalField(_('Потужність (kW)'), max_digits=10, decimal_places=2, 
+                                  blank=True, null=True)
+    max_pressure_bar = models.DecimalField(_('Макс. тиск (bar)'), max_digits=8, decimal_places=2, 
+                                          blank=True, null=True)
+    max_temperature_c = models.DecimalField(_('Макс. температура (°C)'), max_digits=6, decimal_places=1, 
+                                           blank=True, null=True)
+    
+    # Стандарти та сертифікати
+    standards = models.CharField(_('Стандарти'), max_length=200, blank=True,
+                                help_text=_('ASME, DIN, GOST тощо'))
+    
+    # Матеріали
+    material_shell = models.CharField(_('Матеріал корпусу'), max_length=100, blank=True)
+    material_tubes = models.CharField(_('Матеріал трубок'), max_length=100, blank=True)
     
     price_usd = models.DecimalField(_('Ціна (USD)'), max_digits=10, decimal_places=2, 
                                    blank=True, null=True)
@@ -199,22 +244,98 @@ class ProductSpec(models.Model):
 
 
 class ProductGallery(models.Model):
-    """Галерея зображень продукту"""
+    """Мультимедійна галерея продукту"""
+    
+    CONTENT_TYPES = [
+        ('IMAGE', _('Зображення')),
+        ('3D_MODEL', _('3D модель')),
+        ('TECHNICAL_DRAWING', _('Технічне креслення')),
+        ('ANIMATION', _('Анімація')),
+        ('VIDEO', _('Відео')),
+    ]
     
     product = models.ForeignKey(Product, on_delete=models.CASCADE, 
                                verbose_name=_('Продукт'), related_name='gallery')
     
-    image = models.ImageField(_('Зображення'), upload_to='products/gallery/')
+    content_type = models.CharField(_('Тип контенту'), max_length=20, 
+                                   choices=CONTENT_TYPES, default='IMAGE')
+    
+    # Для зображень та відео
+    image = models.ImageField(_('Зображення'), upload_to='products/gallery/', 
+                             blank=True, null=True)
+    
+    # Для 3D моделей та креслень
+    file_3d = models.FileField(_('3D модель/файл'), upload_to='products/3d/', 
+                              blank=True, null=True,
+                              help_text=_('Формати: .stp, .step, .iges, .obj, .gltf, .glb'))
+    
+    # Превью для 3D моделей
+    preview_image = models.ImageField(_('Превью'), upload_to='products/3d/previews/', 
+                                     blank=True, null=True,
+                                     help_text=_('Зображення для превью 3D моделі'))
+    
+    title_uk = models.CharField(_('Назва (УК)'), max_length=200, blank=True)
+    title_ru = models.CharField(_('Назва (РУ)'), max_length=200, blank=True)
+    title_en = models.CharField(_('Назва (EN)'), max_length=200, blank=True)
+    
     alt_text = models.CharField(_('Alt текст'), max_length=200, blank=True)
+    description = models.TextField(_('Опис'), blank=True)
+    
+    # Технічні параметри для 3D
+    file_size = models.CharField(_('Розмір файлу'), max_length=20, blank=True)
+    download_count = models.PositiveIntegerField(_('Кількість завантажень'), default=0)
+    
     order = models.PositiveIntegerField(_('Порядок'), default=0)
+    is_downloadable = models.BooleanField(_('Доступний для завантаження'), default=True)
+    
+    created_at = models.DateTimeField(_('Створено'), auto_now_add=True)
     
     class Meta:
-        verbose_name = _('Зображення галереї')
+        verbose_name = _('Елемент галереї')
         verbose_name_plural = _('Галерея продукту')
-        ordering = ['order']
+        ordering = ['order', 'content_type']
     
     def __str__(self):
-        return f"{self.product.name_uk} - Зображення {self.order}"
+        content_name = self.get_title() or f"{self.get_content_type_display()}"
+        return f"{self.product.name_uk} - {content_name}"
+    
+    def get_title(self):
+        """Отримати назву залежно від мови"""
+        from django.utils.translation import get_language
+        lang = get_language()
+        if lang == 'ru' and self.title_ru:
+            return self.title_ru
+        elif lang == 'en' and self.title_en:
+            return self.title_en
+        return self.title_uk or self.alt_text
+    
+    def get_main_file(self):
+        """Отримати основний файл для відображення"""
+        if self.content_type == 'IMAGE':
+            return self.image
+        elif self.content_type in ['3D_MODEL', 'TECHNICAL_DRAWING']:
+            return self.file_3d
+        return None
+    
+    def get_preview(self):
+        """Отримати превью файл"""
+        if self.preview_image:
+            return self.preview_image
+        elif self.content_type == 'IMAGE' and self.image:
+            return self.image
+        return None
+    
+    def is_3d_viewable(self):
+        """Чи можна переглянути 3D модель в браузері"""
+        if not self.file_3d:
+            return False
+        ext = self.file_3d.name.lower().split('.')[-1]
+        return ext in ['gltf', 'glb', 'obj']
+    
+    def increment_download(self):
+        """Збільшити лічильник завантажень"""
+        self.download_count += 1
+        self.save(update_fields=['download_count'])
 
 
 class ProductAdvantage(models.Model):
@@ -263,47 +384,3 @@ class ProductAdvantage(models.Model):
         return self.description_uk
 
 
-class ProductDocument(models.Model):
-    """Документи та сертифікати продукту"""
-    
-    DOCUMENT_TYPES = (
-        ('certificate', _('Сертифікат')),
-        ('manual', _('Інструкція')),
-        ('datasheet', _('Технічний лист')),
-        ('warranty', _('Гарантія')),
-        ('other', _('Інше')),
-    )
-    
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, 
-                               verbose_name=_('Продукт'), related_name='documents')
-    
-    title_uk = models.CharField(_('Назва документу (УК)'), max_length=200)
-    title_ru = models.CharField(_('Назва документу (РУ)'), max_length=200)
-    title_en = models.CharField(_('Назва документу (EN)'), max_length=200)
-    
-    document_type = models.CharField(_('Тип документу'), max_length=20, 
-                                    choices=DOCUMENT_TYPES, default='other')
-    
-    file = models.FileField(_('Файл'), upload_to='products/documents/')
-    
-    order = models.PositiveIntegerField(_('Порядок'), default=0)
-    is_public = models.BooleanField(_('Публічний'), default=True)
-    
-    created_at = models.DateTimeField(_('Створено'), auto_now_add=True)
-    
-    class Meta:
-        verbose_name = _('Документ продукту')
-        verbose_name_plural = _('Документи продукту')
-        ordering = ['order', 'document_type']
-    
-    def __str__(self):
-        return self.title_uk
-    
-    def get_title(self):
-        from django.utils.translation import get_language
-        lang = get_language()
-        if lang == 'ru':
-            return self.title_ru
-        elif lang == 'en':
-            return self.title_en
-        return self.title_uk

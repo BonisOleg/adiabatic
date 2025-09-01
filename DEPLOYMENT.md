@@ -1,4 +1,4 @@
-# 🚀 Деплоймент Django проекту Adiabatic на Render.com
+# 🚀 Деплоймент Django проекту Abiabatic на Render.com
 
 ## 📋 Підготовка проекту
 
@@ -15,7 +15,7 @@
 
 ### 1. ✅ Git репозиторій вже готовий!
 
-Проект вже підключений до GitHub: `git@github.com:BonisOleg/adiabatic.git`
+Проект вже підключений до GitHub: `git@github.com:BonisOleg/abiabatic.git`
 
 **Статус**: ✅ Код успішно завантажено в репозиторій
 
@@ -29,9 +29,9 @@
 
 1. На dashboard Render натисніть **"New"** → **"PostgreSQL"**
 2. Заповніть форму:
-   - **Name**: `adiabatic-db`
-   - **Database**: `adiabatic`
-   - **User**: `adiabatic_user`
+   - **Name**: `abiabatic-db`
+   - **Database**: `abiabatic`
+   - **User**: `abiabatic_user`
    - **Region**: оберіть найближчий регіон
    - **Plan**: `Free` (для тестування)
 3. Натисніть **"Create Database"**
@@ -41,10 +41,10 @@
 
 #### 🎯 **Варіант A: Автоматично через Blueprint (РЕКОМЕНДУЄТЬСЯ!)**
 1. На dashboard натисніть **"New"** → **"Blueprint"**
-2. Підключіть ваш Git репозиторій: `git@github.com:BonisOleg/adiabatic.git`
+2. Підключіть ваш Git репозиторій: `git@github.com:BonisOleg/abiabatic.git`
 3. Render автоматично знайде `render.yaml` та створить:
-   - ✅ PostgreSQL базу даних `adiabatic-db`
-   - ✅ Web Service `adiabatic-django`
+   - ✅ PostgreSQL базу даних `abiabatic-db`
+   - ✅ Web Service `abiabatic-django`
    - ✅ Всі необхідні змінні середовища
    - ✅ Автоматичний деплоймент
 
@@ -54,10 +54,10 @@
 1. На dashboard натисніть **"New"** → **"Web Service"**
 2. Підключіть ваш Git репозиторій
 3. Заповніть налаштування:
-   - **Name**: `adiabatic-django`
+   - **Name**: `abiabatic-django`
    - **Environment**: `Python 3`
    - **Build Command**: `./build.sh`
-   - **Start Command**: `gunicorn adiabatic.wsgi:application`
+   - **Start Command**: `gunicorn abiabatic.wsgi:application`
    - **Plan**: `Free`
 
 ### 5. Налаштування змінних середовища
@@ -78,21 +78,21 @@
 SECRET_KEY = [згенерується автоматично або вставте свій]
 DEBUG = False
 DATABASE_URL = [скопіюйте з PostgreSQL бази даних]
-ALLOWED_HOSTS = adiabatic-django.onrender.com
-CSRF_TRUSTED_ORIGINS = https://adiabatic-django.onrender.com
+ALLOWED_HOSTS = abiabatic-django.onrender.com
+CSRF_TRUSTED_ORIGINS = https://abiabatic-django.onrender.com
 ```
 
 #### Опціональні змінні:
 ```
 REDIS_URL = redis://red-xxxxx:6379
-SITE_URL = https://adiabatic-django.onrender.com
+SITE_URL = https://abiabatic-django.onrender.com
 EMAIL_BACKEND = django.core.mail.backends.smtp.EmailBackend
 EMAIL_HOST = smtp.gmail.com
 EMAIL_PORT = 587
 EMAIL_HOST_USER = your-email@gmail.com
 EMAIL_HOST_PASSWORD = your-app-password
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = noreply@adiabatic.com
+DEFAULT_FROM_EMAIL = noreply@abiabatic.com
 ```
 
 ### 6. Деплоймент
@@ -112,8 +112,8 @@ DEFAULT_FROM_EMAIL = noreply@adiabatic.com
 ### 7. Перевірка деплойменту
 
 1. Дочекайтеся завершення деплойменту (5-10 хвилин)
-2. Відкрийте ваш сайт: `https://adiabatic-django.onrender.com`
-3. Перевірте адмінку: `https://adiabatic-django.onrender.com/admin/`
+2. Відкрийте ваш сайт: `https://abiabatic-django.onrender.com`
+3. Перевірте адмінку: `https://abiabatic-django.onrender.com/admin/`
 
 #### 🔑 **Дані для входу в адмінку:**
 - **Логін**: `admin`
@@ -190,7 +190,7 @@ git push origin main
 
 ### 1. **Перейдіть на [render.com](https://render.com)**
 ### 2. **Натисніть "New" → "Blueprint"**
-### 3. **Підключіть репозиторій**: `git@github.com:BonisOleg/adiabatic.git`
+### 3. **Підключіть репозиторій**: `git@github.com:BonisOleg/abiabatic.git`
 ### 4. **Натисніть "Create Blueprint Instance"**
 ### 5. **Дочекайтеся завершення деплойменту (5-10 хв)**
 

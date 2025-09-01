@@ -2,7 +2,6 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.core.validators import RegexValidator
 from catalog.models import Product
-import uuid
 
 
 class LeadSource(models.Model):
@@ -46,7 +45,6 @@ class Lead(models.Model):
     )
     
     # Ідентифікація
-    uuid = models.UUIDField(_('UUID'), default=uuid.uuid4, editable=False, unique=True)
     
     # Основна інформація
     name = models.CharField(_('Ім\'я'), max_length=100)
@@ -139,7 +137,7 @@ class NotificationSettings(models.Model):
     email_enabled = models.BooleanField(_('Email увімкнено'), default=True)
     email_recipients = models.TextField(_('Email одержувачі'), 
                                        help_text=_('Email адреси через кому'),
-                                       default='admin@adiabatic.com')
+                                       default='admin@abiabatic.com')
     email_subject_template = models.CharField(_('Шаблон теми email'), max_length=200,
                                              default='Нова заявка від {name}')
     
@@ -176,7 +174,7 @@ class NotificationSettings(models.Model):
             id=1,
             defaults={
                 'email_enabled': True,
-                'email_recipients': 'admin@adiabatic.com'
+                'email_recipients': 'admin@abiabatic.com'
             }
         )
         return settings

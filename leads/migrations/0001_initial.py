@@ -59,7 +59,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('email_enabled', models.BooleanField(default=True, verbose_name='Email увімкнено')),
-                ('email_recipients', models.TextField(default='admin@adiabatic.com', help_text='Email адреси через кому', verbose_name='Email одержувачі')),
+                ('email_recipients', models.TextField(default='admin@abiabatic.com', help_text='Email адреси через кому', verbose_name='Email одержувачі')),
                 ('email_subject_template', models.CharField(default='Нова заявка від {name}', max_length=200, verbose_name='Шаблон теми email')),
                 ('telegram_enabled', models.BooleanField(default=False, verbose_name='Telegram увімкнено')),
                 ('telegram_bot_token', models.CharField(blank=True, max_length=200, verbose_name='Telegram Bot Token')),

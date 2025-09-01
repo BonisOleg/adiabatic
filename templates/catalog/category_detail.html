@@ -6,7 +6,7 @@
 {% block og_description %}{{ meta_description|default:"Продукція категорії"|truncatewords:20 }}{% endblock %}
 
 {% block content %}
-<!-- Hero Section (Promsteel Style) -->
+<!-- Hero Section (ABIABATIC Style) -->
 <section class="hero">
     <div class="hero__container">
         <div class="hero__content js-observe">
@@ -27,7 +27,7 @@
             </div>
         </div>
         <div class="hero__image-container js-observe">
-            <div class="promsteel-placeholder">
+            <div class="adiabatic-placeholder">
                 {% if category.icon %}
                 <i class="{{ category.icon }}"></i>
                 {% endif %}
@@ -37,7 +37,7 @@
     </div>
 </section>
 
-<!-- Products Grid (Promsteel Style) -->
+<!-- Products Grid (ABIABATIC Style) -->
 {% if products %}
 <section class="catalog-section">
     <div class="container">
@@ -165,7 +165,7 @@
             </a>
         </div>
         <div class="js-observe">
-            <div class="promsteel-placeholder">
+            <div class="adiabatic-placeholder">
                 👨‍💼 Консультація
             </div>
         </div>

@@ -1,175 +1,305 @@
 <!DOCTYPE html>
-<html lang="{{ LANGUAGE_CODE|default:'uk' }}" dir="ltr">
+<html lang="{{ LANGUAGE_CODE|default:'uk' }}">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- iOS Safari оптимізації -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="format-detection" content="telephone=no">
 
     <title>{% block title %}{{ site_settings.site_name|default:'Adiabatic' }}{% endblock %}</title>
 
+    <!-- SEO Meta Tags -->
     {% if page %}
     <meta name="description" content="{{ page.get_meta_description }}">
     <meta name="keywords" content="{{ page.get_meta_keywords }}">
     {% else %}
-    <meta name="description" content="{{ site_settings.meta_description|default:'Промислове обладнання та послуги' }}">
+    <meta name="description"
+        content="{{ site_settings.meta_description|default:'Енергетичне обладнання та теплообмінники' }}">
     <meta name="keywords"
-        content="{{ site_settings.meta_keywords|default:'промислове обладнання, теплообмінники, Adiabatic' }}">
+        content="{{ site_settings.meta_keywords|default:'теплообмінники, енергетичне обладнання, Adiabatic' }}">
     {% endif %}
 
     <!-- Open Graph -->
     <meta property="og:title"
         content="{% block og_title %}{{ site_settings.site_name|default:'Adiabatic' }}{% endblock %}">
     <meta property="og:description"
-        content="{% block og_description %}{{ site_settings.meta_description|default:'Промислове обладнання та послуги' }}{% endblock %}">
+        content="{% block og_description %}{{ site_settings.meta_description|default:'Енергетичне обладнання та теплообмінники' }}{% endblock %}">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico">
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <!-- Critical CSS (inline) -->
+    <style>
+        :root {
+            --primary: #1B365D;
+            --secondary: #F4A32C;
+            --accent: #8B5FBF;
+            --white: #ffffff;
+            --gray-100: #f3f4f6;
+            --gray-900: #111827;
+            --font-base: 'Inter', system-ui, sans-serif;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="/static/css/main.css">
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            height: 100%;
+            height: -webkit-fill-available;
+        }
+
+        body {
+            font-family: var(--font-base);
+            line-height: 1.6;
+            color: var(--gray-900);
+            background: var(--white);
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .header {
+            background: var(--primary);
+            color: var(--white);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            padding-top: env(safe-area-inset-top);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            background: var(--secondary);
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            min-height: 48px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+    </style>
+
+    <!-- Main CSS (deferred) -->
+    <link rel="preload" href="/static/css/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/static/css/main.css">
+    </noscript>
 
     {% block extra_css %}{% endblock %}
 </head>
 
-<body class="{% block body_class %}{% endblock %}">
-    <!-- Header (Promsteel Style) -->
-    <header class="header">
+<body>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main" class="sr-only btn">Перейти до основного контенту</a>
+
+    <!-- Banner: Безкоштовна консультація -->
+    <div class="consultation-banner">
         <div class="container">
-            <div class="header__content">
-                <div class="header__logo">
-                    <a href="{% url 'pages:home' %}" class="logo">
-                        {{ site_settings.site_name|default:'Adiabatic' }}
+            <span class="banner-text">🎯 Перша технічна консультація безкоштовна</span>
+            <a href="{% url 'leads:submit' %}" class="banner-btn">Отримати консультацію</a>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header" role="banner">
+        <div class="container">
+            <div class="header-content">
+                <!-- Logo -->
+                <div class="logo">
+                    <a href="{% url 'pages:home' %}">
+                        {{ site_settings.site_name|default:'ADIABATIC' }}
                     </a>
                 </div>
 
-                <nav class="header__nav">
-                    <ul class="nav">
-                        <li class="nav__item">
-                            <a href="{% url 'catalog:catalog_list' %}" class="nav__link">Обладнання</a>
-                        </li>
-                        <li class="nav__item">
-                            <a href="{% url 'pages:products' %}" class="nav__link">Процеси</a>
-                        </li>
-                        <li class="nav__item">
-                            <a href="{% url 'pages:about' %}" class="nav__link">Галузі</a>
-                        </li>
-                        <li class="nav__item">
-                            <a href="{% url 'pages:about' %}" class="nav__link">Про компанію</a>
-                        </li>
+                <!-- Desktop Navigation -->
+                <nav class="nav" role="navigation" aria-label="Головне меню">
+                    <ul class="nav-list">
+                        <li><a href="{% url 'catalog:catalog_list' %}" class="nav-link">Продукція</a></li>
+                        <li><a href="{% url 'pages:products' %}" class="nav-link">Сфери застосування</a></li>
+                        <li><a href="{% url 'pages:about' %}" class="nav-link">Про компанію</a></li>
+                        <li><a href="{% url 'pages:partners' %}" class="nav-link">Партнери</a></li>
+                        <li><a href="{% url 'pages:blog' %}" class="nav-link">Корисна інформація</a></li>
                     </ul>
                 </nav>
 
-                <div class="header__actions">
-                    <!-- Contact Phone -->
+                <!-- Header Actions -->
+                <div class="header-actions">
+                    <!-- Phone -->
                     {% if site_settings.contact_phone %}
-                    <a href="tel:{{ site_settings.contact_phone }}" class="header__contact">
-                        {{ site_settings.contact_phone|default:"+38067 758 44 99" }}
+                    <a href="tel:{{ site_settings.contact_phone }}" class="header-phone">
+                        {{ site_settings.contact_phone|default:"+380 44 123 45 67" }}
                     </a>
                     {% endif %}
 
                     <!-- Language Switcher -->
-                    <div class="language-switcher">
-                        <a href="#" class="language-switcher__link active">UA</a>
-                        <a href="#" class="language-switcher__link">RU</a>
-                        <a href="#" class="language-switcher__link">EN</a>
+                    <div class="lang-switcher">
+                        <a href="#" class="lang-link active">UA</a>
+                        <a href="#" class="lang-link">RU</a>
+                        <a href="#" class="lang-link">EN</a>
                     </div>
 
                     <!-- CTA Button -->
-                    <a href="{% url 'leads:submit' %}" class="header__cta">
+                    <a href="{% url 'leads:submit' %}" class="header-cta">
                         Зворотний дзвінок
                     </a>
-
-                    <!-- Mobile Menu Toggle -->
-                    <button class="mobile-menu-toggle" aria-label="Відкрити меню">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </button>
                 </div>
+
+                <!-- Mobile Menu Button -->
+                <button class="mobile-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu"
+                    aria-label="Відкрити меню">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobile-menu">
+            <div class="mobile-menu-content">
+                <nav role="navigation" aria-label="Мобільне меню">
+                    <ul class="mobile-nav-list">
+                        <li><a href="{% url 'catalog:catalog_list' %}" class="mobile-nav-link">Продукція</a></li>
+                        <li><a href="{% url 'pages:products' %}" class="mobile-nav-link">Сфери застосування</a></li>
+                        <li><a href="{% url 'pages:about' %}" class="mobile-nav-link">Про компанію</a></li>
+                        <li><a href="{% url 'pages:partners' %}" class="mobile-nav-link">Партнери</a></li>
+                        <li><a href="{% url 'pages:blog' %}" class="mobile-nav-link">Корисна інформація</a></li>
+                    </ul>
+
+                    <!-- Mobile Actions -->
+                    <div class="mobile-actions">
+                        {% if site_settings.contact_phone %}
+                        <a href="tel:{{ site_settings.contact_phone }}" class="mobile-phone">
+                            📞 {{ site_settings.contact_phone|default:"+380 44 123 45 67" }}
+                        </a>
+                        {% endif %}
+
+                        <a href="{% url 'leads:submit' %}" class="mobile-cta btn">
+                            Зворотний дзвінок
+                        </a>
+                    </div>
+                </nav>
             </div>
         </div>
     </header>
 
     <!-- Main Content -->
-    <main class="main">
+    <main id="main" role="main">
         {% block content %}{% endblock %}
     </main>
 
-    <!-- Footer (Promsteel Style) -->
-    <footer class="footer">
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
         <div class="container">
-            <div class="footer__content">
-                <div class="footer__section">
-                    <h3 class="footer__title">Зв'яжіться з нами</h3>
-                    <div class="footer__social">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">{{ site_settings.site_name|default:'ADIABATIC' }}</h3>
+                    <p class="footer-description">
+                        Надійний постачальник енергетичного обладнання для промислових процесів
+                    </p>
+                    <div class="footer-social">
                         <a href="#" class="social-link" title="Telegram">📱</a>
                         <a href="#" class="social-link" title="Viber">📞</a>
                         <a href="#" class="social-link" title="WhatsApp">💬</a>
                     </div>
                 </div>
 
-                <div class="footer__section">
-                    <h3 class="footer__title">{{ site_settings.site_name|default:'Adiabatic' }}</h3>
-                    <ul class="footer__nav">
-                        <li><a href="{% url 'pages:contacts' %}">Контакти</a></li>
+                <div class="footer-section">
+                    <h4 class="footer-subtitle">Продукція</h4>
+                    <ul class="footer-list">
+                        <li><a href="{% url 'catalog:catalog_list' %}">Каталог обладнання</a></li>
+                        <li><a href="{% url 'pages:products' %}">Сфери застосування</a></li>
+                        <li><a href="#" class="download-link">Завантажити каталог</a></li>
+                        <li><a href="#" class="download-link">Завантажити опитувальний лист</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-subtitle">Компанія</h4>
+                    <ul class="footer-list">
                         <li><a href="{% url 'pages:about' %}">Про компанію</a></li>
-                        <li><a href="#">Новини</a></li>
+                        <li><a href="{% url 'pages:partners' %}">Партнери</a></li>
+                        <li><a href="{% url 'pages:blog' %}">Корисна інформація</a></li>
+                        <li><a href="{% url 'pages:contacts' %}">Контакти</a></li>
                     </ul>
                 </div>
 
-                <div class="footer__section">
-                    <h3 class="footer__title">Каталог</h3>
-                    <ul class="footer__nav">
-                        <li><a href="{% url 'catalog:catalog_list' %}">Обладнання</a></li>
-                        <li><a href="{% url 'pages:products' %}">Процеси</a></li>
-                        <li><a href="{% url 'pages:about' %}">Галузі</a></li>
-                        <li><a href="#">Виробництво</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer__section">
-                    <h3 class="footer__title">Зв'яжіться з нами</h3>
-                    <div class="footer__contact-info">
-                        <div class="footer__contact-item" data-icon="📍">
-                            {{ site_settings.address|default:"Україна, 61020, м. Харків, вул. Промислова, 6" }}
+                <div class="footer-section">
+                    <h4 class="footer-subtitle">Контакти</h4>
+                    <div class="footer-contacts">
+                        <div class="contact-item">
+                            📍 {{ site_settings.address|default:"Україна, 61020, м. Харків, вул. Промислова, 6" }}
                         </div>
-                        <div class="footer__contact-item" data-icon="📞">
-                            <a href="tel:{{ site_settings.contact_phone|default:'+380677584499' }}">{{
-                                site_settings.contact_phone|default:"+38067 758 44 99" }}</a>
+                        <div class="contact-item">
+                            📞 <a href="tel:{{ site_settings.contact_phone|default:'+380441234567' }}">
+                                {{ site_settings.contact_phone|default:"+380 44 123 45 67" }}
+                            </a>
                         </div>
-                        <div class="footer__contact-item" data-icon="✉️">
-                            <a href="mailto:{{ site_settings.contact_email|default:'office@adiabatic.ua' }}">{{
-                                site_settings.contact_email|default:"office@adiabatic.ua" }}</a>
+                        <div class="contact-item">
+                            ✉️ <a href="mailto:{{ site_settings.contact_email|default:'office@adiabatic.ua' }}">
+                                {{ site_settings.contact_email|default:"office@adiabatic.ua" }}
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="footer__bottom">
-                <p class="footer__copyright">
-                    ©Copyright {% now "Y" %} {{ site_settings.site_name|default:'Adiabatic.ua' }}
-                </p>
+            <div class="footer-bottom">
+                <p>© {% now "Y" %} {{ site_settings.site_name|default:'ADIABATIC' }}. Всі права захищені.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Up Button -->
-    <button class="footer__up-button" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Вгору">
+    <!-- Back to Top Button -->
+    <button class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Вгору"
+        aria-label="Повернутися вгору">
         ↑
     </button>
 
     <!-- JavaScript -->
-    <script src="/static/js/main.js"></script>
+    <script src="/static/js/main.js" defer></script>
 
     {% block extra_js %}{% endblock %}
 

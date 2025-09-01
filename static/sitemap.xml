@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    
+    <!-- Головна сторінка -->
+    <url>
+        <loc>https://abiabatic.com/uk/</loc>
+        <xhtml:link rel="alternate" hreflang="uk" href="https://abiabatic.com/uk/"/>
+        <xhtml:link rel="alternate" hreflang="ru" href="https://abiabatic.com/ru/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://abiabatic.com/en/"/>
+        <lastmod>2024-01-15</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+    
+    <!-- Про компанію -->
+    <url>
+        <loc>https://abiabatic.com/uk/about/</loc>
+        <xhtml:link rel="alternate" hreflang="uk" href="https://abiabatic.com/uk/about/"/>
+        <xhtml:link rel="alternate" hreflang="ru" href="https://abiabatic.com/ru/about/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://abiabatic.com/en/about/"/>
+        <lastmod>2024-01-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- Контакти -->
+    <url>
+        <loc>https://abiabatic.com/uk/contacts/</loc>
+        <xhtml:link rel="alternate" hreflang="uk" href="https://abiabatic.com/uk/contacts/"/>
+        <xhtml:link rel="alternate" hreflang="ru" href="https://abiabatic.com/ru/contacts/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://abiabatic.com/en/contacts/"/>
+        <lastmod>2024-01-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- Каталог продукції -->
+    <url>
+        <loc>https://abiabatic.com/uk/products/</loc>
+        <xhtml:link rel="alternate" hreflang="uk" href="https://abiabatic.com/uk/products/"/>
+        <xhtml:link rel="alternate" hreflang="ru" href="https://abiabatic.com/ru/products/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://abiabatic.com/en/products/"/>
+        <lastmod>2024-01-15</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <!-- Процеси -->
+    <url>
+        <loc>https://abiabatic.com/uk/processes/</loc>
+        <xhtml:link rel="alternate" hreflang="uk" href="https://abiabatic.com/uk/processes/"/>
+        <xhtml:link rel="alternate" hreflang="ru" href="https://abiabatic.com/ru/processes/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://abiabatic.com/en/processes/"/>
+        <lastmod>2024-01-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+</urlset>

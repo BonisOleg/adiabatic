@@ -1,134 +1,391 @@
 {% extends 'base.html' %}
 {% load i18n %}
 
-{% block title %}{{ page.get_title }}{% endblock %}
-{% block og_title %}{{ page.get_title }}{% endblock %}
-{% block og_description %}{{ page.get_meta_description }}{% endblock %}
+{% block title %}Про компанію - Adiabatic{% endblock %}
+{% block og_title %}Про компанію - Adiabatic{% endblock %}
+{% block og_description %}ТОВ "Adiabatic" - провідний постачальник енергетичного обладнання. 15+ років досвіду, 500+
+проектів, європейські стандарти якості.{% endblock %}
 
 {% block content %}
-<!-- Hero Section (Promsteel Style) -->
+<!-- Hero Section -->
 <section class="hero">
-    <div class="hero__container">
-        <div class="hero__content js-observe">
-            <p class="hero__subtitle slide-in-left">
-                ООО "ПРОМСТИЛ"
+    <div class="container">
+        <div class="hero-content">
+            <p class="hero-subtitle">
+                Про компанію
             </p>
-            <h1 class="hero__title fade-in">
-                Надійний постачальник
-                <span class="hero__title-accent">енергетичного обладнання для промислових процесів</span>
+            <h1 class="hero-title">
+                ТОВ
+                <span class="hero-accent">"ADIABATIC"</span>
             </h1>
-            <p class="hero__description slide-in-up">
-                ADIABATIC є сучасною динамічно розвиваючоюся компанією, яка прагне стати провідним постачальником
-                продуктів і рішень для організації процесів теплообміну та управління потоками. Ми розробляємо рішення в
-                таких напрямках, як оптимізація використання енергії, скорочення витрат підприємств на експлуатацію
-                технологічних позицій, пов'язаних з процесами теплообміну, а також по охороні навколишнього середовища.
-                Замовляйте теплообмінне обладнання у нас!
+            <p class="hero-description">
+                Надійний постачальник енергетичного обладнання для промислових процесів
             </p>
-            <div class="hero__actions">
-                <a href="{% url 'catalog:catalog_list' %}" class="btn btn--primary btn--large">Каталог</a>
-                <a href="{% url 'leads:submit' %}" class="btn btn--secondary btn--large">Замовити</a>
-            </div>
-        </div>
-        <div class="hero__image-container js-observe">
-            <div class="promsteel-placeholder">
-                🏢 Компанія Adiabatic
+            <div class="hero-actions">
+                <a href="{% url 'pages:contacts' %}" class="btn btn--primary btn--large">Контакти</a>
+                <a href="{% url 'leads:submit' %}" class="btn btn--secondary btn--large">Розрахунок обладнання</a>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Advantages Section -->
-<section class="catalog-section">
+<!-- Mission Section -->
+<section class="section">
     <div class="container">
-        <div class="catalog-header js-observe">
-            <h2 class="catalog-title text-center">
-                Гарантовані
-                <span class="catalog-title-accent">переваги постачального енергетичного обладнання ООО "Промстил"</span>
+        <div class="section-header">
+            <p class="section-subtitle">Наша місія</p>
+            <h2 class="section-title">
+                Ефективні рішення для
+                <span class="section-accent">енергозбереження</span>
             </h2>
-            <div class="catalog-underline"></div>
+            <div class="section-underline"></div>
         </div>
 
-        <div class="equipment-grid">
-            <div class="equipment-card js-observe">
-                <div class="equipment-card__image">
-                    📈
-                </div>
-                <div class="equipment-card__content">
-                    <div class="equipment-card__title">
-                        Гарантуємо високу рентабельність
-                    </div>
-                    <p class="equipment-card__description">
-                        технічних рішень
+        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+            <p style="font-size: 1.2rem; line-height: 1.7; margin-bottom: var(--space-8);">
+                ADIABATIC є сучасною динамічно розвиваючоюся компанією, яка прагне стати провідним постачальником
+                продуктів і рішень для організації процесів теплообміну та управління потоками.
+            </p>
+
+            <p style="font-size: 1.1rem; line-height: 1.7; color: var(--gray-600);">
+                Ми розробляємо рішення в таких напрямках, як оптимізація використання енергії,
+                скорочення витрат підприємств на експлуатацію технологічних позицій, пов'язаних з процесами теплообміну,
+                а також по охороні навколишнього середовища.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Statistics Section -->
+<section class="section" style="background: var(--gray-50);">
+    <div class="container">
+        <div class="cards-grid">
+            <div class="card" style="text-align: center; padding: var(--space-8);">
+                <div style="font-size: 3rem; font-weight: 800; color: var(--primary); margin-bottom: var(--space-3);">
+                    15+</div>
+                <h3 style="color: var(--accent); margin-bottom: var(--space-2);">Років досвіду</h3>
+                <p style="color: var(--gray-600);">У сфері енергетичного обладнання</p>
+            </div>
+
+            <div class="card" style="text-align: center; padding: var(--space-8);">
+                <div style="font-size: 3rem; font-weight: 800; color: var(--primary); margin-bottom: var(--space-3);">
+                    500+</div>
+                <h3 style="color: var(--accent); margin-bottom: var(--space-2);">Проектів</h3>
+                <p style="color: var(--gray-600);">Успішно реалізовано</p>
+            </div>
+
+            <div class="card" style="text-align: center; padding: var(--space-8);">
+                <div style="font-size: 3rem; font-weight: 800; color: var(--primary); margin-bottom: var(--space-3);">
+                    100+</div>
+                <h3 style="color: var(--accent); margin-bottom: var(--space-2);">Клієнтів</h3>
+                <p style="color: var(--gray-600);">Довіряють нам</p>
+            </div>
+
+            <div class="card" style="text-align: center; padding: var(--space-8);">
+                <div style="font-size: 3rem; font-weight: 800; color: var(--primary); margin-bottom: var(--space-3);">
+                    24/7</div>
+                <h3 style="color: var(--accent); margin-bottom: var(--space-2);">Підтримка</h3>
+                <p style="color: var(--gray-600);">Технічна підтримка</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Values Section -->
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <p class="section-subtitle">Наші цінності</p>
+            <h2 class="section-title">
+                Що нами
+                <span class="section-accent">керує</span>
+            </h2>
+            <div class="section-underline"></div>
+        </div>
+
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-image">🏆</div>
+                <div class="card-content">
+                    <h3 class="card-title">Якість</h3>
+                    <p class="card-description">
+                        Всі наші продукти відповідають європейським стандартам якості та безпеки.
+                        Ми використовуємо тільки сертифіковані матеріали та комплектуючі.
                     </p>
                 </div>
             </div>
 
-            <div class="equipment-card js-observe">
-                <div class="equipment-card__image">
-                    ✅
-                </div>
-                <div class="equipment-card__content">
-                    <div class="equipment-card__title">
-                        Многоступенчастий контроль якості
-                    </div>
-                    <p class="equipment-card__description">
-                        нашого обладнання
+            <div class="card">
+                <div class="card-image">🤝</div>
+                <div class="card-content">
+                    <h3 class="card-title">Надійність</h3>
+                    <p class="card-description">
+                        Довготривалі партнерські відносини з клієнтами базуються на взаємній довірі,
+                        дотриманні зобов'язань та прозорості у співпраці.
                     </p>
                 </div>
             </div>
 
-            <div class="equipment-card js-observe">
-                <div class="equipment-card__image">
-                    🔒
-                </div>
-                <div class="equipment-card__content">
-                    <div class="equipment-card__title">
-                        Гарантуємо захист прав і інтересів
-                    </div>
-                    <p class="equipment-card__description">
-                        наших клієнтів
+            <div class="card">
+                <div class="card-image">💡</div>
+                <div class="card-content">
+                    <h3 class="card-title">Інновації</h3>
+                    <p class="card-description">
+                        Ми постійно впроваджуємо нові технології та рішення для підвищення
+                        ефективності та енергозбереження нашого обладнання.
                     </p>
                 </div>
             </div>
 
-            <div class="equipment-card js-observe">
-                <div class="equipment-card__image">
-                    🔧
-                </div>
-                <div class="equipment-card__content">
-                    <div class="equipment-card__title">
-                        Технічна підтримка
-                    </div>
-                    <p class="equipment-card__description">
-                        на протязі всього строку експлуатації
+            <div class="card">
+                <div class="card-image">⚡</div>
+                <div class="card-content">
+                    <h3 class="card-title">Ефективність</h3>
+                    <p class="card-description">
+                        Оптимізовані процеси виробництва дозволяють нам забезпечувати мінімальні
+                        терміни виготовлення та конкурентні ціни.
                     </p>
                 </div>
             </div>
 
-            <div class="equipment-card js-observe">
-                <div class="equipment-card__image">
-                    🎆
-                </div>
-                <div class="equipment-card__content">
-                    <div class="equipment-card__title">
-                        Надаємо високий рівень
-                    </div>
-                    <p class="equipment-card__description">
-                        сервісного обслуговування
+            <div class="card">
+                <div class="card-image">🌱</div>
+                <div class="card-content">
+                    <h3 class="card-title">Екологічність</h3>
+                    <p class="card-description">
+                        Наше обладнання сприяє зменшенню споживання енергії та скороченню
+                        викидів шкідливих речовин в атмосферу.
                     </p>
                 </div>
             </div>
 
-            <div class="equipment-card js-observe">
-                <div class="equipment-card__image">
-                    🎓
+            <div class="card">
+                <div class="card-image">👥</div>
+                <div class="card-content">
+                    <h3 class="card-title">Команда</h3>
+                    <p class="card-description">
+                        Професійна команда досвідчених інженерів та фахівців забезпечує
+                        високий рівень технічної підтримки та сервісу.
+                    </p>
                 </div>
-                <div class="equipment-card__content">
-                    <div class="equipment-card__title">
-                        Проводимо безкоштовне навчання
-                    </div>
-                    <p class="equipment-card__description">
-                        культурі експлуатації обладнання
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section class="section" style="background: var(--gray-50);">
+    <div class="container">
+        <div class="section-header">
+            <p class="section-subtitle">Послуги</p>
+            <h2 class="section-title">
+                Повний цикл
+                <span class="section-accent">обслуговування</span>
+            </h2>
+            <div class="section-underline"></div>
+        </div>
+
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-image">📐</div>
+                <div class="card-content">
+                    <h3 class="card-title">Проектування</h3>
+                    <p class="card-description">
+                        Розробка індивідуальних проектів теплообмінного обладнання відповідно до
+                        ваших технічних вимог та умов експлуатації.
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">🏭</div>
+                <div class="card-content">
+                    <h3 class="card-title">Виготовлення</h3>
+                    <p class="card-description">
+                        Виробництво обладнання на сучасному обладнанні з контролем якості
+                        на всіх етапах виробничого процесу.
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">📊</div>
+                <div class="card-content">
+                    <h3 class="card-title">Розрахунки</h3>
+                    <p class="card-description">
+                        Професійні теплові та гідравлічні розрахунки для оптимального
+                        підбору обладнання під ваші потреби.
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">🚚</div>
+                <div class="card-content">
+                    <h3 class="card-title">Доставка</h3>
+                    <p class="card-description">
+                        Швидка та безпечна доставка обладнання по всій Україні
+                        з гарантією збереження та цілісності.
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">🔧</div>
+                <div class="card-content">
+                    <h3 class="card-title">Монтаж</h3>
+                    <p class="card-description">
+                        Професійний монтаж та налаштування обладнання досвідченими
+                        спеціалістами з дотриманням всіх технічних вимог.
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">⚙️</div>
+                <div class="card-content">
+                    <h3 class="card-title">Сервіс</h3>
+                    <p class="card-description">
+                        Повне сервісне обслуговування, планові ТО, ремонт та модернізація
+                        існуючого обладнання протягом всього терміну експлуатації.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Industries Section -->
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <p class="section-subtitle">Галузі</p>
+            <h2 class="section-title">
+                Сфери
+                <span class="section-accent">застосування</span>
+            </h2>
+            <div class="section-underline"></div>
+        </div>
+
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-image">🛢️</div>
+                <div class="card-content">
+                    <h3 class="card-title">Нафтогазова галузь</h3>
+                    <p class="card-description">
+                        Теплообмінники для нафтопереробки, газопереробки, хімічних процесів.
+                        Робота з агресивними середовищами при високих температурах і тисках.
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">🏭</div>
+                <div class="card-content">
+                    <h3 class="card-title">Хімічна промисловість</h3>
+                    <p class="card-description">
+                        Спеціалізовані теплообмінники для хімічних реакторів, дистиляційних колон,
+                        охолодження та нагрівання хімічних речовин.
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">⚡</div>
+                <div class="card-content">
+                    <h3 class="card-title">Енергетика</h3>
+                    <p class="card-description">
+                        Теплообмінне обладнання для ТЕС, АЕС, когенераційних установок,
+                        системи охолодження турбін та генераторів.
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">🏗️</div>
+                <div class="card-content">
+                    <h3 class="card-title">Металургія</h3>
+                    <p class="card-description">
+                        Охолодження металургійних печей, утилізація тепла, системи охолодження
+                        доменних газів та прокатних станів.
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">🍼</div>
+                <div class="card-content">
+                    <h3 class="card-title">Харчова промисловість</h3>
+                    <p class="card-description">
+                        Пастеризатори, охолоджувачі, випарники для молочної, пивної
+                        та інших галузей харчової промисловості.
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">🚢</div>
+                <div class="card-content">
+                    <h3 class="card-title">Морське обладнання</h3>
+                    <p class="card-description">
+                        Теплообмінники для суднових двигунів, опріснювальних установок,
+                        систем кондиціонування на морських платформах.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Team Section -->
+<section class="section" style="background: var(--gray-50);">
+    <div class="container">
+        <div class="section-header">
+            <p class="section-subtitle">Команда</p>
+            <h2 class="section-title">
+                Наші
+                <span class="section-accent">експерти</span>
+            </h2>
+            <div class="section-underline"></div>
+        </div>
+
+        <div class="cards-grid">
+            <div class="card" style="text-align: center;">
+                <div class="card-image">👨‍💼</div>
+                <div class="card-content">
+                    <h3 class="card-title">Керівництво</h3>
+                    <p class="card-description">
+                        Досвідчені менеджери з багаторічним досвідом роботи у сфері промислового обладнання
+                    </p>
+                </div>
+            </div>
+
+            <div class="card" style="text-align: center;">
+                <div class="card-image">👨‍🔬</div>
+                <div class="card-content">
+                    <h3 class="card-title">Інженери-конструктори</h3>
+                    <p class="card-description">
+                        Кваліфіковані інженери з проектування та розрахунку теплообмінного обладнання
+                    </p>
+                </div>
+            </div>
+
+            <div class="card" style="text-align: center;">
+                <div class="card-image">👨‍🔧</div>
+                <div class="card-content">
+                    <h3 class="card-title">Технічні спеціалісти</h3>
+                    <p class="card-description">
+                        Досвідчені фахівці з монтажу, налаштування та сервісного обслуговування
+                    </p>
+                </div>
+            </div>
+
+            <div class="card" style="text-align: center;">
+                <div class="card-image">👩‍💼</div>
+                <div class="card-content">
+                    <h3 class="card-title">Відділ продажів</h3>
+                    <p class="card-description">
+                        Професійні менеджери з продажів, які допоможуть підібрати оптимальне рішення
                     </p>
                 </div>
             </div>
@@ -137,22 +394,23 @@
 </section>
 
 <!-- CTA Section -->
-<section class="cta-section">
-    <div class="cta-container">
-        <div class="cta-content js-observe">
+<section class="cta-section section">
+    <div class="container">
+        <div class="text-center">
             <h2 class="cta-title">
-                За ідеєю йде рішення...
+                Готові працювати
+                <span class="hero-accent">з нами?</span>
             </h2>
             <p class="cta-description">
-                Давайте разом вирішимо Вашу задачу
+                Зв'яжіться з нами для отримання детальної консультації та розрахунку вартості обладнання
             </p>
-            <a href="{% url 'leads:submit' %}" class="btn btn--primary btn--large">
-                Отримати консультацію
-            </a>
-        </div>
-        <div class="js-observe">
-            <div class="promsteel-placeholder">
-                🚀 Рішення
+            <div class="hero-actions">
+                <a href="{% url 'leads:submit' %}" class="btn btn--primary btn--large">
+                    Розрахунок теплообмінника
+                </a>
+                <a href="{% url 'pages:contacts' %}" class="btn btn--secondary btn--large">
+                    Наші контакти
+                </a>
             </div>
         </div>
     </div>
