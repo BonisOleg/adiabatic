@@ -4,10 +4,10 @@
     
     <!-- Головна сторінка -->
     <url>
-        <loc>https://abiabatic.com/uk/</loc>
-        <xhtml:link rel="alternate" hreflang="uk" href="https://abiabatic.com/uk/"/>
-        <xhtml:link rel="alternate" hreflang="ru" href="https://abiabatic.com/ru/"/>
-        <xhtml:link rel="alternate" hreflang="en" href="https://abiabatic.com/en/"/>
+        <loc>https://adiabatic.com/uk/</loc>
+        <xhtml:link rel="alternate" hreflang="uk" href="https://adiabatic.com/uk/"/>
+        <xhtml:link rel="alternate" hreflang="ru" href="https://adiabatic.com/ru/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://adiabatic.com/en/"/>
         <lastmod>2024-01-15</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
@@ -15,10 +15,10 @@
     
     <!-- Про компанію -->
     <url>
-        <loc>https://abiabatic.com/uk/about/</loc>
-        <xhtml:link rel="alternate" hreflang="uk" href="https://abiabatic.com/uk/about/"/>
-        <xhtml:link rel="alternate" hreflang="ru" href="https://abiabatic.com/ru/about/"/>
-        <xhtml:link rel="alternate" hreflang="en" href="https://abiabatic.com/en/about/"/>
+        <loc>https://adiabatic.com/uk/about/</loc>
+        <xhtml:link rel="alternate" hreflang="uk" href="https://adiabatic.com/uk/about/"/>
+        <xhtml:link rel="alternate" hreflang="ru" href="https://adiabatic.com/ru/about/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://adiabatic.com/en/about/"/>
         <lastmod>2024-01-15</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
@@ -26,10 +26,10 @@
     
     <!-- Контакти -->
     <url>
-        <loc>https://abiabatic.com/uk/contacts/</loc>
-        <xhtml:link rel="alternate" hreflang="uk" href="https://abiabatic.com/uk/contacts/"/>
-        <xhtml:link rel="alternate" hreflang="ru" href="https://abiabatic.com/ru/contacts/"/>
-        <xhtml:link rel="alternate" hreflang="en" href="https://abiabatic.com/en/contacts/"/>
+        <loc>https://adiabatic.com/uk/contacts/</loc>
+        <xhtml:link rel="alternate" hreflang="uk" href="https://adiabatic.com/uk/contacts/"/>
+        <xhtml:link rel="alternate" hreflang="ru" href="https://adiabatic.com/ru/contacts/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://adiabatic.com/en/contacts/"/>
         <lastmod>2024-01-15</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
@@ -37,10 +37,10 @@
     
     <!-- Каталог продукції -->
     <url>
-        <loc>https://abiabatic.com/uk/products/</loc>
-        <xhtml:link rel="alternate" hreflang="uk" href="https://abiabatic.com/uk/products/"/>
-        <xhtml:link rel="alternate" hreflang="ru" href="https://abiabatic.com/ru/products/"/>
-        <xhtml:link rel="alternate" hreflang="en" href="https://abiabatic.com/en/products/"/>
+        <loc>https://adiabatic.com/uk/products/</loc>
+        <xhtml:link rel="alternate" hreflang="uk" href="https://adiabatic.com/uk/products/"/>
+        <xhtml:link rel="alternate" hreflang="ru" href="https://adiabatic.com/ru/products/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://adiabatic.com/en/products/"/>
         <lastmod>2024-01-15</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
@@ -48,10 +48,10 @@
     
     <!-- Процеси -->
     <url>
-        <loc>https://abiabatic.com/uk/processes/</loc>
-        <xhtml:link rel="alternate" hreflang="uk" href="https://abiabatic.com/uk/processes/"/>
-        <xhtml:link rel="alternate" hreflang="ru" href="https://abiabatic.com/ru/processes/"/>
-        <xhtml:link rel="alternate" hreflang="en" href="https://abiabatic.com/en/processes/"/>
+        <loc>https://adiabatic.com/uk/processes/</loc>
+        <xhtml:link rel="alternate" hreflang="uk" href="https://adiabatic.com/uk/processes/"/>
+        <xhtml:link rel="alternate" hreflang="ru" href="https://adiabatic.com/ru/processes/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://adiabatic.com/en/processes/"/>
         <lastmod>2024-01-15</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>

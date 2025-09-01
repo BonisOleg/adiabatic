@@ -48,7 +48,7 @@ class Migration(migrations.Migration):
             name='SiteSettings',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('site_name', models.CharField(default='Abiabatic', max_length=100, verbose_name='Назва сайту')),
+                ('site_name', models.CharField(default='Adiabatic', max_length=100, verbose_name='Назва сайту')),
                 ('site_description', models.TextField(blank=True, verbose_name='Опис сайту')),
                 ('contact_email', models.EmailField(blank=True, max_length=254, verbose_name='Контактний email')),
                 ('contact_phone', models.CharField(blank=True, max_length=20, verbose_name='Контактний телефон')),

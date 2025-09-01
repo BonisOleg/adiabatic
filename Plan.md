@@ -1,8 +1,8 @@
-# Plan.md - Детальний план Django проекту Abiabatic
+# Plan.md - Детальний план Django проекту Adiabatic
 
 ## 🎯 Огляд проекту
 
-**Назва компанії:** Abiabatic  
+**Назва компанії:** Adiabatic  
 **Тип проекту:** Корпоративний веб-сайт  
 **Стек:** Django 5.1.3 + PostgreSQL + HTML/CSS/JS + Redis  
 **Мови:** Українська, Російська, Англійська  
@@ -365,7 +365,7 @@ ALLOWED_HOSTS=yourdomain.com,www.yourdomain.com
 CSRF_TRUSTED_ORIGINS=https://yourdomain.com,https://www.yourdomain.com
 
 # Database
-DATABASE_URL=postgresql://user:password@localhost:5432/abiabatic_db
+DATABASE_URL=postgresql://user:password@localhost:5432/adiabatic_db
 
 # Redis
 REDIS_URL=redis://localhost:6379/0

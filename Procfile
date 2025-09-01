@@ -1,1 +1,1 @@
-web: gunicorn abiabatic.wsgi
+web: gunicorn adiabatic.wsgi

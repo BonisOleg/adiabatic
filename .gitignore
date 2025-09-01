@@ -140,6 +140,12 @@ static_collected/
 # Media files
 media/
 
+# Large 3D files (>50MB)
+static/images/3D/**/*.obj
+static/images/3D/**/Air\ Cooler*.png
+static/images/3D/**/IntCalNepe.SLDASM
+static/images/3D/**/Tubos\ helicoidales.SLDPRT
+
 # IDE files
 .vscode/
 .idea/

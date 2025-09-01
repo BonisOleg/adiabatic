@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://abiabatic.com/sitemap.xml
+Sitemap: https://adiabatic.com/sitemap.xml
 
 # Дозволені сторінки
 Allow: /uk/

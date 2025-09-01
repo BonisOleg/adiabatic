@@ -137,7 +137,7 @@ class NotificationSettings(models.Model):
     email_enabled = models.BooleanField(_('Email увімкнено'), default=True)
     email_recipients = models.TextField(_('Email одержувачі'), 
                                        help_text=_('Email адреси через кому'),
-                                       default='admin@abiabatic.com')
+                                       default='admin@adiabatic.com')
     email_subject_template = models.CharField(_('Шаблон теми email'), max_length=200,
                                              default='Нова заявка від {name}')
     
@@ -174,7 +174,7 @@ class NotificationSettings(models.Model):
             id=1,
             defaults={
                 'email_enabled': True,
-                'email_recipients': 'admin@abiabatic.com'
+                'email_recipients': 'admin@adiabatic.com'
             }
         )
         return settings

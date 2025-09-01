@@ -62,7 +62,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'abiabatic.urls'
+ROOT_URLCONF = 'adiabatic.urls'
 
 TEMPLATES = [
     {
@@ -80,7 +80,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'abiabatic.wsgi.application'
+WSGI_APPLICATION = 'adiabatic.wsgi.application'
 
 
 # Database
