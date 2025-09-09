@@ -1167,34 +1167,6 @@ p {
     margin-bottom: var(--space-4);
 }
 
-/* ===== CTA SECTION ===== */
-.cta-section {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-    color: var(--white);
-    text-align: center;
-}
-
-.cta-question {
-    font-size: 1.1rem;
-    margin-bottom: var(--space-3);
-    opacity: 0.9;
-}
-
-.cta-title {
-    font-size: clamp(2rem, 4vw, 2.5rem);
-    font-weight: 800;
-    margin-bottom: var(--space-6);
-    text-transform: uppercase;
-}
-
-.cta-description {
-    font-size: 1.1rem;
-    margin-bottom: var(--space-8);
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-    opacity: 0.9;
-}
 
 /* ===== FOOTER ===== */
 .footer {
