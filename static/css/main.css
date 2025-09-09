@@ -2,10 +2,19 @@
 
 /* ===== CSS VARIABLES ===== */
 :root {
-    /* Brand Colors */
+    /* Brand Colors - Blue & Red Combination */
     --primary: #1B365D;
-    --secondary: #F4A32C;
-    --accent: #8B5FBF;
+    /* Основний синій */
+    --secondary: #C4384D;
+    /* Червоний замість голубого */
+    --accent: #0F2A44;
+    /* Темно-синій */
+    --red-light: #E85A4F;
+    /* Світлий червоний для акцентів */
+    --red-dark: #A02E37;
+    /* Темний червоний */
+    --blue-dark: #0A1F33;
+    /* Дуже темний синій */
     --white: #ffffff;
     --black: #000000;
 
@@ -159,7 +168,7 @@ p {
 
 /* ===== CONSULTATION BANNER ===== */
 .consultation-banner {
-    background: var(--accent);
+    background: var(--blue-dark);
     color: var(--white);
     padding: var(--space-3) 0;
     text-align: center;
@@ -179,7 +188,7 @@ p {
 
 .banner-btn {
     background: var(--white);
-    color: var(--accent);
+    color: var(--blue-dark);
     padding: var(--space-2) var(--space-4);
     border-radius: var(--radius-full);
     text-decoration: none;
@@ -414,8 +423,10 @@ p {
 
 /* Desktop Styles */
 @media (min-width: 768px) {
+
+    /* Hide standard nav on desktop when animated menu is enabled */
     .nav {
-        display: flex;
+        display: none;
     }
 
     .header-actions {
@@ -425,11 +436,349 @@ p {
     .mobile-toggle {
         display: none;
     }
+
+    /* Hide mobile-only elements on desktop */
+    .mobile-only {
+        display: none;
+    }
+
+    /* Desktop burger button is now handled by its own media query */
+
+    /* Ensure animated menu is properly positioned */
+    .animated-desktop-menu {
+        /* Center between burger (left) and language switcher (right) */
+        left: calc(50% - 50px);
+    }
+}
+
+/* Mobile and Tablet Styles - Keep original behavior */
+@media (max-width: 767px) {
+
+    /* Hide desktop animated menu on mobile */
+    .desktop-burger-btn,
+    .animated-desktop-menu {
+        display: none;
+    }
+
+    /* Show standard nav on mobile */
+    .nav {
+        display: none;
+        /* Still hidden, mobile uses .mobile-menu */
+    }
+
+    /* Show mobile-only elements */
+    .mobile-only {
+        display: inline-flex;
+    }
+
+    /* Ensure mobile toggle is visible */
+    .mobile-toggle {
+        display: flex;
+    }
+
+    /* Ensure header actions show phone and CTA on mobile */
+    .header-actions {
+        display: flex;
+    }
+
+    /* Hide desktop logo on mobile */
+    .header-actions .logo {
+        display: none;
+    }
+
+    /* Show mobile logo */
+    .mobile-logo {
+        display: block;
+        flex: 1;
+        text-align: center;
+    }
+
+    .mobile-logo a {
+        font-family: var(--font-display);
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: var(--secondary);
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+}
+
+/* Desktop styles for mobile logo */
+@media (min-width: 768px) {
+    .mobile-logo {
+        display: none;
+    }
+}
+
+/* ===== DESKTOP ANIMATED MENU ===== */
+
+/* Desktop Burger Button - Hidden by default, shown on desktop */
+.desktop-burger-btn {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    gap: 4px;
+    margin-right: var(--space-4);
+    -webkit-appearance: none;
+    appearance: none;
+    z-index: 1001;
+}
+
+/* Show on desktop only */
+@media (min-width: 768px) {
+    .desktop-burger-btn {
+        display: flex;
+    }
+}
+
+.desktop-burger-btn span {
+    width: 100%;
+    height: 2px;
+    background: var(--white);
+    transition: all 0.3s ease;
+    border-radius: 1px;
+    transform-origin: center;
+}
+
+/* Burger to Cross Animation */
+.desktop-burger-btn.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.desktop-burger-btn.active span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+
+.desktop-burger-btn.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* Animated Desktop Menu Container */
+.animated-desktop-menu {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 999;
+    pointer-events: none;
+    /* Center the menu between logo final position and language switcher */
+    left: calc(50% - 100px);
+}
+
+.animated-desktop-menu.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.animated-nav-list {
+    display: flex;
+    list-style: none;
+    gap: var(--space-6);
+    align-items: center;
+    white-space: nowrap;
+    flex-wrap: nowrap;
+}
+
+.animated-nav-link {
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 500;
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius);
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+    /* Removed background and borders for clean look */
+}
+
+.animated-nav-link:hover {
+    color: var(--secondary);
+    transform: translateY(-2px);
+}
+
+/* Sequential Animation for Menu Items */
+.animated-desktop-menu.active .animated-nav-list li:nth-child(1) .animated-nav-link {
+    animation: slideInUp 0.4s ease 0.1s forwards;
+}
+
+.animated-desktop-menu.active .animated-nav-list li:nth-child(2) .animated-nav-link {
+    animation: slideInUp 0.4s ease 0.2s forwards;
+}
+
+.animated-desktop-menu.active .animated-nav-list li:nth-child(3) .animated-nav-link {
+    animation: slideInUp 0.4s ease 0.3s forwards;
+}
+
+.animated-desktop-menu.active .animated-nav-list li:nth-child(4) .animated-nav-link {
+    animation: slideInUp 0.4s ease 0.4s forwards;
+}
+
+.animated-desktop-menu.active .animated-nav-list li:nth-child(5) .animated-nav-link {
+    animation: slideInUp 0.4s ease 0.5s forwards;
+}
+
+/* Logo Animation Keyframes - Calculate precise center position */
+/* Logo moves from RIGHT to LEFT when opening menu */
+@keyframes logoSlideLeft {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        /* Stop just right of the cross button - precise positioning */
+        transform: translateX(-500px);
+    }
+}
+
+/* Logo moves from LEFT to RIGHT when closing menu */
+@keyframes logoSlideRight {
+    from {
+        transform: translateX(-500px);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* Additional Desktop Menu Enhancements */
+@media (min-width: 768px) {
+
+    /* Header content adjustments for animated menu */
+    .header-content {
+        position: relative;
+        overflow: visible;
+    }
+
+    /* Ensure logo can move freely during animation */
+    .logo {
+        position: relative;
+        z-index: 1002;
+        transition: transform 0.6s ease-out;
+    }
+
+    /* Prevent conflicts with existing nav */
+    .nav {
+        visibility: hidden;
+        opacity: 0;
+    }
+}
+
+/* Large Desktop Optimizations */
+@media (min-width: 1200px) {
+    .animated-desktop-menu {
+        /* Better positioning for larger screens */
+        left: calc(50% - 30px);
+    }
+
+    /* Large screen keyframes */
+    @keyframes logoSlideLeft {
+        from {
+            transform: translateX(0);
+        }
+
+        to {
+            transform: translateX(-600px);
+        }
+    }
+
+    @keyframes logoSlideRight {
+        from {
+            transform: translateX(-600px);
+        }
+
+        to {
+            transform: translateX(0);
+        }
+    }
+}
+
+/* Menu Items Animation - Optimized */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 20px, 0);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+
+    .logo.moving-right,
+    .logo.moving-left,
+    .animated-nav-link,
+    .desktop-burger-btn span {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .animated-desktop-menu.active .animated-nav-list li .animated-nav-link {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
+
+/* Logo Animation Classes - Hardware Accelerated */
+.logo.moving-right {
+    animation: logoSlideRight 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    z-index: 1002;
+    position: relative;
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+
+.logo.moving-left {
+    animation: logoSlideLeft 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    z-index: 1002;
+    position: relative;
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+
+/* Performance Optimizations */
+.animated-desktop-menu,
+.animated-nav-link,
+.desktop-burger-btn {
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+}
+
+/* Smooth transitions for better UX */
+.animated-nav-link {
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.desktop-burger-btn span {
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.animated-desktop-menu {
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* ===== HERO SECTION ===== */
 .hero {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
     color: var(--white);
     padding: var(--space-16) 0;
     min-height: 80vh;
@@ -496,7 +845,7 @@ p {
     font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 2px;
-    color: var(--accent);
+    color: var(--red-light);
     margin-bottom: var(--space-3);
     font-weight: 600;
 }
@@ -578,7 +927,7 @@ p {
 }
 
 .card-title:hover {
-    color: var(--accent);
+    color: var(--red-light);
 }
 
 .card-description {
@@ -641,7 +990,7 @@ p {
 
 /* ===== CTA SECTION ===== */
 .cta-section {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
     color: var(--white);
     text-align: center;
 }
@@ -857,8 +1206,8 @@ p {
 .form-input:focus,
 .form-textarea:focus {
     outline: none;
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(139, 95, 191, 0.1);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(27, 54, 93, 0.1);
 }
 
 .form-textarea {
@@ -1370,8 +1719,8 @@ p {
 /* ===== HIGH CONTRAST MODE ===== */
 @media (prefers-contrast: high) {
     :root {
-        --primary: #000000;
-        --secondary: #ffff00;
+        --primary: #1B365D;
+        --secondary: #C4384D;
         --white: #ffffff;
         --gray-900: #000000;
     }

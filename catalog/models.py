@@ -384,3 +384,63 @@ class ProductAdvantage(models.Model):
         return self.description_uk
 
 
+class ProductDocument(models.Model):
+    """QR документи продуктів"""
+    
+    DOCUMENT_TYPES = [
+        ('certificate', _('Сертифікат')),
+        ('datasheet', _('Технічний паспорт')),
+        ('manual', _('Інструкція')),
+        ('warranty', _('Гарантійний талон')),
+        ('drawing', _('Креслення')),
+    ]
+    
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, 
+                               verbose_name=_('Продукт'), related_name='documents')
+    
+    title_uk = models.CharField(_('Назва (УК)'), max_length=200)
+    title_ru = models.CharField(_('Назва (РУ)'), max_length=200)
+    title_en = models.CharField(_('Назва (EN)'), max_length=200)
+    
+    document_type = models.CharField(_('Тип документу'), max_length=20, 
+                                   choices=DOCUMENT_TYPES, default='certificate')
+    
+    file = models.FileField(_('Файл документу'), upload_to='products/documents/',
+                           help_text=_('PDF, DOC, або інші документи'))
+    
+    qr_code = models.ImageField(_('QR код'), upload_to='products/qr_codes/', 
+                               blank=True, null=True)
+    qr_uuid = models.UUIDField(_('UUID для QR'), blank=True, null=True, unique=True)
+    
+    access_count = models.PositiveIntegerField(_('Кількість переглядів'), default=0)
+    is_public = models.BooleanField(_('Публічний доступ'), default=True)
+    
+    order = models.PositiveIntegerField(_('Порядок'), default=0)
+    
+    created_at = models.DateTimeField(_('Створено'), auto_now_add=True)
+    updated_at = models.DateTimeField(_('Оновлено'), auto_now=True)
+    
+    class Meta:
+        verbose_name = _('Документ продукту')
+        verbose_name_plural = _('Документи продукту')
+        ordering = ['order', 'document_type']
+    
+    def __str__(self):
+        return f"{self.product.name_uk} - {self.get_title()}"
+    
+    def get_title(self):
+        """Отримати назву залежно від мови"""
+        from django.utils.translation import get_language
+        lang = get_language()
+        if lang == 'ru' and self.title_ru:
+            return self.title_ru
+        elif lang == 'en' and self.title_en:
+            return self.title_en
+        return self.title_uk
+    
+    def increment_access(self):
+        """Збільшити лічильник переглядів"""
+        self.access_count += 1
+        self.save(update_fields=['access_count'])
+
+

@@ -39,8 +39,11 @@
     <style>
         :root {
             --primary: #1B365D;
-            --secondary: #F4A32C;
-            --accent: #8B5FBF;
+            --secondary: #C4384D;
+            --accent: #0F2A44;
+            --red-light: #E85A4F;
+            --red-dark: #A02E37;
+            --blue-dark: #0A1F33;
             --white: #ffffff;
             --gray-100: #f3f4f6;
             --gray-900: #111827;
@@ -273,14 +276,36 @@
     <header class="header" role="banner">
         <div class="container">
             <div class="header-content">
-                <!-- Logo -->
-                <div class="logo">
+                <!-- Desktop Burger Button (only visible on desktop) -->
+                <button class="desktop-burger-btn" type="button" aria-expanded="false"
+                    aria-controls="animated-desktop-menu" aria-label="Відкрити меню">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+                <!-- Mobile Logo (visible only on mobile) -->
+                <div class="mobile-logo">
                     <a href="{% url 'pages:home' %}">
                         {{ site_settings.site_name|default:'ADIABATIC' }}
                     </a>
                 </div>
 
-                <!-- Desktop Navigation -->
+                <!-- Animated Desktop Menu Container -->
+                <div class="animated-desktop-menu" id="animated-desktop-menu">
+                    <nav role="navigation" aria-label="Анімоване меню">
+                        <ul class="animated-nav-list">
+                            <li><a href="{% url 'catalog:catalog_list' %}" class="animated-nav-link">Продукція</a></li>
+                            <li><a href="{% url 'pages:products' %}" class="animated-nav-link">Сфери застосування</a>
+                            </li>
+                            <li><a href="{% url 'pages:about' %}" class="animated-nav-link">Про компанію</a></li>
+                            <li><a href="{% url 'pages:partners' %}" class="animated-nav-link">Партнери</a></li>
+                            <li><a href="{% url 'pages:blog' %}" class="animated-nav-link">Корисна інформація</a></li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <!-- Desktop Navigation (fallback for smaller screens) -->
                 <nav class="nav" role="navigation" aria-label="Головне меню">
                     <ul class="nav-list">
                         <li><a href="{% url 'catalog:catalog_list' %}" class="nav-link">Продукція</a></li>
@@ -293,12 +318,19 @@
 
                 <!-- Header Actions -->
                 <div class="header-actions">
-                    <!-- Phone -->
+                    <!-- Phone (hidden on desktop, visible on mobile) -->
                     {% if site_settings.contact_phone %}
-                    <a href="tel:{{ site_settings.contact_phone }}" class="header-phone">
+                    <a href="tel:{{ site_settings.contact_phone }}" class="header-phone mobile-only">
                         {{ site_settings.contact_phone|default:"+380 44 123 45 67" }}
                     </a>
                     {% endif %}
+
+                    <!-- Logo (positioned on the right on desktop) -->
+                    <div class="logo">
+                        <a href="{% url 'pages:home' %}">
+                            {{ site_settings.site_name|default:'ADIABATIC' }}
+                        </a>
+                    </div>
 
                     <!-- Language Switcher -->
                     <div class="lang-switcher">
@@ -307,8 +339,8 @@
                         <a href="#" class="lang-link">EN</a>
                     </div>
 
-                    <!-- CTA Button -->
-                    <a href="{% url 'leads:submit' %}" class="header-cta">
+                    <!-- CTA Button (hidden on desktop, visible on mobile) -->
+                    <a href="{% url 'leads:submit' %}" class="header-cta mobile-only">
                         Зворотний дзвінок
                     </a>
                 </div>
@@ -455,6 +487,48 @@
         gtag('config', '{{ site_settings.google_analytics_id }}');
     </script>
     {% endif %}
+
+    <!-- Custom Analytics Events -->
+    <script>
+        // Використовуємо наявні CSS змінні для аналітики
+        document.addEventListener('DOMContentLoaded', function () {
+            // Відстежуємо кліки по кнопках
+            document.querySelectorAll('.btn').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'button_click', {
+                            'event_category': 'engagement',
+                            'event_label': this.textContent.trim()
+                        });
+                    }
+                });
+            });
+
+            // Відстежуємо відправку форм
+            document.querySelectorAll('form').forEach(form => {
+                form.addEventListener('submit', function () {
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'form_submit', {
+                            'event_category': 'engagement',
+                            'event_label': this.action || window.location.pathname
+                        });
+                    }
+                });
+            });
+
+            // Відстежуємо завантаження файлів
+            document.querySelectorAll('a[download]').forEach(link => {
+                link.addEventListener('click', function () {
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'file_download', {
+                            'event_category': 'engagement',
+                            'event_label': this.href
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

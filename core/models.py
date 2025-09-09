@@ -113,3 +113,66 @@ class MenuItem(models.Model):
         elif self.page:
             return self.page.get_absolute_url()
         return '#'
+
+
+class PaymentSettings(models.Model):
+    """Налаштування платіжної системи"""
+    
+    company_name = models.CharField(_('Назва компанії'), max_length=200)
+    description = models.TextField(_('Опис'), blank=True)
+    
+    # Monobank налаштування
+    monobank_token = models.CharField(_('Monobank Token'), max_length=200, blank=True)
+    monobank_webhook_url = models.URLField(_('Webhook URL'), blank=True)
+    
+    # Банківські реквізити
+    iban = models.CharField(_('IBAN'), max_length=29, blank=True)
+    recipient_name = models.CharField(_("Ім'я отримувача"), max_length=200, blank=True)
+    recipient_code = models.CharField(_('Код отримувача'), max_length=20, blank=True)
+    
+    is_active = models.BooleanField(_('Активні'), default=True)
+    
+    created_at = models.DateTimeField(_('Створено'), auto_now_add=True)
+    updated_at = models.DateTimeField(_('Оновлено'), auto_now=True)
+    
+    class Meta:
+        verbose_name = _('Налаштування платежів')
+        verbose_name_plural = _('Налаштування платежів')
+    
+    def __str__(self):
+        return f"Платежі - {self.company_name}"
+
+
+class AnalyticsEvent(models.Model):
+    """Кастомні події аналітики"""
+    
+    EVENT_TYPES = [
+        ('page_view', _('Перегляд сторінки')),
+        ('form_submit', _('Відправка форми')),
+        ('download', _('Завантаження')),
+        ('contact', _('Контакт')),
+        ('product_view', _('Перегляд продукту')),
+    ]
+    
+    event_type = models.CharField(_('Тип події'), max_length=20, choices=EVENT_TYPES)
+    event_name = models.CharField(_('Назва події'), max_length=100)
+    page_url = models.URLField(_('URL сторінки'), max_length=500)
+    user_agent = models.TextField(_('User Agent'), blank=True)
+    ip_address = models.GenericIPAddressField(_('IP адреса'), blank=True, null=True)
+    
+    # Додаткові дані (JSON)
+    extra_data = models.JSONField(_('Додаткові дані'), default=dict, blank=True)
+    
+    created_at = models.DateTimeField(_('Створено'), auto_now_add=True)
+    
+    class Meta:
+        verbose_name = _('Подія аналітики')
+        verbose_name_plural = _('Події аналітики')
+        ordering = ['-created_at']
+        indexes = [
+            models.Index(fields=['event_type']),
+            models.Index(fields=['created_at']),
+        ]
+    
+    def __str__(self):
+        return f"{self.get_event_type_display()}: {self.event_name}"

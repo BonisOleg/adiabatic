@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand
 from django.utils.translation import gettext as _
 from core.models import SiteSettings, Language, Menu, MenuItem
 from pages.models import Page, Hero, Partner
+# Продукти створюються окремою командою setup_products
 
 
 class Command(BaseCommand):
@@ -30,6 +31,9 @@ class Command(BaseCommand):
         
         self.stdout.write(
             self.style.SUCCESS('Базові дані успішно створено!')
+        )
+        self.stdout.write(
+            self.style.WARNING('Для створення продуктів запустіть: python manage.py setup_products')
         )
 
     def create_languages(self):

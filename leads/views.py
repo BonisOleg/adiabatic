@@ -108,8 +108,8 @@ def submit_lead(request):
                 user='System'
             )
             
-            # TODO: Відправляємо нотифікації (буде реалізовано пізніше)
-            # send_lead_notifications.delay(lead.id)
+            # Відправляємо нотифікації
+            send_all_notifications(lead)
             
             logger.info(f'Нова заявка створена: {lead.uuid} - {lead.email}')
             
@@ -288,3 +288,198 @@ def thank_you_detail(request, lead_uuid):
         'lead': lead,
     }
     return render(request, 'leads/thank_you_detail.html', context)
+
+
+# Додано інтеграції (використовуючи наявні імпорти та стиль коду)
+def send_telegram_notification(lead):
+    """Відправка нотифікації в Telegram"""
+    try:
+        from .models import NotificationSettings
+        import requests
+        
+        settings_obj = NotificationSettings.get_settings()
+        
+        if not settings_obj.telegram_enabled or not settings_obj.telegram_bot_token:
+            return False
+        
+        message = f"""
+🔔 *Нова заявка на сайті!*
+
+👤 *Клієнт:* {lead.name}
+📧 *Email:* {lead.email}
+📱 *Телефон:* {lead.phone}
+
+💼 *Компанія:* {lead.company or 'Не вказано'}
+🎯 *Тип запиту:* {lead.get_inquiry_type_display()}
+
+📝 *Повідомлення:*
+{lead.message}
+
+🌐 *Мова:* {lead.language}
+📍 *IP:* {lead.ip_address}
+🔗 *Джерело:* {lead.source.name if lead.source else 'Невідоме'}
+
+⏰ *Час:* {lead.created_at.strftime('%d.%m.%Y %H:%M')}
+        """
+        
+        url = f"https://api.telegram.org/bot{settings_obj.telegram_bot_token}/sendMessage"
+        payload = {
+            'chat_id': settings_obj.telegram_chat_id,
+            'text': message,
+            'parse_mode': 'Markdown'
+        }
+        
+        response = requests.post(url, json=payload, timeout=10)
+        
+        if response.status_code == 200:
+            # Створюємо активність
+            LeadActivity.objects.create(
+                lead=lead,
+                activity_type='telegram_sent',
+                description='Нотифікацію відправлено в Telegram',
+                user='System'
+            )
+            logger.info(f'Telegram нотифікація відправлена для заявки {lead.uuid}')
+            return True
+        else:
+            logger.error(f'Помилка Telegram API: {response.text}')
+            return False
+            
+    except Exception as e:
+        logger.error(f'Помилка відправки Telegram: {str(e)}')
+        return False
+
+
+def send_viber_notification(lead):
+    """Відправка нотифікації в Viber"""
+    try:
+        from .models import NotificationSettings
+        import requests
+        
+        settings_obj = NotificationSettings.get_settings()
+        
+        if not settings_obj.viber_enabled or not settings_obj.viber_bot_token:
+            return False
+        
+        message = f"""
+🔔 Нова заявка на сайті!
+
+👤 Клієнт: {lead.name}
+📧 Email: {lead.email}
+📱 Телефон: {lead.phone}
+
+💼 Компанія: {lead.company or 'Не вказано'}
+🎯 Тип запиту: {lead.get_inquiry_type_display()}
+
+📝 Повідомлення:
+{lead.message}
+
+🌐 Мова: {lead.language}
+📍 IP: {lead.ip_address}
+🔗 Джерело: {lead.source.name if lead.source else 'Невідоме'}
+
+⏰ Час: {lead.created_at.strftime('%d.%m.%Y %H:%M')}
+        """
+        
+        url = f"https://chatapi.viber.com/pa/send_message"
+        headers = {
+            'X-Viber-Auth-Token': settings_obj.viber_bot_token
+        }
+        payload = {
+            'receiver': settings_obj.viber_admin_id,
+            'type': 'text',
+            'text': message
+        }
+        
+        response = requests.post(url, headers=headers, json=payload, timeout=10)
+        
+        if response.status_code == 200:
+            # Створюємо активність
+            LeadActivity.objects.create(
+                lead=lead,
+                activity_type='viber_sent',
+                description='Нотифікацію відправлено в Viber',
+                user='System'
+            )
+            logger.info(f'Viber нотифікація відправлена для заявки {lead.uuid}')
+            return True
+        else:
+            logger.error(f'Помилка Viber API: {response.text}')
+            return False
+            
+    except Exception as e:
+        logger.error(f'Помилка відправки Viber: {str(e)}')
+        return False
+
+
+def send_email_notification(lead):
+    """Відправка email нотифікації"""
+    try:
+        from django.core.mail import send_mail
+        from .models import NotificationSettings
+        
+        settings_obj = NotificationSettings.get_settings()
+        
+        if not settings_obj.email_enabled:
+            return False
+        
+        subject = settings_obj.email_subject_template.format(name=lead.name)
+        
+        message = f"""
+Нова заявка на сайті Adiabatic
+
+Клієнт: {lead.name}
+Email: {lead.email}
+Телефон: {lead.phone}
+Компанія: {lead.company or 'Не вказано'}
+
+Тип запиту: {lead.get_inquiry_type_display()}
+
+Повідомлення:
+{lead.message}
+
+Додаткова інформація:
+- Мова: {lead.language}
+- IP адреса: {lead.ip_address}
+- Джерело: {lead.source.name if lead.source else 'Невідоме'}
+- Дата створення: {lead.created_at.strftime('%d.%m.%Y %H:%M')}
+
+Переглянути в адмінці: {settings.SITE_URL}/admin/leads/lead/{lead.id}/
+        """
+        
+        recipients = [email.strip() for email in settings_obj.email_recipients.split(',')]
+        
+        send_mail(
+            subject=subject,
+            message=message,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=recipients,
+            fail_silently=False
+        )
+        
+        # Створюємо активність
+        LeadActivity.objects.create(
+            lead=lead,
+            activity_type='email_sent',
+            description=f'Email відправлено на {", ".join(recipients)}',
+            user='System'
+        )
+        
+        logger.info(f'Email нотифікацію відправлено для заявки {lead.uuid}')
+        return True
+        
+    except Exception as e:
+        logger.error(f'Помилка відправки email: {str(e)}')
+        return False
+
+
+def send_all_notifications(lead):
+    """Відправка всіх налаштованих нотифікацій"""
+    results = {
+        'email': send_email_notification(lead),
+        'telegram': send_telegram_notification(lead),
+        'viber': send_viber_notification(lead)
+    }
+    
+    logger.info(f'Нотифікації для заявки {lead.uuid}: {results}')
+    return results

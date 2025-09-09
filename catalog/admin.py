@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
-from .models import Category, Product, ProductSpec, ProductGallery, ProductAdvantage
+from .models import Category, Product, ProductSpec, ProductGallery, ProductAdvantage, ProductDocument
 
 
 class ProductSpecInline(admin.TabularInline):
@@ -23,6 +23,14 @@ class ProductAdvantageInline(admin.TabularInline):
     model = ProductAdvantage
     extra = 2
     fields = ['title_uk', 'title_ru', 'title_en', 'description_uk', 'icon', 'order']
+
+
+class ProductDocumentInline(admin.TabularInline):
+    """Inline для документів продукту"""
+    model = ProductDocument
+    extra = 1
+    fields = ['document_type', 'title_uk', 'file', 'qr_code', 'is_public', 'order']
+    readonly_fields = ['access_count', 'qr_uuid']
 
 
 
@@ -63,7 +71,7 @@ class ProductAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name_en',)}
     readonly_fields = ['created_at', 'updated_at']
     
-    inlines = [ProductSpecInline, ProductGalleryInline, ProductAdvantageInline]
+    inlines = [ProductSpecInline, ProductGalleryInline, ProductAdvantageInline, ProductDocumentInline]
     
     fieldsets = (
         (_('Основна інформація'), {
@@ -172,5 +180,36 @@ class ProductAdvantageAdmin(admin.ModelAdmin):
         }),
     )
 
+
+@admin.register(ProductDocument)
+class ProductDocumentAdmin(admin.ModelAdmin):
+    """Адмінка для документів продукту"""
+    list_display = ['product', 'get_title', 'document_type', 'is_public', 'access_count', 'order']
+    list_filter = ['document_type', 'is_public', 'product__category', 'created_at']
+    search_fields = ['product__name_uk', 'title_uk', 'title_ru', 'title_en']
+    list_editable = ['is_public', 'order']
+    readonly_fields = ['qr_uuid', 'access_count', 'created_at', 'updated_at']
+    
+    fieldsets = (
+        (_('Основна інформація'), {
+            'fields': ('product', 'document_type', 'file', 'order', 'is_public')
+        }),
+        (_('QR код'), {
+            'fields': ('qr_code', 'qr_uuid'),
+            'classes': ('collapse',)
+        }),
+        (_('Мультимовні назви'), {
+            'fields': ('title_uk', 'title_ru', 'title_en')
+        }),
+        (_('Статистика'), {
+            'fields': ('access_count', 'created_at', 'updated_at'),
+            'classes': ('collapse',)
+        }),
+    )
+    
+    def get_title(self, obj):
+        """Отримати назву документу"""
+        return obj.get_title()
+    get_title.short_description = _('Назва')
 
 
