@@ -837,3 +837,49 @@ function initDesktopAnimatedMenu() {
 document.addEventListener('DOMContentLoaded', () => {
     window.gallery3D = new Gallery3D();
 });
+
+/* ===== FIXED VIDEO BACKGROUND EFFECT ===== */
+document.addEventListener('DOMContentLoaded', function () {
+    console.log('🎯 Initializing fixed video background...');
+
+    // Ensure sections stack properly over video
+    const sections = document.querySelectorAll('.section:not(.hero)');
+    sections.forEach((section, index) => {
+        section.style.position = 'relative';
+        section.style.zIndex = 10 + index;
+        section.style.background = section.style.background || 'var(--white)';
+    });
+
+    // Header transparency effect on scroll
+    const header = document.querySelector('.header');
+    if (header) {
+        window.addEventListener('scroll', function () {
+            const scrolled = window.pageYOffset;
+            if (scrolled > 100) {
+                header.style.background = 'rgba(27, 54, 93, 0.95)';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.background = 'var(--primary)';
+                header.style.backdropFilter = 'none';
+            }
+        }, { passive: true });
+    }
+
+    // Video optimization for mobile
+    const heroVideo = document.querySelector('.hero-video');
+    const isTouch = 'ontouchstart' in window;
+    const isMobile = window.innerWidth <= 768;
+
+    if (heroVideo) {
+        if (isTouch || isMobile) {
+            // Pause video on mobile to save battery
+            heroVideo.pause();
+            heroVideo.style.opacity = '0.8';
+            console.log('📱 Video paused on mobile device');
+        } else {
+            console.log('🎬 Video playing on desktop');
+        }
+    }
+
+    console.log('✅ Fixed video background initialized');
+});

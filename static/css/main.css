@@ -83,6 +83,21 @@ body {
 
 .section {
     padding: var(--space-16) 0;
+    position: relative;
+    background: var(--white);
+    z-index: 10;
+}
+
+/* Sections after hero overlay the fixed background */
+.hero+.section,
+.section:not(.hero) {
+    box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* First section after hero gets special styling */
+.hero+.section {
+    border-radius: 20px 20px 0 0;
+    margin-top: -20px;
 }
 
 /* ===== TYPOGRAPHY ===== */
@@ -171,8 +186,10 @@ p {
 .header {
     background: var(--primary);
     color: var(--white);
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
     z-index: 1000;
     box-shadow: var(--shadow);
     padding-top: env(safe-area-inset-top);
@@ -744,17 +761,53 @@ p {
 
 /* ===== HERO SECTION ===== */
 .hero {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    position: relative;
     color: var(--white);
     padding: var(--space-16) 0;
-    height: 100vh;
+    min-height: 100vh;
     height: 100dvh;
     /* Dynamic viewport height for modern browsers */
     display: flex;
     align-items: center;
-    position: relative;
     overflow: hidden;
     box-sizing: border-box;
+}
+
+/* Fixed video background for hero */
+.hero::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    z-index: -1;
+    will-change: transform;
+}
+
+/* Hero video container - fixed positioned */
+.hero-video-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+/* Video overlay for better text readability */
+.hero-video-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(27, 54, 93, 0.4);
+    /* Dark overlay with primary color */
+    z-index: 1;
 }
 
 /* Hero with video background */
@@ -763,13 +816,14 @@ p {
 }
 
 .hero-video {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    z-index: 1;
+    z-index: -1;
+    will-change: transform;
 }
 
 
@@ -791,10 +845,26 @@ p {
     }
 
     .hero {
-        /* Ensure exact height on mobile devices */
+        /* Mobile optimizations */
         height: 100vh;
         height: -webkit-fill-available;
         box-sizing: border-box;
+    }
+
+    .hero-video-container,
+    .hero-video {
+        /* Use absolute positioning on mobile for better performance */
+        position: absolute;
+    }
+
+    .hero-video-container::after {
+        /* Stronger overlay on mobile for better readability */
+        background: rgba(27, 54, 93, 0.6);
+    }
+
+    .section:not(.hero) {
+        /* Reduce shadow on mobile for performance */
+        box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.05);
     }
 }
 
@@ -1310,6 +1380,12 @@ p {
 @supports (-webkit-touch-callout: none) {
     .hero {
         min-height: -webkit-fill-available;
+    }
+
+    .hero-video-container,
+    .hero-video {
+        /* Use absolute positioning for iOS Safari compatibility */
+        position: absolute;
     }
 
     .btn,
