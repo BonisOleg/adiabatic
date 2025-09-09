@@ -359,13 +359,15 @@
         </div>
     </header>
 
-    <!-- Fixed Background Video -->
+    <!-- Fixed Background Video (not for home page) -->
+    {% if request.resolver_match.url_name != 'home' %}
     <div class="hero-video-container">
         <video class="hero-video" autoplay muted loop playsinline>
             <source src="/static/video/equipment.mp4" type="video/mp4">
             <!-- Fallback background for browsers that don't support video -->
         </video>
     </div>
+    {% endif %}
 
     <!-- Main Content -->
     <main id="main" role="main">

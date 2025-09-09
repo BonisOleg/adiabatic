@@ -8,7 +8,22 @@
 
 {% block content %}
 <!-- Hero Section -->
-<section class="hero">
+<section class="hero hero--with-video">
+    <!-- Rotating Video Background -->
+    <div class="hero-video-container">
+        <video class="hero-video hero-video--rotating" autoplay muted loop playsinline data-video-index="0">
+            <source src="/static/video/main1.mp4" type="video/mp4">
+            <source src="/static/video/main2.mp4" type="video/mp4">
+            Ваш браузер не підтримує відео.
+        </video>
+        <video class="hero-video hero-video--rotating hero-video--hidden" autoplay muted loop playsinline
+            data-video-index="1">
+            <source src="/static/video/main2.mp4" type="video/mp4">
+            <source src="/static/video/main1.mp4" type="video/mp4">
+            Ваш браузер не підтримує відео.
+        </video>
+    </div>
+
     <div class="container">
         <div class="hero-content">
             <p class="hero-subtitle">

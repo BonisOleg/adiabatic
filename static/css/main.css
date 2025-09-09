@@ -797,18 +797,6 @@ p {
     overflow: hidden;
 }
 
-/* Video overlay for better text readability */
-.hero-video-container::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(27, 54, 93, 0.4);
-    /* Dark overlay with primary color */
-    z-index: 1;
-}
 
 /* Hero with video background */
 .hero--with-video {
@@ -824,6 +812,46 @@ p {
     object-fit: cover;
     z-index: -1;
     will-change: transform;
+}
+
+/* Hero video rotation for home page */
+.hero--with-video .hero-video-container {
+    position: absolute;
+    z-index: 0;
+}
+
+.hero-video--rotating {
+    transition: opacity 1s ease-in-out;
+    opacity: 1;
+}
+
+.hero-video--hidden {
+    opacity: 0;
+}
+
+.hero--with-video .hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+/* Enhanced glass effect for video backgrounds */
+.hero--with-video .hero-content::before {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+/* Text readability without overlay */
+.hero--with-video .hero-title,
+.hero--with-video .hero-subtitle,
+.hero--with-video .hero-description {
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7), 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.hero--with-video .btn {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 
@@ -857,14 +885,43 @@ p {
         position: absolute;
     }
 
-    .hero-video-container::after {
-        /* Stronger overlay on mobile for better readability */
-        background: rgba(27, 54, 93, 0.6);
-    }
 
     .section:not(.hero) {
         /* Reduce shadow on mobile for performance */
         box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Rotating video mobile optimizations */
+    .hero-video--rotating {
+        opacity: 0.7 !important;
+        will-change: auto;
+    }
+
+    .hero--with-video .hero-video-container {
+        /* Disable video rotation animations on mobile */
+        transition: none;
+    }
+
+    /* Mobile glass block adjustments */
+    .hero-content::before {
+        width: 85%;
+        height: 90%;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+    }
+}
+
+/* Tablet glass block adjustments */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .hero-content::before {
+        width: 60%;
+        height: 85%;
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(9px);
+        -webkit-backdrop-filter: blur(9px);
     }
 }
 
@@ -884,6 +941,36 @@ p {
     text-align: center;
     max-width: 800px;
     margin: 0 auto;
+    position: relative;
+}
+
+/* Glass block container for hero content */
+.hero-content::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120%;
+    height: 120%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    z-index: -1;
+    pointer-events: none;
+    /* Smooth transitions */
+    transition: all 0.3s ease;
+}
+
+/* Fallback for browsers without backdrop-filter support */
+@supports not (backdrop-filter: blur(10px)) {
+    .hero-content::before {
+        background: rgba(255, 255, 255, 0.25);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    }
 }
 
 .hero-subtitle {
@@ -1388,10 +1475,33 @@ p {
         position: absolute;
     }
 
+    /* iOS Safari rotating video optimizations */
+    .hero-video--rotating {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-perspective: 1000;
+        perspective: 1000;
+    }
+
+    .hero--with-video .hero-video-container {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+
+    /* iOS Safari glass optimizations */
+    .hero-content::before {
+        -webkit-transform: translate3d(-50%, -50%, 0);
+        transform: translate3d(-50%, -50%, 0);
+        will-change: transform;
+    }
+
     .btn,
     .mobile-toggle {
         -webkit-touch-callout: none;
         -webkit-user-select: none;
+        user-select: none;
     }
 
     .form-input,
