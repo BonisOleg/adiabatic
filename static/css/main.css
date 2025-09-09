@@ -76,7 +76,7 @@ body {
 
 /* ===== LAYOUT ===== */
 .container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0 var(--space-4);
 }
@@ -594,7 +594,7 @@ p {
     color: var(--white);
     text-decoration: none;
     font-weight: 500;
-    padding: var(--space-2) var(--space-3);
+    padding: var(--space-2) var(--space-1);
     border-radius: var(--radius);
     transition: all 0.3s ease;
     opacity: 0;
@@ -636,15 +636,15 @@ p {
     }
 
     to {
-        /* Stop just right of the cross button - precise positioning */
-        transform: translateX(-500px);
+        /* Stop just right of the cross button - 500px more to the left */
+        transform: translateX(-750px);
     }
 }
 
 /* Logo moves from LEFT to RIGHT when closing menu */
 @keyframes logoSlideRight {
     from {
-        transform: translateX(-500px);
+        transform: translateX(-750px);
     }
 
     to {
@@ -689,13 +689,13 @@ p {
         }
 
         to {
-            transform: translateX(-600px);
+            transform: translateX(-1000px);
         }
     }
 
     @keyframes logoSlideRight {
         from {
-            transform: translateX(-600px);
+            transform: translateX(-1000px);
         }
 
         to {
