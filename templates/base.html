@@ -261,8 +261,9 @@
 
                 <!-- Mobile Logo (visible only on mobile) -->
                 <div class="mobile-logo">
-                    <a href="{% url 'pages:home' %}">
-                        {{ site_settings.site_name|default:'ADIABATIC' }}
+                    <a href="{% url 'pages:home' %}" class="logo-link">
+                        <img src="/static/images/logo.png" alt="ADIABATIC Logo" class="logo-image">
+                        <span class="logo-text">{{ site_settings.site_name|default:'ADIABATIC' }}</span>
                     </a>
                 </div>
 
@@ -302,8 +303,9 @@
 
                     <!-- Logo (positioned on the right on desktop) -->
                     <div class="logo">
-                        <a href="{% url 'pages:home' %}">
-                            {{ site_settings.site_name|default:'ADIABATIC' }}
+                        <a href="{% url 'pages:home' %}" class="logo-link">
+                            <img src="/static/images/logo.png" alt="ADIABATIC Logo" class="logo-image">
+                            <span class="logo-text">{{ site_settings.site_name|default:'ADIABATIC' }}</span>
                         </a>
                     </div>
 

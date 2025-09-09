@@ -214,6 +214,38 @@ p {
     letter-spacing: 1px;
 }
 
+/* Logo Link Container */
+.logo-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.logo-link:hover {
+    transform: scale(1.05);
+}
+
+/* Logo Image */
+.logo-image {
+    height: 32px;
+    width: auto;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+/* Logo Text */
+.logo-text {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    white-space: nowrap;
+}
+
 /* Desktop Navigation */
 .nav {
     display: none;
@@ -485,12 +517,33 @@ p {
         text-transform: uppercase;
         letter-spacing: 1px;
     }
+
+    /* Mobile Logo Image - smaller on mobile */
+    .mobile-logo .logo-image {
+        height: 28px;
+    }
+
+    /* Mobile Logo Text - smaller on mobile */
+    .mobile-logo .logo-text {
+        font-size: 1.25rem;
+    }
 }
 
 /* Desktop styles for mobile logo */
 @media (min-width: 768px) {
     .mobile-logo {
         display: none;
+    }
+}
+
+/* Tablet Logo Adjustments */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .logo-image {
+        height: 30px;
+    }
+
+    .logo-text {
+        font-size: 1.4rem;
     }
 }
 
@@ -872,6 +925,11 @@ p {
         pointer-events: none;
     }
 
+    /* Mobile hero logo */
+    .hero-logo {
+        height: 40px;
+    }
+
     .hero {
         /* Mobile optimizations */
         height: 100vh;
@@ -922,6 +980,11 @@ p {
         background: rgba(255, 255, 255, 0.12);
         backdrop-filter: blur(9px);
         -webkit-backdrop-filter: blur(9px);
+    }
+
+    /* Tablet hero logo */
+    .hero-logo {
+        height: 50px;
     }
 }
 
@@ -980,6 +1043,22 @@ p {
     color: var(--secondary);
     margin-bottom: var(--space-4);
     font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Hero Logo */
+.hero-logo {
+    height: 120px;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.7));
+    transition: var(--transition);
+}
+
+.hero-logo:hover {
+    transform: scale(1.05);
 }
 
 .hero-title {
