@@ -92,6 +92,8 @@ body {
 .hero+.section,
 .section:not(.hero) {
     box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 5;
 }
 
 /* First section after hero gets special styling */
@@ -1205,6 +1207,8 @@ p {
     background: var(--gray-50);
     padding: var(--space-8) 0;
     text-align: center;
+    position: relative;
+    z-index: 10;
 }
 
 .downloads-grid {
@@ -1253,6 +1257,8 @@ p {
     color: var(--white);
     padding: var(--space-16) 0 var(--space-8) 0;
     padding-bottom: calc(var(--space-8) + env(safe-area-inset-bottom));
+    position: relative;
+    z-index: 10;
 }
 
 .footer-content {
