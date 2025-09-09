@@ -166,40 +166,6 @@ p {
     min-height: 40px;
 }
 
-/* ===== CONSULTATION BANNER ===== */
-.consultation-banner {
-    background: var(--blue-dark);
-    color: var(--white);
-    padding: var(--space-3) 0;
-    text-align: center;
-}
-
-.consultation-banner .container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-4);
-    flex-wrap: wrap;
-}
-
-.banner-text {
-    font-weight: 600;
-}
-
-.banner-btn {
-    background: var(--white);
-    color: var(--blue-dark);
-    padding: var(--space-2) var(--space-4);
-    border-radius: var(--radius-full);
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.9rem;
-    transition: var(--transition);
-}
-
-.banner-btn:hover {
-    transform: scale(1.05);
-}
 
 /* ===== HEADER ===== */
 .header {
@@ -781,11 +747,67 @@ p {
     background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
     color: var(--white);
     padding: var(--space-16) 0;
-    min-height: 80vh;
+    height: 100vh;
+    height: 100dvh;
+    /* Dynamic viewport height for modern browsers */
     display: flex;
     align-items: center;
     position: relative;
     overflow: hidden;
+    box-sizing: border-box;
+}
+
+/* Hero with video background */
+.hero--with-video {
+    background: none;
+}
+
+.hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+
+.hero--with-video .container {
+    position: relative;
+    z-index: 2;
+}
+
+.hero--with-video .hero-content {
+    position: relative;
+    z-index: 3;
+}
+
+/* Mobile video optimizations */
+@media (max-width: 768px) {
+    .hero-video {
+        /* На мобільних можемо показати перший кадр відео як зображення */
+        pointer-events: none;
+    }
+
+    .hero {
+        /* Ensure exact height on mobile devices */
+        height: 100vh;
+        height: -webkit-fill-available;
+        box-sizing: border-box;
+    }
+}
+
+/* Fallback for browsers that don't support video autoplay */
+@media (prefers-reduced-motion: reduce) {
+    .hero-video {
+        display: none;
+    }
+
+    .hero--with-video {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    }
+
 }
 
 .hero-content {

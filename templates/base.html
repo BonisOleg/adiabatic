@@ -204,24 +204,6 @@
             gap: 1rem;
         }
 
-        /* Banner critical styles */
-        .consultation-banner {
-            background: var(--secondary);
-            color: var(--primary);
-            padding: 0.5rem 0;
-            text-align: center;
-            font-weight: 600;
-        }
-
-        .banner-btn {
-            background: var(--primary);
-            color: var(--white);
-            padding: 0.25rem 1rem;
-            border-radius: var(--radius);
-            text-decoration: none;
-            margin-left: 1rem;
-            font-size: 0.875rem;
-        }
 
         /* Mobile navigation list */
         .mobile-nav-list {
@@ -264,13 +246,6 @@
     <!-- Skip to main content for accessibility -->
     <a href="#main" class="sr-only btn">Перейти до основного контенту</a>
 
-    <!-- Banner: Безкоштовна консультація -->
-    <div class="consultation-banner">
-        <div class="container">
-            <span class="banner-text">🎯 Перша технічна консультація безкоштовна</span>
-            <a href="{% url 'leads:submit' %}" class="banner-btn">Отримати консультацію</a>
-        </div>
-    </div>
 
     <!-- Header -->
     <header class="header" role="banner">
