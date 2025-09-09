@@ -1,0 +1,112 @@
+/* ===== ADIABATIC CONTACTS PAGE STYLES ===== */
+
+/* Contact Form */
+.contact-form-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: var(--space-8);
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+}
+
+.contact-form .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+}
+
+.contact-form .form-group {
+    margin-bottom: 0;
+}
+
+.contact-form button[type="submit"] {
+    margin-top: var(--space-4);
+    align-self: flex-start;
+}
+
+/* Contact Info */
+.contact-info {
+    background: var(--gray-50);
+    border-radius: var(--radius);
+    padding: var(--space-8);
+    margin-bottom: var(--space-12);
+}
+
+.contact-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-6);
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    color: var(--gray-700);
+}
+
+.contact-item__icon {
+    font-size: 1.5rem;
+    color: var(--secondary);
+    width: 40px;
+    text-align: center;
+}
+
+.contact-item__content h4 {
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: var(--space-1);
+}
+
+.contact-item__content p {
+    margin: 0;
+    color: var(--gray-600);
+}
+
+/* Map Container */
+.map-container {
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    height: 400px;
+    background: var(--gray-100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: var(--space-12);
+}
+
+.map-placeholder {
+    text-align: center;
+    color: var(--gray-600);
+}
+
+/* Mobile Optimization */
+@media (max-width: 768px) {
+    .contact-form .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-form-container {
+        padding: var(--space-6);
+    }
+
+    .contact-info {
+        padding: var(--space-6);
+    }
+
+    .contact-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .map-container {
+        height: 300px;
+    }
+}

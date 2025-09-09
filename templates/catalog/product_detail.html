@@ -7,6 +7,15 @@
 {% block og_description %}{{ product.get_short_description|default:"Детальна інформація про продукт"|truncatewords:20
 }}{% endblock %}
 
+{% block page_css %}
+<link rel="stylesheet" href="/static/css/catalog/product_detail.css">
+<link rel="stylesheet" href="/static/css/catalog/modal-3d.css">
+{% endblock %}
+
+{% block page_js %}
+<script src="/static/js/catalog/gallery-3d.js" defer></script>
+{% endblock %}
+
 {% block content %}
 <!-- Hero Section (ADIABATIC Style) -->
 <section class="hero">

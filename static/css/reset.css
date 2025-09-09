@@ -1,0 +1,57 @@
+/* ===== ADIABATIC RESET ===== */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    height: 100%;
+    height: -webkit-fill-available;
+}
+
+body {
+    font-family: var(--font-base);
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--gray-900);
+    background: var(--white);
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* ===== UTILITIES ===== */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.hidden-mobile {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .hidden-mobile {
+        display: block;
+    }
+
+    .hidden-desktop {
+        display: none;
+    }
+}

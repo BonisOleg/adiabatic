@@ -1,0 +1,62 @@
+/* ===== ADIABATIC LAYOUT ===== */
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--space-4);
+}
+
+.section {
+    padding: var(--space-16) 0;
+    position: relative;
+    background: var(--white);
+    z-index: 10;
+}
+
+/* Sections after hero overlay the fixed background */
+.hero+.section,
+.section:not(.hero) {
+    box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 5;
+}
+
+/* First section after hero gets special styling */
+.hero+.section {
+    border-radius: 20px 20px 0 0;
+    margin-top: -20px;
+}
+
+/* ===== SECTION HEADERS ===== */
+.section-header {
+    text-align: center;
+    margin-bottom: var(--space-12);
+}
+
+.section-subtitle {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--red-light);
+    margin-bottom: var(--space-3);
+    font-weight: 600;
+}
+
+.section-title {
+    font-size: clamp(2rem, 4vw, 2.5rem);
+    color: var(--primary);
+    margin-bottom: var(--space-4);
+    text-transform: uppercase;
+}
+
+.section-accent {
+    color: var(--secondary);
+}
+
+.section-underline {
+    width: 80px;
+    height: 4px;
+    background: var(--secondary);
+    margin: 0 auto;
+    border-radius: 2px;
+}

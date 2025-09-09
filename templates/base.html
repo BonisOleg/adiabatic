@@ -35,25 +35,10 @@
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico">
 
-    <!-- Critical CSS (inline) -->
+    <!-- Critical CSS (inline) - Only essential styles -->
     <style>
-        :root {
-            --primary: #1B365D;
-            --secondary: #C4384D;
-            --accent: #0F2A44;
-            --red-light: #E85A4F;
-            --red-dark: #A02E37;
-            --blue-dark: #0A1F33;
-            --white: #ffffff;
-            --gray-100: #f3f4f6;
-            --gray-900: #111827;
-            --font-base: 'Inter', system-ui, sans-serif;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        *,
-        *::before,
-        *::after {
+        /* Critical path CSS - only load blocking styles */
+        * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
@@ -66,50 +51,13 @@
         }
 
         body {
-            font-family: var(--font-base);
+            font-family: 'Inter', system-ui, sans-serif;
             line-height: 1.6;
-            color: var(--gray-900);
-            background: var(--white);
+            color: #111827;
+            background: #ffffff;
             min-height: 100vh;
             min-height: -webkit-fill-available;
             overflow-x: hidden;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-
-        .header {
-            background: var(--primary);
-            color: var(--white);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: var(--shadow);
-            padding-top: env(safe-area-inset-top);
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.75rem 1.5rem;
-            background: var(--secondary);
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            min-height: 48px;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow);
         }
 
         .sr-only {
@@ -122,122 +70,34 @@
             clip: rect(0, 0, 0, 0);
             border: 0;
         }
-
-        /* Critical navigation styles */
-        .nav-list {
-            list-style: none;
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-link {
-            color: var(--white);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-link:hover {
-            color: var(--secondary);
-        }
-
-        /* Mobile menu critical styles */
-        .mobile-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 0.25rem;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0.5rem;
-        }
-
-        .mobile-toggle span {
-            width: 24px;
-            height: 2px;
-            background: var(--white);
-            transition: all 0.3s ease;
-        }
-
-        .mobile-menu {
-            display: none;
-            position: fixed;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            background: var(--primary);
-            z-index: 999;
-            transform: translateY(-100%);
-            transition: transform 0.3s ease;
-        }
-
-        .mobile-menu.open {
-            display: block;
-            transform: translateY(0);
-        }
-
-        /* Footer critical styles */
-        .footer {
-            background: var(--primary);
-            color: var(--white);
-            padding: var(--space-16) 0 var(--space-8);
-        }
-
-        /* Header layout */
-        .header-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 1rem 0;
-        }
-
-        .logo a {
-            color: var(--white);
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1.5rem;
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-
-        /* Mobile navigation list */
-        .mobile-nav-list {
-            list-style: none;
-            padding: 2rem;
-        }
-
-        .mobile-nav-link {
-            color: var(--white);
-            text-decoration: none;
-            display: block;
-            padding: 1rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        /* Responsive visibility */
-        @media (max-width: 768px) {
-            .nav {
-                display: none;
-            }
-
-            .mobile-toggle {
-                display: flex;
-            }
-
-            .header-phone,
-            .lang-switcher {
-                display: none;
-            }
-        }
     </style>
 
-    <!-- Main CSS (synchronous for preventing FOUC) -->
-    <link rel="stylesheet" href="/static/css/main.css">
+    <!-- CSS Files (async loading) -->
+    <link rel="preload" href="/static/css/variables.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/static/css/reset.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/static/css/layout.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/static/css/typography.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/static/css/components.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/static/css/navigation.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/static/css/desktop-menu.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/static/css/hero.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/static/css/footer.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/static/css/gallery-3d.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/static/css/variables.css">
+        <link rel="stylesheet" href="/static/css/reset.css">
+        <link rel="stylesheet" href="/static/css/layout.css">
+        <link rel="stylesheet" href="/static/css/typography.css">
+        <link rel="stylesheet" href="/static/css/components.css">
+        <link rel="stylesheet" href="/static/css/navigation.css">
+        <link rel="stylesheet" href="/static/css/desktop-menu.css">
+        <link rel="stylesheet" href="/static/css/hero.css">
+        <link rel="stylesheet" href="/static/css/footer.css">
+        <link rel="stylesheet" href="/static/css/gallery-3d.css">
+    </noscript>
+
+    <!-- Page specific CSS -->
+    {% block page_css %}{% endblock %}
 
     {% block extra_css %}{% endblock %}
 </head>
@@ -444,8 +304,15 @@
         ↑
     </button>
 
-    <!-- JavaScript -->
-    <script src="/static/js/main.js" defer></script>
+    <!-- Base JavaScript -->
+    <script src="/static/js/base.js" defer></script>
+    <script src="/static/js/desktop-menu.js" defer></script>
+    <script src="/static/js/form-validation.js" defer></script>
+    <script src="/static/js/video.js" defer></script>
+    <script src="/static/js/gallery-3d.js" defer></script>
+
+    <!-- Page specific JavaScript -->
+    {% block page_js %}{% endblock %}
 
     <!-- Service Worker Registration -->
     <script>
