@@ -14,10 +14,10 @@ def catalog_list(request):
     featured_products = Product.objects.filter(
         is_published=True, 
         is_featured=True
-    ).select_related('category')[:6]
+    ).select_related('category').prefetch_related('gallery')[:6]
     
     # Всі продукти з пагінацією
-    all_products = Product.objects.filter(is_published=True).select_related('category')
+    all_products = Product.objects.filter(is_published=True).select_related('category').prefetch_related('gallery')
     paginator = Paginator(all_products, 12)
     page_number = request.GET.get('page')
     products = paginator.get_page(page_number)
@@ -68,7 +68,7 @@ def product_detail(request, slug):
     related_products = Product.objects.filter(
         category=product.category,
         is_published=True
-    ).exclude(id=product.id)[:4]
+    ).exclude(id=product.id).prefetch_related('gallery')[:4]
     
     context = {
         'product': product,

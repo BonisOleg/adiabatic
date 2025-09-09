@@ -8,6 +8,7 @@ services:
       python manage.py collectstatic --noinput
       python manage.py migrate
       python manage.py setup_data
+      python manage.py import_real_3d_files --copy-files
     startCommand: gunicorn adiabatic.wsgi:application --bind 0.0.0.0:$PORT
     envVars:
       - key: PYTHON_VERSION

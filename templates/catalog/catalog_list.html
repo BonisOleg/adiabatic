@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n %}
+{% load gallery_filters %}
 
 {% block title %}Каталог продукції - Adiabatic{% endblock %}
 {% block og_title %}Каталог продукції - Adiabatic{% endblock %}
@@ -179,11 +180,27 @@
         <div class="cards-grid">
             {% for product in featured_products %}
             <div class="card">
-                {% if product.hero_image %}
-                <img src="{{ product.hero_image.url }}" alt="{{ product.get_name }}" class="card-image">
-                {% else %}
-                <div class="card-image">⚙️</div>
-                {% endif %}
+                <div class="card-image-container">
+                    {% with product.gallery.all|first as first_gallery_item %}
+                    {% if first_gallery_item.content_type == 'IMAGE' and first_gallery_item.image %}
+                    <img src="{{ first_gallery_item.image.url }}" alt="{{ product.get_name }}" class="card-image">
+                    {% elif first_gallery_item.content_type == '3D_MODEL' and first_gallery_item.preview_image %}
+                    <img src="{{ first_gallery_item.preview_image.url }}" alt="{{ product.get_name }}"
+                        class="card-image">
+                    {% elif product.hero_image %}
+                    <img src="{{ product.hero_image.url }}" alt="{{ product.get_name }}" class="card-image">
+                    {% else %}
+                    <div class="card-image card-placeholder">⚙️</div>
+                    {% endif %}
+                    {% endwith %}
+
+                    {% if product.gallery.all|has_3d_model %}
+                    <div class="card-3d-badge">
+                        <span class="badge-icon">🧊</span>
+                        <span class="badge-text">3D</span>
+                    </div>
+                    {% endif %}
+                </div>
 
                 <div class="card-content">
                     <a href="{{ product.get_absolute_url }}" class="card-title">
@@ -202,9 +219,22 @@
                             ${{ product.price_usd }}
                         </span>
                         {% endif %}
-                        <a href="{{ product.get_absolute_url }}" class="btn btn--small">
-                            {% trans "Детальніше" %}
-                        </a>
+
+                        <div class="card-actions">
+                            {% with product.gallery.all|first_3d_model as first_3d %}
+                            {% if first_3d %}
+                            <button class="btn btn--3d btn--small" data-product-id="{{ product.id }}"
+                                data-3d-file="{% if first_3d.file_3d %}{{ first_3d.file_3d.url }}{% endif %}"
+                                data-title="{{ product.get_name }}">
+                                <span class="btn-icon">👁️</span> Переглянути в 3D
+                            </button>
+                            {% endif %}
+                            {% endwith %}
+
+                            <a href="{{ product.get_absolute_url }}" class="btn btn--small">
+                                {% trans "Детальніше" %}
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -230,11 +260,27 @@
         <div class="cards-grid">
             {% for product in products %}
             <div class="card">
-                {% if product.hero_image %}
-                <img src="{{ product.hero_image.url }}" alt="{{ product.get_name }}" class="card-image">
-                {% else %}
-                <div class="card-image">⚙️</div>
-                {% endif %}
+                <div class="card-image-container">
+                    {% with product.gallery.all|first as first_gallery_item %}
+                    {% if first_gallery_item.content_type == 'IMAGE' and first_gallery_item.image %}
+                    <img src="{{ first_gallery_item.image.url }}" alt="{{ product.get_name }}" class="card-image">
+                    {% elif first_gallery_item.content_type == '3D_MODEL' and first_gallery_item.preview_image %}
+                    <img src="{{ first_gallery_item.preview_image.url }}" alt="{{ product.get_name }}"
+                        class="card-image">
+                    {% elif product.hero_image %}
+                    <img src="{{ product.hero_image.url }}" alt="{{ product.get_name }}" class="card-image">
+                    {% else %}
+                    <div class="card-image card-placeholder">⚙️</div>
+                    {% endif %}
+                    {% endwith %}
+
+                    {% if product.gallery.all|has_3d_model %}
+                    <div class="card-3d-badge">
+                        <span class="badge-icon">🧊</span>
+                        <span class="badge-text">3D</span>
+                    </div>
+                    {% endif %}
+                </div>
 
                 <div class="card-content">
                     <a href="{{ product.get_absolute_url }}" class="card-title">
@@ -253,9 +299,22 @@
                             ${{ product.price_usd }}
                         </span>
                         {% endif %}
-                        <a href="{{ product.get_absolute_url }}" class="btn btn--small">
-                            {% trans "Детальніше" %}
-                        </a>
+
+                        <div class="card-actions">
+                            {% with product.gallery.all|first_3d_model as first_3d %}
+                            {% if first_3d %}
+                            <button class="btn btn--3d btn--small" data-product-id="{{ product.id }}"
+                                data-3d-file="{% if first_3d.file_3d %}{{ first_3d.file_3d.url }}{% endif %}"
+                                data-title="{{ product.get_name }}">
+                                <span class="btn-icon">👁️</span> Переглянути в 3D
+                            </button>
+                            {% endif %}
+                            {% endwith %}
+
+                            <a href="{{ product.get_absolute_url }}" class="btn btn--small">
+                                {% trans "Детальніше" %}
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

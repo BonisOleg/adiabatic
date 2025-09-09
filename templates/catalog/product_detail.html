@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n %}
+{% load gallery_filters %}
 
 {% block title %}{{ product.get_name }}{% endblock %}
 {% block og_title %}{{ product.get_name }}{% endblock %}
@@ -134,25 +135,110 @@
 <section class="catalog-section">
     <div class="container">
         <div class="catalog-header js-observe">
-            <p class="catalog-subtitle">Галерея зображень</p>
+            <p class="catalog-subtitle">Галерея та 3D моделі</p>
             <h2 class="catalog-title">
                 {{ product.get_name }}
+                <span class="catalog-title-accent">медіа</span>
             </h2>
             <div class="catalog-underline"></div>
         </div>
 
         <div class="equipment-grid">
-            {% for image in product.gallery.all %}
+            {% for gallery_item in product.gallery.all %}
             <div class="equipment-card js-observe">
-                <img src="{{ image.image.url }}" alt="{{ image.alt_text|default:product.get_name }}"
-                    class="equipment-card__image">
-                {% if image.alt_text %}
-                <div class="equipment-card__content">
-                    <p class="equipment-card__description">
-                        {{ image.alt_text }}
-                    </p>
+                {% if gallery_item.content_type == 'IMAGE' %}
+                <!-- Regular Image -->
+                <div class="equipment-card__image-container"
+                    onclick="openImageModal('{{ gallery_item.image.url }}', '{{ gallery_item.get_title|default:product.get_name }}')">
+                    <img src="{{ gallery_item.image.url }}" alt="{{ gallery_item.get_title|default:product.get_name }}"
+                        class="equipment-card__image">
+                    <div class="equipment-card__overlay">
+                        <span class="overlay-icon">🔍</span>
+                        <span class="overlay-text">Переглянути</span>
+                    </div>
+                </div>
+
+                {% elif gallery_item.content_type == '3D_MODEL' %}
+                <!-- 3D Model -->
+                <div class="equipment-card__image-container">
+                    {% if gallery_item.preview_image %}
+                    <img src="{{ gallery_item.preview_image.url }}"
+                        alt="{{ gallery_item.get_title|default:product.get_name }}" class="equipment-card__image">
+                    {% else %}
+                    <div class="equipment-card__image equipment-card__placeholder">
+                        <span class="placeholder-icon">🧊</span>
+                        <span class="placeholder-text">3D модель</span>
+                    </div>
+                    {% endif %}
+
+                    <div class="equipment-card__3d-badge">
+                        <span class="badge-icon">🧊</span>
+                        <span class="badge-text">3D</span>
+                    </div>
+
+                    <div class="equipment-card__overlay">
+                        <button class="btn btn--3d btn--overlay" data-product-id="{{ product.id }}"
+                            data-3d-file="{% if gallery_item.file_3d %}{{ gallery_item.file_3d.url }}{% endif %}"
+                            data-title="{{ gallery_item.get_title|default:product.get_name }}">
+                            <span class="btn-icon">👁️</span> Переглянути в 3D
+                        </button>
+                        {% if gallery_item.is_downloadable and gallery_item.file_3d %}
+                        <a href="{{ gallery_item.file_3d.url }}" download class="btn btn--download btn--overlay">
+                            <span class="btn-icon">📥</span> Завантажити
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+
+                {% elif gallery_item.content_type == 'TECHNICAL_DRAWING' %}
+                <!-- Technical Drawing -->
+                <div class="equipment-card__image-container">
+                    {% if gallery_item.preview_image %}
+                    <img src="{{ gallery_item.preview_image.url }}"
+                        alt="{{ gallery_item.get_title|default:product.get_name }}" class="equipment-card__image">
+                    {% else %}
+                    <div class="equipment-card__image equipment-card__placeholder">
+                        <span class="placeholder-icon">📐</span>
+                        <span class="placeholder-text">Технічне креслення</span>
+                    </div>
+                    {% endif %}
+
+                    <div class="equipment-card__overlay">
+                        {% if gallery_item.file_3d %}
+                        <a href="{{ gallery_item.file_3d.url }}" target="_blank" class="btn btn--view btn--overlay">
+                            <span class="btn-icon">📄</span> Відкрити
+                        </a>
+                        {% if gallery_item.is_downloadable %}
+                        <a href="{{ gallery_item.file_3d.url }}" download class="btn btn--download btn--overlay">
+                            <span class="btn-icon">📥</span> Завантажити
+                        </a>
+                        {% endif %}
+                        {% endif %}
+                    </div>
                 </div>
                 {% endif %}
+
+                <div class="equipment-card__content">
+                    <h4 class="equipment-card__title">
+                        {{ gallery_item.get_title|default:gallery_item.get_content_type_display }}
+                    </h4>
+
+                    {% if gallery_item.description %}
+                    <p class="equipment-card__description">
+                        {{ gallery_item.description|truncatewords:15 }}
+                    </p>
+                    {% endif %}
+
+                    <div class="equipment-card__meta">
+                        <span class="meta-type">{{ gallery_item.get_content_type_display }}</span>
+                        {% if gallery_item.file_size %}
+                        <span class="meta-size">{{ gallery_item.file_size }}</span>
+                        {% endif %}
+                        {% if gallery_item.download_count > 0 %}
+                        <span class="meta-downloads">{{ gallery_item.download_count }} завантажень</span>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
             {% endfor %}
         </div>
@@ -212,14 +298,29 @@
         <div class="equipment-grid">
             {% for related_product in related_products %}
             <div class="equipment-card js-observe">
-                {% if related_product.hero_image %}
-                <img src="{{ related_product.hero_image.url }}" alt="{{ related_product.get_name }}"
-                    class="equipment-card__image">
-                {% else %}
-                <div class="equipment-card__image">
-                    ⚙️
+                <div class="equipment-card__image-container">
+                    {% with related_product.gallery.all|first as first_gallery_item %}
+                    {% if first_gallery_item.content_type == 'IMAGE' and first_gallery_item.image %}
+                    <img src="{{ first_gallery_item.image.url }}" alt="{{ related_product.get_name }}"
+                        class="equipment-card__image">
+                    {% elif first_gallery_item.content_type == '3D_MODEL' and first_gallery_item.preview_image %}
+                    <img src="{{ first_gallery_item.preview_image.url }}" alt="{{ related_product.get_name }}"
+                        class="equipment-card__image">
+                    {% elif related_product.hero_image %}
+                    <img src="{{ related_product.hero_image.url }}" alt="{{ related_product.get_name }}"
+                        class="equipment-card__image">
+                    {% else %}
+                    <div class="equipment-card__image">⚙️</div>
+                    {% endif %}
+                    {% endwith %}
+
+                    {% if related_product.gallery.all|has_3d_model %}
+                    <div class="equipment-card__3d-badge">
+                        <span class="badge-icon">🧊</span>
+                        <span class="badge-text">3D</span>
+                    </div>
+                    {% endif %}
                 </div>
-                {% endif %}
 
                 <div class="equipment-card__content">
                     <a href="{{ related_product.get_absolute_url }}" class="equipment-card__title">
@@ -238,9 +339,22 @@
                             ${{ related_product.price_usd }}
                         </span>
                         {% endif %}
-                        <a href="{{ related_product.get_absolute_url }}" class="btn btn--outline btn--small">
-                            {% trans "Детальніше" %}
-                        </a>
+
+                        <div class="equipment-card__actions">
+                            {% with related_product.gallery.all|first_3d_model as first_3d %}
+                            {% if first_3d %}
+                            <button class="btn btn--3d btn--small" data-product-id="{{ related_product.id }}"
+                                data-3d-file="{% if first_3d.file_3d %}{{ first_3d.file_3d.url }}{% endif %}"
+                                data-title="{{ related_product.get_name }}">
+                                <span class="btn-icon">👁️</span> 3D
+                            </button>
+                            {% endif %}
+                            {% endwith %}
+
+                            <a href="{{ related_product.get_absolute_url }}" class="btn btn--outline btn--small">
+                                {% trans "Детальніше" %}
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
