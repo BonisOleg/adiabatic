@@ -10,11 +10,48 @@ from django.conf import settings
 import json
 import logging
 
-from catalog.models import Product
+# Product model removed with catalog app
 from .models import Lead, LeadSource, LeadActivity
 from .forms import LeadForm, QuickQuoteForm, ContactForm
 
 logger = logging.getLogger(__name__)
+
+
+def parse_request_data(request):
+    """Допоміжна функція для парсингу JSON/POST даних"""
+    if request.content_type == 'application/json':
+        return json.loads(request.body)
+    else:
+        return request.POST
+
+
+def add_lead_metadata(lead, request):
+    """Додати метадані до заявки"""
+    lead.ip_address = get_client_ip(request)
+    lead.user_agent = request.META.get('HTTP_USER_AGENT', '')[:500]
+    lead.language = get_language()
+    lead.source = get_or_create_source(request)
+    lead.source_page = request.META.get('HTTP_REFERER', '')[:500]
+    if hasattr(lead, 'referrer'):
+        lead.referrer = request.META.get('HTTP_REFERER', '')[:500]
+
+
+def create_lead_activity(lead, description):
+    """Створити активність для заявки"""
+    LeadActivity.objects.create(
+        lead=lead,
+        activity_type='created',
+        description=description,
+        user='System'
+    )
+
+
+def format_form_errors(form):
+    """Форматувати помилки валідації форми"""
+    errors = {}
+    for field, field_errors in form.errors.items():
+        errors[field] = [str(error) for error in field_errors]
+    return errors
 
 
 def get_client_ip(request):
@@ -69,10 +106,7 @@ def submit_lead(request):
     """Основна функція відправки заявки (AJAX)"""
     try:
         # Парсимо JSON дані
-        if request.content_type == 'application/json':
-            data = json.loads(request.body)
-        else:
-            data = request.POST
+        data = parse_request_data(request)
         
         # Отримуємо продукт якщо передано slug
         product = None
@@ -91,22 +125,11 @@ def submit_lead(request):
             lead = form.save(commit=False)
             
             # Додаємо мета-дані
-            lead.ip_address = get_client_ip(request)
-            lead.user_agent = request.META.get('HTTP_USER_AGENT', '')[:500]
-            lead.language = get_language()
-            lead.source = get_or_create_source(request)
-            lead.source_page = request.META.get('HTTP_REFERER', '')[:500]
-            lead.referrer = request.META.get('HTTP_REFERER', '')[:500]
-            
+            add_lead_metadata(lead, request)
             lead.save()
             
             # Створюємо активність
-            LeadActivity.objects.create(
-                lead=lead,
-                activity_type='created',
-                description=f'Заявка створена через форму на сайті',
-                user='System'
-            )
+            create_lead_activity(lead, 'Заявка створена через форму на сайті')
             
             # Відправляємо нотифікації
             send_all_notifications(lead)
@@ -121,13 +144,9 @@ def submit_lead(request):
             })
         else:
             # Повертаємо помилки валідації
-            errors = {}
-            for field, field_errors in form.errors.items():
-                errors[field] = [str(error) for error in field_errors]
-            
             return JsonResponse({
                 'success': False,
-                'errors': errors,
+                'errors': format_form_errors(form),
                 'message': 'Будь ласка, виправте помилки у формі.'
             })
     
@@ -144,10 +163,7 @@ def submit_lead(request):
 def quick_quote(request):
     """Швидкий запит ціни (спрощена форма)"""
     try:
-        if request.content_type == 'application/json':
-            data = json.loads(request.body)
-        else:
-            data = request.POST
+        data = parse_request_data(request)
         
         # Отримуємо продукт
         product = None
@@ -164,21 +180,11 @@ def quick_quote(request):
             lead = form.save(commit=False)
             
             # Додаємо мета-дані
-            lead.ip_address = get_client_ip(request)
-            lead.user_agent = request.META.get('HTTP_USER_AGENT', '')[:500]
-            lead.language = get_language()
-            lead.source = get_or_create_source(request)
-            lead.source_page = request.META.get('HTTP_REFERER', '')[:500]
-            
+            add_lead_metadata(lead, request)
             lead.save()
             
             # Створюємо активність
-            LeadActivity.objects.create(
-                lead=lead,
-                activity_type='created',
-                description=f'Швидкий запит ціни для продукту: {product.get_name() if product else "Загальний"}',
-                user='System'
-            )
+            create_lead_activity(lead, f'Швидкий запит ціни для продукту: {product.get_name() if product else "Загальний"}')
             
             logger.info(f'Швидкий запит ціни: {lead.uuid} - {lead.email}')
             
@@ -188,13 +194,9 @@ def quick_quote(request):
                 'lead_uuid': str(lead.uuid)
             })
         else:
-            errors = {}
-            for field, field_errors in form.errors.items():
-                errors[field] = [str(error) for error in field_errors]
-            
             return JsonResponse({
                 'success': False,
-                'errors': errors,
+                'errors': format_form_errors(form),
                 'message': 'Будь ласка, заповніть всі обов\'язкові поля.'
             })
     
@@ -210,10 +212,7 @@ def quick_quote(request):
 def contact(request):
     """Загальна контактна форма"""
     try:
-        if request.content_type == 'application/json':
-            data = json.loads(request.body)
-        else:
-            data = request.POST
+        data = parse_request_data(request)
         
         form = ContactForm(data)
         
@@ -221,21 +220,11 @@ def contact(request):
             lead = form.save(commit=False)
             
             # Додаємо мета-дані
-            lead.ip_address = get_client_ip(request)
-            lead.user_agent = request.META.get('HTTP_USER_AGENT', '')[:500]
-            lead.language = get_language()
-            lead.source = get_or_create_source(request)
-            lead.source_page = request.META.get('HTTP_REFERER', '')[:500]
-            
+            add_lead_metadata(lead, request)
             lead.save()
             
             # Створюємо активність
-            LeadActivity.objects.create(
-                lead=lead,
-                activity_type='created',
-                description='Заявка через контактну форму',
-                user='System'
-            )
+            create_lead_activity(lead, 'Заявка через контактну форму')
             
             logger.info(f'Контактна заявка: {lead.uuid} - {lead.email}')
             
@@ -245,13 +234,9 @@ def contact(request):
                 'lead_uuid': str(lead.uuid)
             })
         else:
-            errors = {}
-            for field, field_errors in form.errors.items():
-                errors[field] = [str(error) for error in field_errors]
-            
             return JsonResponse({
                 'success': False,
-                'errors': errors,
+                'errors': format_form_errors(form),
                 'message': 'Будь ласка, виправте помилки у формі.'
             })
     

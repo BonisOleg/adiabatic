@@ -9,8 +9,7 @@ function initLeadForm() {
     const leadForm = document.getElementById('leadForm');
     if (!leadForm) return;
 
-    // Initialize form validation
-    initFormValidation();
+    // Form validation is handled by form-validation.js
 
     // Handle form submission
     leadForm.addEventListener('submit', function (e) {
@@ -120,27 +119,4 @@ function getOrCreateMessageContainer() {
     return container;
 }
 
-/* ===== DOWNLOAD TRACKING ===== */
-function trackDownload(filename) {
-    // Analytics tracking for downloads
-    if (typeof gtag !== 'undefined') {
-        gtag('event', 'download', {
-            event_category: 'engagement',
-            event_label: filename
-        });
-    }
-
-    console.log('Download tracked:', filename);
-}
-
-// Add download tracking to download links
-document.addEventListener('DOMContentLoaded', function () {
-    const downloadLinks = document.querySelectorAll('.download-link, [href*=".pdf"], [href*=".doc"], [href*=".xls"]');
-
-    downloadLinks.forEach(link => {
-        link.addEventListener('click', function () {
-            const filename = this.getAttribute('href').split('/').pop() || this.textContent.trim();
-            trackDownload(filename);
-        });
-    });
-});
+// Download tracking functionality is handled by base.js

@@ -219,7 +219,7 @@
     }
 
     .hero-video--rotating {
-        opacity: 0.7 !important;
+        opacity: 0.7;
         will-change: auto;
     }
 

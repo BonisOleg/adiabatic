@@ -5,6 +5,22 @@ from django.urls import reverse
 from .models import Page, Hero, Partner
 
 
+def get_page_or_none(page_type):
+    """Допоміжна функція для отримання сторінки або None"""
+    try:
+        return Page.objects.get(page_type=page_type, is_published=True)
+    except Page.DoesNotExist:
+        return None
+
+
+def get_partners():
+    """Допоміжна функція для отримання партнерів"""
+    try:
+        return Partner.objects.filter(is_published=True).order_by('order')
+    except Exception:
+        return []
+
+
 def home_redirect(request):
     """Редирект з кореня на головну сторінку"""
     return HttpResponseRedirect(reverse('pages:home'))
@@ -12,10 +28,7 @@ def home_redirect(request):
 
 def home(request):
     """Головна сторінка"""
-    try:
-        page = Page.objects.get(page_type='home', is_published=True)
-    except (Page.DoesNotExist, Exception):
-        page = None
+    page = get_page_or_none('home')
     
     try:
         # Отримуємо тільки активні hero секції з зображеннями
@@ -23,11 +36,7 @@ def home(request):
     except Exception:
         heroes = []
     
-    try:
-        # Отримуємо тільки активних партнерів
-        partners = Partner.objects.filter(is_published=True).order_by('order')
-    except Exception:
-        partners = []
+    partners = get_partners()
     
     context = {
         'page': page,
@@ -39,71 +48,40 @@ def home(request):
 
 def about(request):
     """Сторінка про компанію"""
-    try:
-        page = Page.objects.get(page_type='about', is_published=True)
-    except Page.DoesNotExist:
-        page = None
-    
     context = {
-        'page': page,
+        'page': get_page_or_none('about'),
     }
     return render(request, 'pages/about.html', context)
 
 
 def contacts(request):
     """Сторінка контактів"""
-    try:
-        page = Page.objects.get(page_type='contacts', is_published=True)
-    except Page.DoesNotExist:
-        page = None
-    
     context = {
-        'page': page,
+        'page': get_page_or_none('contacts'),
     }
     return render(request, 'pages/contacts.html', context)
 
 
 def products(request):
     """Сторінка продуктів"""
-    try:
-        page = Page.objects.get(page_type='products', is_published=True)
-    except Page.DoesNotExist:
-        page = None
-    
     context = {
-        'page': page,
+        'page': get_page_or_none('products'),
     }
     return render(request, 'pages/products.html', context)
 
 def partners(request):
     """Сторінка партнерів"""
-    try:
-        page = Page.objects.get(page_type='partners', is_published=True)
-    except Page.DoesNotExist:
-        page = None
-    
-    try:
-        # Отримуємо тільки активних партнерів
-        partners = Partner.objects.filter(is_published=True).order_by('order')
-    except Exception:
-        partners = []
-    
     context = {
-        'page': page,
-        'partners': partners,
+        'page': get_page_or_none('partners'),
+        'partners': get_partners(),
     }
     return render(request, 'pages/partners.html', context)
 
 
 def blog(request):
     """Сторінка корисної інформації"""
-    try:
-        page = Page.objects.get(page_type='blog', is_published=True)
-    except Page.DoesNotExist:
-        page = None
-    
     context = {
-        'page': page,
+        'page': get_page_or_none('blog'),
     }
     return render(request, 'pages/blog.html', context)
 

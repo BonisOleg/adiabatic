@@ -1,7 +1,6 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.core.validators import RegexValidator
-from catalog.models import Product
 from .models import Lead
 
 
@@ -37,7 +36,7 @@ class LeadForm(forms.ModelForm):
         model = Lead
         fields = [
             'name', 'email', 'phone', 'company', 'position',
-            'inquiry_type', 'product', 'subject', 'message',
+            'inquiry_type', 'product_name', 'subject', 'message',
             'budget_range', 'project_timeline',
             'consent_gdpr', 'consent_marketing'
         ]
@@ -64,8 +63,9 @@ class LeadForm(forms.ModelForm):
             'inquiry_type': forms.Select(attrs={
                 'class': 'form__input',
             }),
-            'product': forms.Select(attrs={
+            'product_name': forms.TextInput(attrs={
                 'class': 'form__input',
+                'placeholder': _('Тип обладнання або продукт'),
             }),
             'subject': forms.TextInput(attrs={
                 'class': 'form__input',
@@ -101,7 +101,7 @@ class LeadForm(forms.ModelForm):
             'company': _('Компанія'),
             'position': _('Посада'),
             'inquiry_type': _('Тип запиту'),
-            'product': _('Продукт'),
+            'product_name': _('Продукт'),
             'subject': _('Тема'),
             'message': _('Повідомлення *'),
             'budget_range': _('Бюджет проекту'),
@@ -112,23 +112,15 @@ class LeadForm(forms.ModelForm):
     
     def __init__(self, *args, **kwargs):
         # Витягуємо додаткові параметри
-        self.product_slug = kwargs.pop('product_slug', None)
+        self.product_name_initial = kwargs.pop('product_name', None)
         super().__init__(*args, **kwargs)
         
-        # Налаштовуємо queryset для продуктів
-        self.fields['product'].queryset = Product.objects.filter(is_published=True)
-        self.fields['product'].empty_label = _('Оберіть продукт (опційно)')
-        
-        # Якщо передано slug продукту, встановлюємо його як початкове значення
-        if self.product_slug:
-            try:
-                product = Product.objects.get(slug=self.product_slug, is_published=True)
-                self.fields['product'].initial = product
-                # Встановлюємо тему за замовчуванням
-                if not self.initial.get('subject'):
-                    self.fields['subject'].initial = f"{_('Запит щодо')} {product.get_name()}"
-            except Product.DoesNotExist:
-                pass
+        # Якщо передано назву продукту, встановлюємо її як початкове значення
+        if self.product_name_initial:
+            self.fields['product_name'].initial = self.product_name_initial
+            # Встановлюємо тему за замовчуванням
+            if not self.initial.get('subject'):
+                self.fields['subject'].initial = f"{_('Запит щодо')} {self.product_name_initial}"
     
     def clean_website(self):
         """Honeypot валідація - поле має бути пустим"""
@@ -176,7 +168,7 @@ class QuickQuoteForm(forms.ModelForm):
     
     class Meta:
         model = Lead
-        fields = ['name', 'phone', 'email', 'product', 'message', 'consent_gdpr']
+        fields = ['name', 'phone', 'email', 'product_name', 'message', 'consent_gdpr']
         
         widgets = {
             'name': forms.TextInput(attrs={
@@ -194,7 +186,10 @@ class QuickQuoteForm(forms.ModelForm):
                 'placeholder': _('Ваш email'),
                 'required': True,
             }),
-            'product': forms.HiddenInput(),
+            'product_name': forms.TextInput(attrs={
+                'class': 'form__input',
+                'placeholder': _('Тип обладнання'),
+            }),
             'message': forms.Textarea(attrs={
                 'class': 'form__textarea',
                 'placeholder': _('Додаткові коментарі (опційно)'),
@@ -215,12 +210,12 @@ class QuickQuoteForm(forms.ModelForm):
         }
     
     def __init__(self, *args, **kwargs):
-        self.product = kwargs.pop('product', None)
+        self.product_name_value = kwargs.pop('product_name', None)
         super().__init__(*args, **kwargs)
         
-        # Встановлюємо продукт
-        if self.product:
-            self.fields['product'].initial = self.product
+        # Встановлюємо назву продукту
+        if self.product_name_value:
+            self.fields['product_name'].initial = self.product_name_value
             # Встановлюємо inquiry_type
             self.inquiry_type = 'price_request'
     
@@ -233,7 +228,7 @@ class QuickQuoteForm(forms.ModelForm):
     def save(self, commit=True):
         lead = super().save(commit=False)
         lead.inquiry_type = 'price_request'
-        lead.subject = f"{_('Швидкий запит ціни')} - {lead.product.get_name() if lead.product else _('Загальний запит')}"
+        lead.subject = f"{_('Швидкий запит ціни')} - {lead.product_name if lead.product_name else _('Загальний запит')}"
         
         if commit:
             lead.save()

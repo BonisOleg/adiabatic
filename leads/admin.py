@@ -21,11 +21,11 @@ class LeadActivityInline(admin.TabularInline):
 class LeadAdmin(admin.ModelAdmin):
     """Адмінка для заявок"""
     list_display = [
-        'name', 'email', 'phone', 'company', 'product', 
+        'name', 'email', 'phone', 'company', 'product_name', 
         'get_inquiry_type_display', 'status', 'created_at'
     ]
     list_filter = [
-        'status', 'inquiry_type', 'product__category', 
+        'status', 'inquiry_type', 
         'consent_gdpr', 'consent_marketing', 'created_at', 'source'
     ]
     search_fields = ['name', 'email', 'phone', 'company', 'message']
@@ -42,7 +42,7 @@ class LeadAdmin(admin.ModelAdmin):
             'fields': ('name', 'email', 'phone', 'company', 'position')
         }),
         (_('Деталі заявки'), {
-            'fields': ('inquiry_type', 'product', 'subject', 'message', 'budget_range', 'project_timeline')
+            'fields': ('inquiry_type', 'product_name', 'subject', 'message', 'budget_range', 'project_timeline')
         }),
         (_('Статус та примітки'), {
             'fields': ('status', 'internal_notes', 'contacted_at')
@@ -61,7 +61,7 @@ class LeadAdmin(admin.ModelAdmin):
     )
     
     def get_queryset(self, request):
-        return super().get_queryset(request).select_related('product', 'source')
+        return super().get_queryset(request).select_related('source')
     
     def get_full_contact(self, obj):
         """Повна контактна інформація"""

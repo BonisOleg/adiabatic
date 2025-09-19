@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.core.validators import RegexValidator
-from catalog.models import Product
 
 
 class LeadSource(models.Model):
@@ -63,8 +62,8 @@ class Lead(models.Model):
     
     # Деталі заявки
     inquiry_type = models.CharField(_('Тип запиту'), max_length=20, choices=INQUIRY_TYPES, default='price_request')
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, blank=True,
-                               verbose_name=_('Продукт'), related_name='leads')
+    product_name = models.CharField(_('Продукт'), max_length=200, blank=True,
+                                   help_text=_('Назва продукту або тип обладнання'))
     subject = models.CharField(_('Тема'), max_length=200, blank=True)
     message = models.TextField(_('Повідомлення'))
     

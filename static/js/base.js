@@ -184,7 +184,7 @@ function initIntersectionObserver() {
 }
 
 /* ===== UTILITY FUNCTIONS ===== */
-function debounce(func, wait) {
+window.debounce = function (func, wait) {
     let timeout;
     return function executedFunction(...args) {
         const later = () => {
@@ -194,7 +194,7 @@ function debounce(func, wait) {
         clearTimeout(timeout);
         timeout = setTimeout(later, wait);
     };
-}
+};
 
 /* ===== ERROR HANDLING ===== */
 window.addEventListener('error', function (e) {

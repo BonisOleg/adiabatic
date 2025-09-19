@@ -1,19 +1,8 @@
 /* ===== ADIABATIC CONTACTS PAGE STYLES ===== */
 
-/* Contact Form */
+/* Contacts page specific form overrides */
 .contact-form-container {
     max-width: 800px;
-    margin: 0 auto;
-    background: var(--white);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding: var(--space-8);
-}
-
-.contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-6);
 }
 
 .contact-form .form-row {

@@ -35,44 +35,10 @@
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico">
 
-    <!-- Critical CSS (inline) - Only essential styles -->
-    <style>
-        /* Critical path CSS - only load blocking styles */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    <!-- Critical CSS -->
+    <link rel="stylesheet" href="/static/css/critical.css">
 
-        html {
-            scroll-behavior: smooth;
-            height: 100%;
-            height: -webkit-fill-available;
-        }
-
-        body {
-            font-family: 'Inter', system-ui, sans-serif;
-            line-height: 1.6;
-            color: #111827;
-            background: #ffffff;
-            min-height: 100vh;
-            min-height: -webkit-fill-available;
-            overflow-x: hidden;
-        }
-
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            border: 0;
-        }
-    </style>
-
-    <!-- CSS Files (async loading) -->
+    <!-- CSS Files (preload for better performance) -->
     <link rel="preload" href="/static/css/variables.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preload" href="/static/css/reset.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preload" href="/static/css/layout.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -82,7 +48,6 @@
     <link rel="preload" href="/static/css/desktop-menu.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preload" href="/static/css/hero.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preload" href="/static/css/footer.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="/static/css/gallery-3d.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
         <link rel="stylesheet" href="/static/css/variables.css">
         <link rel="stylesheet" href="/static/css/reset.css">
@@ -93,7 +58,6 @@
         <link rel="stylesheet" href="/static/css/desktop-menu.css">
         <link rel="stylesheet" href="/static/css/hero.css">
         <link rel="stylesheet" href="/static/css/footer.css">
-        <link rel="stylesheet" href="/static/css/gallery-3d.css">
     </noscript>
 
     <!-- Page specific CSS -->
@@ -131,7 +95,6 @@
                 <div class="animated-desktop-menu" id="animated-desktop-menu">
                     <nav role="navigation" aria-label="Анімоване меню">
                         <ul class="animated-nav-list">
-                            <li><a href="{% url 'catalog:catalog_list' %}" class="animated-nav-link">Продукція</a></li>
                             <li><a href="{% url 'pages:products' %}" class="animated-nav-link">Сфери застосування</a>
                             </li>
                             <li><a href="{% url 'pages:about' %}" class="animated-nav-link">Про компанію</a></li>
@@ -144,7 +107,6 @@
                 <!-- Desktop Navigation (fallback for smaller screens) -->
                 <nav class="nav" role="navigation" aria-label="Головне меню">
                     <ul class="nav-list">
-                        <li><a href="{% url 'catalog:catalog_list' %}" class="nav-link">Продукція</a></li>
                         <li><a href="{% url 'pages:products' %}" class="nav-link">Сфери застосування</a></li>
                         <li><a href="{% url 'pages:about' %}" class="nav-link">Про компанію</a></li>
                         <li><a href="{% url 'pages:partners' %}" class="nav-link">Партнери</a></li>
@@ -197,7 +159,6 @@
             <div class="mobile-menu-content">
                 <nav role="navigation" aria-label="Мобільне меню">
                     <ul class="mobile-nav-list">
-                        <li><a href="{% url 'catalog:catalog_list' %}" class="mobile-nav-link">Продукція</a></li>
                         <li><a href="{% url 'pages:products' %}" class="mobile-nav-link">Сфери застосування</a></li>
                         <li><a href="{% url 'pages:about' %}" class="mobile-nav-link">Про компанію</a></li>
                         <li><a href="{% url 'pages:partners' %}" class="mobile-nav-link">Партнери</a></li>
@@ -255,7 +216,6 @@
                 <div class="footer-section">
                     <h4 class="footer-subtitle">Продукція</h4>
                     <ul class="footer-list">
-                        <li><a href="{% url 'catalog:catalog_list' %}">Каталог обладнання</a></li>
                         <li><a href="{% url 'pages:products' %}">Сфери застосування</a></li>
                         <li><a href="#" class="download-link">Завантажити каталог</a></li>
                         <li><a href="#" class="download-link">Завантажити опитувальний лист</a></li>
@@ -309,7 +269,6 @@
     <script src="/static/js/desktop-menu.js" defer></script>
     <script src="/static/js/form-validation.js" defer></script>
     <script src="/static/js/video.js" defer></script>
-    <script src="/static/js/gallery-3d.js" defer></script>
 
     <!-- Page specific JavaScript -->
     {% block page_js %}{% endblock %}

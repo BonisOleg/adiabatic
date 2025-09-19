@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     # Local apps
     'core.apps.CoreConfig',
     'pages.apps.PagesConfig',
-    'catalog.apps.CatalogConfig',
     'leads.apps.LeadsConfig',
 ]
 
