@@ -168,7 +168,7 @@ function initFixedVideoBackground() {
         window.addEventListener('scroll', function () {
             const scrolled = window.pageYOffset;
             if (scrolled > 100) {
-                header.style.background = 'rgba(27, 54, 93, 0.95)';
+                header.style.background = 'rgba(49, 60, 72, 0.95)';
                 header.style.backdropFilter = 'blur(10px)';
             } else {
                 header.style.background = 'var(--primary)';
