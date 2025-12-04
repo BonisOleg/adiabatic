@@ -139,7 +139,11 @@
     transition: var(--transition);
 }
 
-.lang-link.active,
+.lang-link.active {
+    color: #F4F4F4;
+    background: rgba(244, 163, 44, 0.1);
+}
+
 .lang-link:hover {
     color: var(--secondary);
     background: rgba(244, 163, 44, 0.1);
