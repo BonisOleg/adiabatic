@@ -16,6 +16,7 @@
     cursor: pointer;
     min-height: 48px;
     white-space: nowrap;
+    text-transform: uppercase;
     -webkit-appearance: none;
     appearance: none;
 }
@@ -39,6 +40,19 @@
 .btn--accent {
     background: var(--accent);
     color: var(--white);
+}
+
+.btn--gradient {
+    background: linear-gradient(to right, #D42721, #F34D1F);
+    color: var(--white);
+    border-radius: 30px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border: none;
+}
+
+.btn--gradient:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.15);
 }
 
 .btn--large {
