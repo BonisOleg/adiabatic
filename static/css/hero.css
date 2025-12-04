@@ -169,7 +169,7 @@
 }
 
 .hero-accent {
-    color: var(--secondary);
+    color: inherit;
     display: block;
 }
 
