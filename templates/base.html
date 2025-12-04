@@ -85,7 +85,7 @@
 
                 <!-- Mobile Logo (visible only on mobile) -->
                 <div class="mobile-logo">
-                    <a href="{% url 'pages:home' %}" class="logo-link">
+                    <a href="{% url 'pages:home' %}" class="logo-link mobile-menu-trigger">
                         <img src="/static/images/logo.png" alt="ADIABATIC Logo" class="logo-image">
                         <span class="logo-text">{{ site_settings.site_name|default:'ADIABATIC' }}</span>
                     </a>
@@ -144,13 +144,6 @@
                     </a>
                 </div>
 
-                <!-- Mobile Menu Button -->
-                <button class="mobile-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu"
-                    aria-label="Відкрити меню">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
             </div>
         </div>
 
@@ -159,10 +152,12 @@
             <div class="mobile-menu-content">
                 <nav role="navigation" aria-label="Мобільне меню">
                     <ul class="mobile-nav-list">
-                        <li><a href="{% url 'pages:products' %}" class="mobile-nav-link">Сфери застосування</a></li>
-                        <li><a href="{% url 'pages:about' %}" class="mobile-nav-link">Про компанію</a></li>
-                        <li><a href="{% url 'pages:partners' %}" class="mobile-nav-link">Партнери</a></li>
-                        <li><a href="{% url 'pages:blog' %}" class="mobile-nav-link">Корисна інформація</a></li>
+                        <li><a href="{% url 'pages:home' %}" class="mobile-nav-link mobile-nav-home">🏠 Головна</a></li>
+                        <li><a href="{% url 'pages:products' %}" class="mobile-nav-link">🔧 Сфери застосування</a></li>
+                        <li><a href="{% url 'pages:about' %}" class="mobile-nav-link">ℹ️ Про компанію</a></li>
+                        <li><a href="{% url 'pages:partners' %}" class="mobile-nav-link">🤝 Партнери</a></li>
+                        <li><a href="{% url 'pages:blog' %}" class="mobile-nav-link">📚 Корисна інформація</a></li>
+                        <li><a href="{% url 'pages:contacts' %}" class="mobile-nav-link">📞 Контакти</a></li>
                     </ul>
 
                     <!-- Mobile Actions -->

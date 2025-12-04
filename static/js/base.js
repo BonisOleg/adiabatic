@@ -13,15 +13,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /* ===== MOBILE MENU ===== */
 function initMobileMenu() {
-    const toggle = document.querySelector('.mobile-toggle');
+    const logoLink = document.querySelector('.mobile-menu-trigger');
     const menu = document.querySelector('.mobile-menu');
     const navLinks = document.querySelectorAll('.mobile-nav-link');
 
-    if (!toggle || !menu) return;
+    if (!logoLink || !menu) return;
 
-    // Toggle menu
-    toggle.addEventListener('click', function (e) {
+    // Toggle menu when clicking logo
+    logoLink.addEventListener('click', function (e) {
         e.preventDefault();
+        e.stopPropagation();
         const isOpen = menu.classList.contains('open');
 
         if (isOpen) {
@@ -31,53 +32,119 @@ function initMobileMenu() {
         }
     });
 
+    // Close menu when clicking the close button (::before pseudo-element)
+    menu.addEventListener('click', function (e) {
+        // Check if click is in the close button area (top-right)
+        const rect = menu.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const clickY = e.clientY - rect.top;
+
+        // Close button area (top-right corner, approximately)
+        if (clickX > rect.width - 80 && clickY < 80) {
+            e.preventDefault();
+            closeMenu();
+        }
+    });
+
     // Close menu when clicking nav links
     navLinks.forEach(link => {
         link.addEventListener('click', function () {
             if (window.innerWidth < 768) {
-                closeMenu();
+                setTimeout(closeMenu, 200); // Small delay for better UX
             }
         });
     });
 
     // Close menu when clicking outside
     document.addEventListener('click', function (e) {
-        if (!toggle.contains(e.target) && !menu.contains(e.target)) {
+        if (!logoLink.contains(e.target) && !menu.contains(e.target)) {
             closeMenu();
         }
     });
 
     // Close menu on escape
     document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape') {
+        if (e.key === 'Escape' && menu.classList.contains('open')) {
             closeMenu();
         }
     });
 
     // Close menu on orientation change
     window.addEventListener('orientationchange', function () {
-        setTimeout(closeMenu, 100);
+        setTimeout(closeMenu, 300);
     });
+
+    // Handle swipe gestures for iOS
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    menu.addEventListener('touchstart', function (e) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    menu.addEventListener('touchend', function (e) {
+        const touchEndX = e.changedTouches[0].clientX;
+        const touchEndY = e.changedTouches[0].clientY;
+        const deltaX = touchEndX - touchStartX;
+        const deltaY = touchEndY - touchStartY;
+
+        // Swipe left to close (threshold: 50px)
+        if (deltaX < -50 && Math.abs(deltaY) < 100) {
+            closeMenu();
+        }
+    }, { passive: true });
 
     function openMenu() {
         menu.classList.add('open');
-        toggle.classList.add('active');
+        logoLink.classList.add('active');
+        logoLink.setAttribute('aria-expanded', 'true');
+
+        // Prevent body scroll with iOS support
         document.body.style.overflow = 'hidden';
-        toggle.setAttribute('aria-expanded', 'true');
+        document.body.style.position = 'fixed';
+        document.body.style.width = '100%';
+
+        // iOS Safari viewport fix
+        if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+            document.body.style.height = '100vh';
+            document.body.style.webkitOverflowScrolling = 'touch';
+        }
 
         // Focus first menu item for accessibility
         const firstLink = menu.querySelector('.mobile-nav-link');
         if (firstLink) {
-            setTimeout(() => firstLink.focus(), 100);
+            setTimeout(() => firstLink.focus(), 200);
         }
+
+        console.log('📱 Мобільне меню відкрито');
     }
 
     function closeMenu() {
         menu.classList.remove('open');
-        toggle.classList.remove('active');
+        logoLink.classList.remove('active');
+        logoLink.setAttribute('aria-expanded', 'false');
+
+        // Restore body scroll
         document.body.style.overflow = '';
-        toggle.setAttribute('aria-expanded', 'false');
+        document.body.style.position = '';
+        document.body.style.width = '';
+        document.body.style.height = '';
+        document.body.style.webkitOverflowScrolling = '';
+
+        console.log('📱 Мобільне меню закрито');
     }
+
+    // Добавити візуальний фідбек для натискань
+    logoLink.addEventListener('touchstart', function () {
+        this.style.transform = 'scale(0.95)';
+    }, { passive: true });
+
+    logoLink.addEventListener('touchend', function () {
+        this.style.transform = '';
+    }, { passive: true });
+
+    console.log('🔧 Мобільне меню ініціалізовано успішно');
 }
 
 /* ===== SMOOTH SCROLLING ===== */
