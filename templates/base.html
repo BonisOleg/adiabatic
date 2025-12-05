@@ -83,9 +83,17 @@
                     <span></span>
                 </button>
 
+                <!-- Mobile Burger Button (only visible on mobile) -->
+                <button class="mobile-burger-btn" type="button" aria-expanded="false"
+                    aria-controls="mobile-menu" aria-label="Відкрити меню">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
                 <!-- Mobile Logo (visible only on mobile) -->
                 <div class="mobile-logo">
-                    <a href="{% url 'pages:home' %}" class="logo-link mobile-menu-trigger">
+                    <a href="{% url 'pages:home' %}" class="logo-link">
                         <img src="/static/images/logo.png" alt="ADIABATIC Logo" class="logo-image">
                         <span class="logo-text">{{ site_settings.site_name|default:'ADIABATIC' }}</span>
                     </a>
@@ -116,13 +124,6 @@
 
                 <!-- Header Actions -->
                 <div class="header-actions">
-                    <!-- Phone (hidden on desktop, visible on mobile) -->
-                    {% if site_settings.contact_phone %}
-                    <a href="tel:{{ site_settings.contact_phone }}" class="header-phone mobile-only">
-                        {{ site_settings.contact_phone|default:"+380 44 123 45 67" }}
-                    </a>
-                    {% endif %}
-
                     <!-- Logo (positioned on the right on desktop) -->
                     <div class="logo">
                         <a href="{% url 'pages:home' %}" class="logo-link">
@@ -137,11 +138,6 @@
                         <a href="#" class="lang-link">RU</a>
                         <a href="#" class="lang-link">EN</a>
                     </div>
-
-                    <!-- CTA Button (hidden on desktop, visible on mobile) -->
-                    <a href="{% url 'leads:submit' %}" class="header-cta mobile-only">
-                        Зворотний дзвінок
-                    </a>
                 </div>
 
             </div>
@@ -159,19 +155,6 @@
                         <li><a href="{% url 'pages:blog' %}" class="mobile-nav-link">📚 Корисна інформація</a></li>
                         <li><a href="{% url 'pages:contacts' %}" class="mobile-nav-link">📞 Контакти</a></li>
                     </ul>
-
-                    <!-- Mobile Actions -->
-                    <div class="mobile-actions">
-                        {% if site_settings.contact_phone %}
-                        <a href="tel:{{ site_settings.contact_phone }}" class="mobile-phone">
-                            📞 {{ site_settings.contact_phone|default:"+380 44 123 45 67" }}
-                        </a>
-                        {% endif %}
-
-                        <a href="{% url 'leads:submit' %}" class="mobile-cta btn">
-                            Зворотний дзвінок
-                        </a>
-                    </div>
                 </nav>
             </div>
         </div>

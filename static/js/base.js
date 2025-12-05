@@ -13,14 +13,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /* ===== MOBILE MENU ===== */
 function initMobileMenu() {
-    const logoLink = document.querySelector('.mobile-menu-trigger');
+    const burgerBtn = document.querySelector('.mobile-burger-btn');
     const menu = document.querySelector('.mobile-menu');
     const navLinks = document.querySelectorAll('.mobile-nav-link');
 
-    if (!logoLink || !menu) return;
+    if (!burgerBtn || !menu) return;
 
-    // Toggle menu when clicking logo
-    logoLink.addEventListener('click', function (e) {
+    // Toggle menu when clicking burger button
+    burgerBtn.addEventListener('click', function (e) {
         e.preventDefault();
         e.stopPropagation();
         const isOpen = menu.classList.contains('open');
@@ -57,7 +57,7 @@ function initMobileMenu() {
 
     // Close menu when clicking outside
     document.addEventListener('click', function (e) {
-        if (!logoLink.contains(e.target) && !menu.contains(e.target)) {
+        if (!burgerBtn.contains(e.target) && !menu.contains(e.target)) {
             closeMenu();
         }
     });
@@ -97,8 +97,8 @@ function initMobileMenu() {
 
     function openMenu() {
         menu.classList.add('open');
-        logoLink.classList.add('active');
-        logoLink.setAttribute('aria-expanded', 'true');
+        burgerBtn.classList.add('active');
+        burgerBtn.setAttribute('aria-expanded', 'true');
 
         // Prevent body scroll with iOS support
         document.body.style.overflow = 'hidden';
@@ -122,8 +122,8 @@ function initMobileMenu() {
 
     function closeMenu() {
         menu.classList.remove('open');
-        logoLink.classList.remove('active');
-        logoLink.setAttribute('aria-expanded', 'false');
+        burgerBtn.classList.remove('active');
+        burgerBtn.setAttribute('aria-expanded', 'false');
 
         // Restore body scroll
         document.body.style.overflow = '';
@@ -136,11 +136,11 @@ function initMobileMenu() {
     }
 
     // Добавити візуальний фідбек для натискань
-    logoLink.addEventListener('touchstart', function () {
+    burgerBtn.addEventListener('touchstart', function () {
         this.style.transform = 'scale(0.95)';
     }, { passive: true });
 
-    logoLink.addEventListener('touchend', function () {
+    burgerBtn.addEventListener('touchend', function () {
         this.style.transform = '';
     }, { passive: true });
 
