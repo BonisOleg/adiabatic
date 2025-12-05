@@ -416,34 +416,6 @@
         display: none;
     }
 
-    /* Close button overlay */
-    .mobile-menu::before {
-        content: '✕';
-        position: absolute;
-        top: calc(var(--space-6) + env(safe-area-inset-top));
-        right: var(--space-6);
-        font-size: 1.5rem;
-        color: var(--white);
-        background: rgba(255, 255, 255, 0.1);
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        backdrop-filter: blur(5px);
-        -webkit-backdrop-filter: blur(5px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        z-index: 1000;
-    }
-
-    .mobile-menu::before:hover {
-        background: rgba(255, 255, 255, 0.2);
-        transform: rotate(90deg);
-    }
-
     /* iOS Safari optimizations */
     .mobile-menu {
         padding-top: env(safe-area-inset-top);

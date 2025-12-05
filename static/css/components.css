@@ -10,7 +10,7 @@
     color: var(--primary);
     text-decoration: none;
     font-weight: 600;
-    border-radius: var(--radius-full);
+    border-radius: 7px;
     transition: var(--transition);
     border: 2px solid transparent;
     cursor: pointer;

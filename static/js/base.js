@@ -32,20 +32,6 @@ function initMobileMenu() {
         }
     });
 
-    // Close menu when clicking the close button (::before pseudo-element)
-    menu.addEventListener('click', function (e) {
-        // Check if click is in the close button area (top-right)
-        const rect = menu.getBoundingClientRect();
-        const clickX = e.clientX - rect.left;
-        const clickY = e.clientY - rect.top;
-
-        // Close button area (top-right corner, approximately)
-        if (clickX > rect.width - 80 && clickY < 80) {
-            e.preventDefault();
-            closeMenu();
-        }
-    });
-
     // Close menu when clicking nav links
     navLinks.forEach(link => {
         link.addEventListener('click', function () {
