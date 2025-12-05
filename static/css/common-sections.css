@@ -1,0 +1,220 @@
+/* ===== ADIABATIC COMMON SECTION STYLES ===== */
+/* These styles are used across multiple pages (contacts, about, products, etc.) */
+
+/* ===== CATALOG SECTION STYLES ===== */
+.catalog-section {
+    padding: var(--space-16) 0;
+    position: relative;
+    background: var(--white);
+    z-index: 10;
+}
+
+/* Sections after hero overlay the fixed background */
+.hero + .catalog-section,
+.catalog-section:not(.hero) {
+    box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 5;
+}
+
+/* First section after hero gets special styling */
+.hero + .catalog-section {
+    border-radius: 20px 20px 0 0;
+    margin-top: -20px;
+}
+
+.catalog-header {
+    text-align: center;
+    margin-bottom: var(--space-12);
+}
+
+.catalog-subtitle {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--red-light);
+    margin-bottom: var(--space-3);
+    font-weight: 600;
+}
+
+.catalog-title {
+    font-size: clamp(2rem, 4vw, 2.5rem);
+    color: var(--primary);
+    margin-bottom: var(--space-4);
+    text-transform: uppercase;
+}
+
+.catalog-title-accent {
+    color: var(--secondary);
+}
+
+.catalog-underline {
+    width: 80px;
+    height: 4px;
+    background: var(--secondary);
+    margin: 0 auto;
+    border-radius: 2px;
+}
+
+/* ===== ABOUT CONTENT STYLES ===== */
+.about-content {
+    text-align: center;
+    margin-bottom: var(--space-12);
+}
+
+.about-description {
+    color: var(--gray-600);
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* ===== CTA SECTION STYLES ===== */
+.cta-section {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    color: var(--white);
+    padding: var(--space-16) 0;
+    position: relative;
+    z-index: 10;
+}
+
+.cta-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-12);
+    align-items: center;
+}
+
+.cta-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
+.cta-question {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 600;
+    margin: 0;
+}
+
+.cta-title {
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    font-weight: 700;
+    color: var(--white);
+    margin: 0;
+    line-height: 1.2;
+}
+
+.cta-title-accent {
+    color: var(--red-light);
+}
+
+.cta-description {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.cta-section .btn {
+    align-self: flex-start;
+    margin-top: var(--space-4);
+}
+
+/* ===== PLACEHOLDER ELEMENT STYLES ===== */
+.adiabatic-placeholder {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px dashed rgba(255, 255, 255, 0.3);
+    border-radius: var(--radius);
+    padding: var(--space-12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    min-height: 300px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.cta-section .adiabatic-placeholder {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* ===== RESPONSIVE STYLES ===== */
+
+/* Mobile Optimization */
+@media (max-width: 768px) {
+    .catalog-section {
+        padding: var(--space-12) 0;
+    }
+
+    .catalog-header {
+        margin-bottom: var(--space-8);
+    }
+
+    .catalog-title {
+        font-size: clamp(1.5rem, 5vw, 2rem);
+        margin-bottom: var(--space-3);
+    }
+
+    .catalog-subtitle {
+        margin-bottom: var(--space-2);
+    }
+
+    .about-content {
+        margin-bottom: var(--space-8);
+    }
+
+    .about-description {
+        font-size: 0.95rem;
+    }
+
+    .cta-section {
+        padding: var(--space-12) 0;
+    }
+
+    .cta-container {
+        grid-template-columns: 1fr;
+        gap: var(--space-8);
+    }
+
+    .cta-title {
+        font-size: clamp(1.25rem, 4vw, 1.75rem);
+    }
+
+    .cta-description {
+        font-size: 0.95rem;
+    }
+
+    .cta-question {
+        margin-bottom: var(--space-2);
+    }
+
+    .adiabatic-placeholder {
+        min-height: 200px;
+        padding: var(--space-8);
+    }
+}
+
+/* Tablet Optimization */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .cta-container {
+        gap: var(--space-8);
+    }
+
+    .cta-title {
+        font-size: clamp(1.75rem, 3vw, 2rem);
+    }
+
+    .adiabatic-placeholder {
+        min-height: 250px;
+    }
+}
+

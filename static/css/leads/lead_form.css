@@ -1,4 +1,6 @@
-/* ===== ADIABATIC LEAD FORM STYLES ===== */
+/* ===== ADIABATIC LEAD FORM SPECIFIC STYLES ===== */
+/* These styles are specific to the lead form page */
+/* Common section styles are imported from common-sections.css */
 
 /* Form Container */
 .contact-form-container {
@@ -70,10 +72,77 @@
     display: block;
 }
 
+/* ===== FORM ELEMENT STYLES ===== */
+.contact-form label {
+    display: block;
+    margin-bottom: var(--space-2);
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form input[type="tel"],
+.contact-form textarea {
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    border: 2px solid var(--gray-300);
+    border-radius: var(--radius);
+    font-size: 1rem;
+    font-family: var(--font-base);
+    transition: var(--transition);
+    -webkit-appearance: none;
+    appearance: none;
+    background: var(--white);
+    color: var(--primary);
+}
+
+.contact-form input[type="text"]:focus,
+.contact-form input[type="email"]:focus,
+.contact-form input[type="tel"]:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(49, 60, 72, 0.1);
+}
+
+.contact-form textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.contact-form .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+}
+
+.contact-form .form-group {
+    margin-bottom: var(--space-6);
+}
+
+.contact-form .form-row .form-group {
+    margin-bottom: 0;
+}
+
+/* ===== RESPONSIVE STYLES ===== */
+
 /* Mobile Optimization */
 @media (max-width: 768px) {
     .contact-form-container {
         padding: var(--space-6);
         margin: 0 var(--space-4);
+    }
+
+    .contact-form .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-form input[type="text"],
+    .contact-form input[type="email"],
+    .contact-form input[type="tel"],
+    .contact-form textarea {
+        font-size: 16px;
     }
 }
