@@ -16,16 +16,21 @@ class Command(BaseCommand):
         products_dir = os.path.join(settings.MEDIA_ROOT, 'products')
         os.makedirs(products_dir, exist_ok=True)
         
-        # Копіювати фото з static/images до media/products
+        # Копіювати фото з static/images до media/products (тільки локально)
         static_images = os.path.join(settings.BASE_DIR, 'static', 'images')
         
         def copy_image(src_name):
             """Копіює зображення із static/images до media/products"""
-            src = os.path.join(static_images, src_name)
-            if os.path.exists(src):
-                dst = os.path.join(products_dir, src_name)
-                shutil.copy2(src, dst)
-                return f'products/{src_name}'
+            try:
+                src = os.path.join(static_images, src_name)
+                if os.path.exists(src):
+                    dst = os.path.join(products_dir, src_name)
+                    shutil.copy2(src, dst)
+                    return f'products/{src_name}'
+                else:
+                    self.stdout.write(self.style.WARNING(f'Файл {src_name} не знайдено, пропускаємо'))
+            except Exception as e:
+                self.stdout.write(self.style.WARNING(f'Помилка копіювання {src_name}: {e}'))
             return None
         
         # Видалити існуючі товари
