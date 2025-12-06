@@ -16,3 +16,6 @@ echo "from django.contrib.auth import get_user_model; User = get_user_model(); U
 
 # Setup initial data
 python manage.py setup_data
+
+# Setup catalog products
+python manage.py setup_products_catalog
