@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load i18n %}
+{% load i18n static %}
 
 {% block title %}Каталог обладнання - Adiabatic{% endblock %}
 {% block og_title %}Каталог обладнання - Adiabatic{% endblock %}
@@ -59,7 +59,7 @@
                 <!-- Головне фото товару -->
                 <div class="card-image">
                     {% if product.image1 %}
-                    <img src="{{ product.image1.url }}" alt="{{ product.title_uk }}" class="product-main-image">
+                    <img src="{% static product.image1 %}" alt="{{ product.title_uk }}" class="product-main-image">
                     {% else %}
                     <div class="product-placeholder">{{ product.icon_emoji }}</div>
                     {% endif %}
@@ -84,11 +84,11 @@
                             <h4>Додаткові фото</h4>
                             <div class="product-gallery">
                                 {% if product.image2 %}
-                                <img src="{{ product.image2.url }}" alt="{{ product.title_uk }} - фото 2"
+                                <img src="{% static product.image2 %}" alt="{{ product.title_uk }} - фото 2"
                                     class="gallery-image">
                                 {% endif %}
                                 {% if product.image3 %}
-                                <img src="{{ product.image3.url }}" alt="{{ product.title_uk }} - фото 3"
+                                <img src="{% static product.image3 %}" alt="{{ product.title_uk }} - фото 3"
                                     class="gallery-image">
                                 {% endif %}
                             </div>

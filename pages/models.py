@@ -193,10 +193,10 @@ class Product(models.Model):
     full_description_ru = models.TextField(_('Повний опис (рус)'), blank=True)
     full_description_en = models.TextField(_('Повний опис (англ)'), blank=True)
     
-    # Зображення (до 3 фото на товар)
-    image1 = models.ImageField(_('Зображення 1'), upload_to='products/', blank=True, null=True)
-    image2 = models.ImageField(_('Зображення 2'), upload_to='products/', blank=True, null=True)
-    image3 = models.ImageField(_('Зображення 3'), upload_to='products/', blank=True, null=True)
+    # Зображення (до 3 фото на товар) - шляхи до static файлів
+    image1 = models.CharField(_('Зображення 1'), max_length=200, blank=True, default='', help_text='Шлях до файлу в static, наприклад: images/tovar1.png')
+    image2 = models.CharField(_('Зображення 2'), max_length=200, blank=True, default='', help_text='Шлях до файлу в static, наприклад: images/tovar11.png')
+    image3 = models.CharField(_('Зображення 3'), max_length=200, blank=True, default='', help_text='Шлях до файлу в static, наприклад: images/tovar111.png')
     
     # Технічні характеристики (JSON)
     specifications = models.JSONField(_('Технічні характеристики'), default=dict, blank=True)

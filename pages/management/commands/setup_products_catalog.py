@@ -12,26 +12,11 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         self.stdout.write('Завантаження каталогу товарів...')
         
-        # Створити папку products якщо не існує
-        products_dir = os.path.join(settings.MEDIA_ROOT, 'products')
-        os.makedirs(products_dir, exist_ok=True)
-        
-        # Копіювати фото з static/images до media/products (тільки локально)
-        static_images = os.path.join(settings.BASE_DIR, 'static', 'images')
-        
-        def copy_image(src_name):
-            """Копіює зображення із static/images до media/products"""
-            try:
-                src = os.path.join(static_images, src_name)
-                if os.path.exists(src):
-                    dst = os.path.join(products_dir, src_name)
-                    shutil.copy2(src, dst)
-                    return f'products/{src_name}'
-                else:
-                    self.stdout.write(self.style.WARNING(f'Файл {src_name} не знайдено, пропускаємо'))
-            except Exception as e:
-                self.stdout.write(self.style.WARNING(f'Помилка копіювання {src_name}: {e}'))
-            return None
+        def get_static_path(image_name):
+            """Повертає шлях до static файлу"""
+            if image_name:
+                return f'images/{image_name}'
+            return ''
         
         # Видалити існуючі товари
         Product.objects.all().delete()
@@ -68,9 +53,9 @@ class Command(BaseCommand):
             }
         )
         if created:
-            product1.image1 = copy_image('tovar1.png')
-            product1.image2 = copy_image('tovar11.png')
-            product1.image3 = copy_image('tovar111.png')
+            product1.image1 = get_static_path('tovar1.png')
+            product1.image2 = get_static_path('tovar11.png')
+            product1.image3 = get_static_path('tovar111.png')
             product1.save()
             self.stdout.write(self.style.SUCCESS(f'✓ {product1.title_uk}'))
         
@@ -102,9 +87,9 @@ class Command(BaseCommand):
             }
         )
         if created:
-            product2.image1 = copy_image('tovar2.png')
-            product2.image2 = copy_image('tovar22.png')
-            product2.image3 = copy_image('tovar222.png')
+            product2.image1 = get_static_path('tovar2.png')
+            product2.image2 = get_static_path('tovar22.png')
+            product2.image3 = get_static_path('tovar222.png')
             product2.save()
             self.stdout.write(self.style.SUCCESS(f'✓ {product2.title_uk}'))
         
@@ -136,8 +121,8 @@ class Command(BaseCommand):
             }
         )
         if created:
-            product3.image1 = copy_image('tovar3.png')
-            product3.image2 = copy_image('tovar33.png')
+            product3.image1 = get_static_path('tovar3.png')
+            product3.image2 = get_static_path('tovar33.png')
             product3.save()
             self.stdout.write(self.style.SUCCESS(f'✓ {product3.title_uk}'))
         
@@ -170,8 +155,8 @@ class Command(BaseCommand):
             }
         )
         if created:
-            product4.image1 = copy_image('tovar4.png')
-            product4.image2 = copy_image('tovar44.png')
+            product4.image1 = get_static_path('tovar4.png')
+            product4.image2 = get_static_path('tovar44.png')
             product4.save()
             self.stdout.write(self.style.SUCCESS(f'✓ {product4.title_uk}'))
         
@@ -203,8 +188,8 @@ class Command(BaseCommand):
             }
         )
         if created:
-            product5.image1 = copy_image('tovar5.png')
-            product5.image2 = copy_image('tovar55.png')
+            product5.image1 = get_static_path('tovar5.png')
+            product5.image2 = get_static_path('tovar55.png')
             product5.save()
             self.stdout.write(self.style.SUCCESS(f'✓ {product5.title_uk}'))
         
@@ -235,8 +220,8 @@ class Command(BaseCommand):
             }
         )
         if created:
-            product6.image1 = copy_image('tovar6.png')
-            product6.image2 = copy_image('tovar66.png')
+            product6.image1 = get_static_path('tovar6.png')
+            product6.image2 = get_static_path('tovar66.png')
             product6.save()
             self.stdout.write(self.style.SUCCESS(f'✓ {product6.title_uk}'))
         
@@ -269,7 +254,7 @@ class Command(BaseCommand):
             }
         )
         if created:
-            product7.image1 = copy_image('tovar7.png')
+            product7.image1 = get_static_path('tovar7.png')
             product7.save()
             self.stdout.write(self.style.SUCCESS(f'✓ {product7.title_uk}'))
         
@@ -303,7 +288,7 @@ class Command(BaseCommand):
             }
         )
         if created:
-            product8.image1 = copy_image('tovar8.png')
+            product8.image1 = get_static_path('tovar8.png')
             product8.save()
             self.stdout.write(self.style.SUCCESS(f'✓ {product8.title_uk}'))
         
@@ -336,7 +321,7 @@ class Command(BaseCommand):
             }
         )
         if created:
-            product9.image1 = copy_image('tovar9.png')
+            product9.image1 = get_static_path('tovar9.png')
             product9.save()
             self.stdout.write(self.style.SUCCESS(f'✓ {product9.title_uk}'))
         
@@ -371,7 +356,7 @@ class Command(BaseCommand):
             }
         )
         if created:
-            product10.image1 = copy_image('tovar10.png')
+            product10.image1 = get_static_path('tovar10.png')
             product10.save()
             self.stdout.write(self.style.SUCCESS(f'✓ {product10.title_uk}'))
         
