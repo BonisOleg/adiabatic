@@ -13,14 +13,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /* ===== MOBILE MENU ===== */
 function initMobileMenu() {
-    const burgerBtn = document.querySelector('.mobile-burger-btn');
+    const logoLink = document.querySelector('.mobile-menu-trigger');
     const menu = document.querySelector('.mobile-menu');
     const navLinks = document.querySelectorAll('.mobile-nav-link');
 
-    if (!burgerBtn || !menu) return;
+    if (!logoLink || !menu) return;
 
-    // Toggle menu when clicking burger button
-    burgerBtn.addEventListener('click', function (e) {
+    // Toggle menu when clicking logo
+    logoLink.addEventListener('click', function (e) {
         e.preventDefault();
         e.stopPropagation();
         const isOpen = menu.classList.contains('open');
@@ -29,6 +29,20 @@ function initMobileMenu() {
             closeMenu();
         } else {
             openMenu();
+        }
+    });
+
+    // Close menu when clicking the close button (::before pseudo-element)
+    menu.addEventListener('click', function (e) {
+        // Check if click is in the close button area (top-right)
+        const rect = menu.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const clickY = e.clientY - rect.top;
+
+        // Close button area (top-right corner, approximately)
+        if (clickX > rect.width - 80 && clickY < 80) {
+            e.preventDefault();
+            closeMenu();
         }
     });
 
@@ -43,7 +57,7 @@ function initMobileMenu() {
 
     // Close menu when clicking outside
     document.addEventListener('click', function (e) {
-        if (!burgerBtn.contains(e.target) && !menu.contains(e.target)) {
+        if (!logoLink.contains(e.target) && !menu.contains(e.target)) {
             closeMenu();
         }
     });
@@ -83,8 +97,8 @@ function initMobileMenu() {
 
     function openMenu() {
         menu.classList.add('open');
-        burgerBtn.classList.add('active');
-        burgerBtn.setAttribute('aria-expanded', 'true');
+        logoLink.classList.add('active');
+        logoLink.setAttribute('aria-expanded', 'true');
 
         // Prevent body scroll with iOS support
         document.body.style.overflow = 'hidden';
@@ -108,8 +122,8 @@ function initMobileMenu() {
 
     function closeMenu() {
         menu.classList.remove('open');
-        burgerBtn.classList.remove('active');
-        burgerBtn.setAttribute('aria-expanded', 'false');
+        logoLink.classList.remove('active');
+        logoLink.setAttribute('aria-expanded', 'false');
 
         // Restore body scroll
         document.body.style.overflow = '';
@@ -122,11 +136,11 @@ function initMobileMenu() {
     }
 
     // Добавити візуальний фідбек для натискань
-    burgerBtn.addEventListener('touchstart', function () {
+    logoLink.addEventListener('touchstart', function () {
         this.style.transform = 'scale(0.95)';
     }, { passive: true });
 
-    burgerBtn.addEventListener('touchend', function () {
+    logoLink.addEventListener('touchend', function () {
         this.style.transform = '';
     }, { passive: true });
 

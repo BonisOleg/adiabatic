@@ -14,33 +14,8 @@
 {% endblock %}
 
 {% block content %}
-<!-- Hero Section with Video -->
-<section class="hero hero--with-video">
-    <video class="hero-video" autoplay muted loop playsinline>
-        <source src="/static/video/equipment.mp4" type="video/mp4">
-        Ваш браузер не підтримує відео.
-    </video>
-    <div class="container">
-        <div class="hero-content">
-            <div class="hero-subtitle">
-                <img src="/static/images/logo.png" alt="ADIABATIC Logo" class="hero-logo">
-            </div>
-            <h1 class="hero-title">
-                Отримати
-                <span class="hero-accent">консультацію</span>
-            </h1>
-            <p class="hero-description">
-                Заповніть форму нижче і наші фахівці зв'яжуться з вами найближчим часом для надання професійної консультації.
-            </p>
-            <div class="hero-actions">
-                <a href="#form-section" class="btn btn--primary btn--large">Перейти до форми</a>
-            </div>
-        </div>
-    </div>
-</section>
-
 <!-- Lead Form Section (ADIABATIC Style) -->
-<section class="catalog-section" id="form-section">
+<section class="catalog-section">
     <div class="container">
         <div class="catalog-header js-observe">
             <p class="catalog-subtitle">Залишити заявку</p>
@@ -105,13 +80,13 @@
             <p class="cta-description">
                 Наші фахівці готові відповісти на всі ваші запитання та надати детальну консультацію
             </p>
-            <div class="contact-info">
-                <a href="tel:+380441234567" class="contact-link">
-                    📞 +38 (044) 123-45-67
-                </a>
-                <a href="mailto:office@adiabatic.ua" class="contact-link">
-                    ✉️ office@adiabatic.ua
-                </a>
+            <a href="{% url 'pages:contacts' %}" class="btn btn--secondary btn--large">
+                Контакти
+            </a>
+        </div>
+        <div class="js-observe">
+            <div class="adiabatic-placeholder">
+                📞 Форма
             </div>
         </div>
     </div>

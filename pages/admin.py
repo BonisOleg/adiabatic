@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
-from .models import Page, Section, Hero, Partner
+from .models import Page, Section, Hero, Partner, Product
 
 
 class SectionInline(admin.TabularInline):
@@ -81,3 +81,70 @@ class PartnerAdmin(admin.ModelAdmin):
     search_fields = ['name', 'description']
     ordering = ['order', 'name']
     list_editable = ['order', 'is_published']
+
+
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    """Адмінка для каталогу товарів"""
+    list_display = ['title_uk', 'slug', 'order', 'is_published', 'created_at']
+    list_filter = ['is_published', 'created_at']
+    search_fields = ['title_uk', 'title_ru', 'title_en', 'short_description_uk']
+    prepopulated_fields = {'slug': ('title_uk',)}
+    ordering = ['order', 'title_uk']
+    list_editable = ['order', 'is_published']
+    readonly_fields = ['created_at', 'updated_at']
+    
+    fieldsets = (
+        (_('Основна інформація'), {
+            'fields': ('slug', 'icon_emoji', 'order', 'is_published')
+        }),
+        (_('Зображення'), {
+            'fields': ('image1', 'image2', 'image3'),
+            'description': 'Завантажте до 3 фото товару'
+        }),
+        (_('Українська мова'), {
+            'fields': (
+                'title_uk',
+                'short_description_uk',
+                'full_description_uk',
+                'advantages_uk',
+                'applications_uk',
+            )
+        }),
+        (_('Російська мова'), {
+            'fields': (
+                'title_ru',
+                'short_description_ru',
+                'full_description_ru',
+                'advantages_ru',
+                'applications_ru',
+            ),
+            'classes': ('collapse',)
+        }),
+        (_('Англійська мова'), {
+            'fields': (
+                'title_en',
+                'short_description_en',
+                'full_description_en',
+                'advantages_en',
+                'applications_en',
+            ),
+            'classes': ('collapse',)
+        }),
+        (_('Технічні характеристики (JSON)'), {
+            'fields': ('specifications',),
+            'description': 'Формат: {"Параметр": "Значення", ...}'
+        }),
+        (_('SEO'), {
+            'fields': (
+                'meta_title_uk', 'meta_description_uk',
+                'meta_title_ru', 'meta_description_ru',
+                'meta_title_en', 'meta_description_en',
+            ),
+            'classes': ('collapse',)
+        }),
+        (_('Системна інформація'), {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',)
+        }),
+    )

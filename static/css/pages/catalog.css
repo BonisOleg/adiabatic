@@ -1,0 +1,309 @@
+/* ===== ADIABATIC CATALOG PAGE STYLES ===== */
+
+/* Catalog Section */
+.catalog-section {
+    background: var(--white);
+}
+
+/* Product Card Extensions */
+.product-card {
+    position: relative;
+}
+
+.product-card .card-image {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Головне фото товару */
+.product-main-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    transition: var(--transition);
+}
+
+.product-card:hover .product-main-image {
+    transform: scale(1.05);
+}
+
+/* Placeholder якщо немає фото */
+.product-placeholder {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    background: var(--gray-100);
+}
+
+/* Product Toggle Button */
+.product-toggle {
+    width: 100%;
+    margin-top: var(--space-4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+}
+
+.toggle-icon {
+    display: inline-block;
+    transition: transform 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.product-toggle[aria-expanded="true"] .toggle-icon {
+    transform: rotate(180deg);
+}
+
+/* Accordion Details */
+.product-details {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.4s ease;
+}
+
+.product-details[data-expanded="true"] {
+    max-height: 5000px;
+    opacity: 1;
+    margin-top: var(--space-6);
+    padding-top: var(--space-6);
+    border-top: 2px solid var(--gray-300);
+}
+
+/* Product Sections */
+.product-section {
+    margin-bottom: var(--space-6);
+}
+
+.product-section h4 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: var(--space-3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.product-section p {
+    color: var(--gray-600);
+    line-height: 1.7;
+}
+
+/* Галерея додаткових фото */
+.product-gallery-section {
+    margin-bottom: var(--space-8);
+}
+
+.product-gallery {
+    display: flex;
+    gap: var(--space-4);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: var(--space-2) 0;
+    margin-top: var(--space-3);
+}
+
+.gallery-image {
+    flex: 0 0 auto;
+    width: 250px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    scroll-snap-align: start;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.gallery-image:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Scrollbar для галереї */
+.product-gallery::-webkit-scrollbar {
+    height: 6px;
+}
+
+.product-gallery::-webkit-scrollbar-track {
+    background: var(--gray-100);
+    border-radius: 3px;
+}
+
+.product-gallery::-webkit-scrollbar-thumb {
+    background: var(--gray-300);
+    border-radius: 3px;
+}
+
+.product-gallery::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+}
+
+/* Таблиця характеристик */
+.specs-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: var(--space-3);
+}
+
+.specs-table__row {
+    border-bottom: 1px solid var(--gray-300);
+}
+
+.specs-table__row:last-child {
+    border-bottom: none;
+}
+
+.specs-table__label {
+    font-weight: 600;
+    padding: var(--space-3);
+    color: var(--primary);
+    width: 40%;
+    vertical-align: top;
+}
+
+.specs-table__value {
+    padding: var(--space-3);
+    color: var(--gray-600);
+    width: 60%;
+}
+
+/* Переваги */
+.product-advantages {
+    color: var(--gray-600);
+    line-height: 1.8;
+}
+
+.product-advantages p {
+    margin-bottom: var(--space-2);
+}
+
+/* Product Actions */
+.product-actions {
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--gray-300);
+    text-align: center;
+}
+
+.product-actions .btn {
+    min-width: 200px;
+}
+
+/* CTA Section */
+.cta-section {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    color: var(--white);
+}
+
+.cta-title {
+    font-size: clamp(2rem, 4vw, 2.5rem);
+    font-weight: 800;
+    margin-bottom: var(--space-4);
+    text-transform: uppercase;
+}
+
+.cta-description {
+    font-size: 1.1rem;
+    margin-bottom: var(--space-8);
+    opacity: 0.9;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* Mobile Optimization */
+@media (max-width: 768px) {
+    .product-main-image {
+        height: 180px;
+    }
+
+    .product-placeholder {
+        height: 180px;
+        font-size: 3rem;
+    }
+
+    .gallery-image {
+        width: 200px;
+        height: 140px;
+    }
+
+    .specs-table__label,
+    .specs-table__value {
+        display: block;
+        width: 100%;
+        padding: var(--space-2);
+    }
+
+    .specs-table__label {
+        padding-bottom: var(--space-1);
+        font-size: 0.9rem;
+    }
+
+    .specs-table__value {
+        padding-top: 0;
+        padding-bottom: var(--space-3);
+    }
+
+    .product-section h4 {
+        font-size: 1rem;
+    }
+
+    .cta-title {
+        font-size: clamp(1.5rem, 5vw, 2rem);
+    }
+
+    .cta-description {
+        font-size: 1rem;
+    }
+}
+
+/* Tablet Optimization */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .gallery-image {
+        width: 220px;
+        height: 160px;
+    }
+}
+
+/* Animation for accordion open */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.product-details[data-expanded="true"] .product-section {
+    animation: fadeInUp 0.4s ease forwards;
+}
+
+.product-details[data-expanded="true"] .product-section:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.product-details[data-expanded="true"] .product-section:nth-child(3) {
+    animation-delay: 0.15s;
+}
+
+.product-details[data-expanded="true"] .product-section:nth-child(4) {
+    animation-delay: 0.2s;
+}
+
+.product-details[data-expanded="true"] .product-section:nth-child(5) {
+    animation-delay: 0.25s;
+}

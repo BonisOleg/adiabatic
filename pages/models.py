@@ -171,3 +171,93 @@ class Partner(models.Model):
     
     def __str__(self):
         return self.name
+
+
+class Product(models.Model):
+    """Продукція компанії (каталог обладнання)"""
+    
+    # Основна інформація
+    title_uk = models.CharField(_('Назва (укр)'), max_length=200)
+    title_ru = models.CharField(_('Назва (рус)'), max_length=200, blank=True)
+    title_en = models.CharField(_('Назва (англ)'), max_length=200, blank=True)
+    
+    slug = models.SlugField(_('Slug'), max_length=200, unique=True, blank=True)
+    
+    # Короткий опис (для картки)
+    short_description_uk = models.TextField(_('Короткий опис (укр)'), max_length=300)
+    short_description_ru = models.TextField(_('Короткий опис (рус)'), max_length=300, blank=True)
+    short_description_en = models.TextField(_('Короткий опис (англ)'), max_length=300, blank=True)
+    
+    # Повний опис
+    full_description_uk = models.TextField(_('Повний опис (укр)'))
+    full_description_ru = models.TextField(_('Повний опис (рус)'), blank=True)
+    full_description_en = models.TextField(_('Повний опис (англ)'), blank=True)
+    
+    # Зображення (до 3 фото на товар)
+    image1 = models.ImageField(_('Зображення 1'), upload_to='products/', blank=True, null=True)
+    image2 = models.ImageField(_('Зображення 2'), upload_to='products/', blank=True, null=True)
+    image3 = models.ImageField(_('Зображення 3'), upload_to='products/', blank=True, null=True)
+    
+    # Технічні характеристики (JSON)
+    specifications = models.JSONField(_('Технічні характеристики'), default=dict, blank=True)
+    
+    # Переваги
+    advantages_uk = models.TextField(_('Переваги (укр)'), blank=True)
+    advantages_ru = models.TextField(_('Переваги (рус)'), blank=True)
+    advantages_en = models.TextField(_('Переваги (англ)'), blank=True)
+    
+    # Галузі застосування
+    applications_uk = models.TextField(_('Галузі застосування (укр)'), blank=True)
+    applications_ru = models.TextField(_('Галузі застосування (рус)'), blank=True)
+    applications_en = models.TextField(_('Галузі застосування (англ)'), blank=True)
+    
+    # Emoji іконка (fallback якщо немає фото)
+    icon_emoji = models.CharField(_('Іконка (emoji)'), max_length=10, default='🔧')
+    
+    # Порядок сортування
+    order = models.PositiveIntegerField(_('Порядок'), default=0)
+    is_published = models.BooleanField(_('Опубліковано'), default=True)
+    
+    # SEO поля
+    meta_title_uk = models.CharField(_('Meta title (укр)'), max_length=60, blank=True)
+    meta_title_ru = models.CharField(_('Meta title (рус)'), max_length=60, blank=True)
+    meta_title_en = models.CharField(_('Meta title (англ)'), max_length=60, blank=True)
+    
+    meta_description_uk = models.TextField(_('Meta description (укр)'), max_length=160, blank=True)
+    meta_description_ru = models.TextField(_('Meta description (рус)'), max_length=160, blank=True)
+    meta_description_en = models.TextField(_('Meta description (англ)'), max_length=160, blank=True)
+    
+    # Timestamps
+    created_at = models.DateTimeField(_('Створено'), auto_now_add=True)
+    updated_at = models.DateTimeField(_('Оновлено'), auto_now=True)
+    
+    class Meta:
+        verbose_name = _('Товар')
+        verbose_name_plural = _('Товари')
+        ordering = ['order', 'title_uk']
+    
+    def __str__(self):
+        return self.title_uk
+    
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title_uk)
+        super().save(*args, **kwargs)
+    
+    def get_absolute_url(self):
+        return reverse('pages:catalog') + f'#{self.slug}'
+    
+    def get_title(self, language_code='uk'):
+        return getattr(self, f'title_{language_code}', self.title_uk)
+    
+    def get_short_description(self, language_code='uk'):
+        return getattr(self, f'short_description_{language_code}', self.short_description_uk)
+    
+    def get_full_description(self, language_code='uk'):
+        return getattr(self, f'full_description_{language_code}', self.full_description_uk)
+    
+    def get_advantages(self, language_code='uk'):
+        return getattr(self, f'advantages_{language_code}', self.advantages_uk)
+    
+    def get_applications(self, language_code='uk'):
+        return getattr(self, f'applications_{language_code}', self.applications_uk)

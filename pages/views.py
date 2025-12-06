@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.utils.translation import get_language
 from django.urls import reverse
-from .models import Page, Hero, Partner
+from .models import Page, Hero, Partner, Product
 
 
 def get_page_or_none(page_type):
@@ -84,6 +84,17 @@ def blog(request):
         'page': get_page_or_none('blog'),
     }
     return render(request, 'pages/blog.html', context)
+
+
+def catalog(request):
+    """Сторінка каталогу продукції"""
+    products = Product.objects.filter(is_published=True).order_by('order')
+    
+    context = {
+        'page': get_page_or_none('catalog'),
+        'products': products,
+    }
+    return render(request, 'pages/catalog.html', context)
 
 
 def page_detail(request, slug):

@@ -48,7 +48,6 @@
     <link rel="preload" href="/static/css/desktop-menu.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preload" href="/static/css/hero.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preload" href="/static/css/footer.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="/static/css/common-sections.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
         <link rel="stylesheet" href="/static/css/variables.css">
         <link rel="stylesheet" href="/static/css/reset.css">
@@ -59,7 +58,6 @@
         <link rel="stylesheet" href="/static/css/desktop-menu.css">
         <link rel="stylesheet" href="/static/css/hero.css">
         <link rel="stylesheet" href="/static/css/footer.css">
-        <link rel="stylesheet" href="/static/css/common-sections.css">
     </noscript>
 
     <!-- Page specific CSS -->
@@ -85,17 +83,9 @@
                     <span></span>
                 </button>
 
-                <!-- Mobile Burger Button (only visible on mobile) -->
-                <button class="mobile-burger-btn" type="button" aria-expanded="false"
-                    aria-controls="mobile-menu" aria-label="Відкрити меню">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-
                 <!-- Mobile Logo (visible only on mobile) -->
                 <div class="mobile-logo">
-                    <a href="{% url 'pages:home' %}" class="logo-link">
+                    <a href="{% url 'pages:home' %}" class="logo-link mobile-menu-trigger">
                         <img src="/static/images/logo.png" alt="ADIABATIC Logo" class="logo-image">
                         <span class="logo-text">{{ site_settings.site_name|default:'ADIABATIC' }}</span>
                     </a>
@@ -105,6 +95,7 @@
                 <div class="animated-desktop-menu" id="animated-desktop-menu">
                     <nav role="navigation" aria-label="Анімоване меню">
                         <ul class="animated-nav-list">
+                            <li><a href="{% url 'pages:catalog' %}" class="animated-nav-link">Каталог</a></li>
                             <li><a href="{% url 'pages:products' %}" class="animated-nav-link">Сфери застосування</a>
                             </li>
                             <li><a href="{% url 'pages:about' %}" class="animated-nav-link">Про компанію</a></li>
@@ -117,6 +108,7 @@
                 <!-- Desktop Navigation (fallback for smaller screens) -->
                 <nav class="nav" role="navigation" aria-label="Головне меню">
                     <ul class="nav-list">
+                        <li><a href="{% url 'pages:catalog' %}" class="nav-link">Каталог</a></li>
                         <li><a href="{% url 'pages:products' %}" class="nav-link">Сфери застосування</a></li>
                         <li><a href="{% url 'pages:about' %}" class="nav-link">Про компанію</a></li>
                         <li><a href="{% url 'pages:partners' %}" class="nav-link">Партнери</a></li>
@@ -126,6 +118,13 @@
 
                 <!-- Header Actions -->
                 <div class="header-actions">
+                    <!-- Phone (hidden on desktop, visible on mobile) -->
+                    {% if site_settings.contact_phone %}
+                    <a href="tel:{{ site_settings.contact_phone }}" class="header-phone mobile-only">
+                        {{ site_settings.contact_phone|default:"+380 44 123 45 67" }}
+                    </a>
+                    {% endif %}
+
                     <!-- Logo (positioned on the right on desktop) -->
                     <div class="logo">
                         <a href="{% url 'pages:home' %}" class="logo-link">
@@ -140,6 +139,11 @@
                         <a href="#" class="lang-link">RU</a>
                         <a href="#" class="lang-link">EN</a>
                     </div>
+
+                    <!-- CTA Button (hidden on desktop, visible on mobile) -->
+                    <a href="{% url 'leads:submit' %}" class="header-cta mobile-only">
+                        Зворотний дзвінок
+                    </a>
                 </div>
 
             </div>
@@ -151,12 +155,26 @@
                 <nav role="navigation" aria-label="Мобільне меню">
                     <ul class="mobile-nav-list">
                         <li><a href="{% url 'pages:home' %}" class="mobile-nav-link mobile-nav-home">🏠 Головна</a></li>
+                        <li><a href="{% url 'pages:catalog' %}" class="mobile-nav-link">📦 Каталог</a></li>
                         <li><a href="{% url 'pages:products' %}" class="mobile-nav-link">🔧 Сфери застосування</a></li>
                         <li><a href="{% url 'pages:about' %}" class="mobile-nav-link">ℹ️ Про компанію</a></li>
                         <li><a href="{% url 'pages:partners' %}" class="mobile-nav-link">🤝 Партнери</a></li>
                         <li><a href="{% url 'pages:blog' %}" class="mobile-nav-link">📚 Корисна інформація</a></li>
                         <li><a href="{% url 'pages:contacts' %}" class="mobile-nav-link">📞 Контакти</a></li>
                     </ul>
+
+                    <!-- Mobile Actions -->
+                    <div class="mobile-actions">
+                        {% if site_settings.contact_phone %}
+                        <a href="tel:{{ site_settings.contact_phone }}" class="mobile-phone">
+                            📞 {{ site_settings.contact_phone|default:"+380 44 123 45 67" }}
+                        </a>
+                        {% endif %}
+
+                        <a href="{% url 'leads:submit' %}" class="mobile-cta btn">
+                            Зворотний дзвінок
+                        </a>
+                    </div>
                 </nav>
             </div>
         </div>
@@ -196,6 +214,7 @@
                 <div class="footer-section">
                     <h4 class="footer-subtitle">Продукція</h4>
                     <ul class="footer-list">
+                        <li><a href="{% url 'pages:catalog' %}">Каталог обладнання</a></li>
                         <li><a href="{% url 'pages:products' %}">Сфери застосування</a></li>
                         <li><a href="#" class="download-link">Завантажити каталог</a></li>
                         <li><a href="#" class="download-link">Завантажити опитувальний лист</a></li>

@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}Каталог обладнання - Adiabatic{% endblock %}
+{% block og_title %}Каталог обладнання - Adiabatic{% endblock %}
+{% block og_description %}Повний каталог теплообмінного обладнання Adiabatic: пластинчасті, кожухотрубні, АПО,
+калорифери та комплектуючі.{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="/static/css/pages/catalog.css">
+{% endblock %}
+
+{% block page_js %}
+<script src="/static/js/pages/catalog.js" defer></script>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero hero--with-video">
+    <video class="hero-video" autoplay muted loop playsinline>
+        <source src="/static/video/equipment.mp4" type="video/mp4">
+        Ваш браузер не підтримує відео.
+    </video>
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-subtitle">
+                <img src="/static/images/logo.png" alt="ADIABATIC Logo" class="hero-logo">
+            </div>
+            <h1 class="hero-title">
+                Каталог
+                <span class="hero-accent">обладнання</span>
+            </h1>
+            <p class="hero-description">
+                Професійні рішення для теплообміну
+            </p>
+            <div class="hero-actions">
+                <a href="#" class="btn btn--primary btn--large">Завантажити каталог</a>
+                <a href="{% url 'leads:submit' %}" class="btn btn--secondary btn--large">Розрахунок теплообмінника</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Catalog Section -->
+<section class="section catalog-section">
+    <div class="container">
+        <div class="section-header">
+            <p class="section-subtitle">Продукція</p>
+            <h2 class="section-title">
+                Наша
+                <span class="section-accent">продукція</span>
+            </h2>
+            <div class="section-underline"></div>
+        </div>
+
+        <div class="cards-grid">
+            {% for product in products %}
+            <div class="card product-card" id="{{ product.slug }}">
+                <!-- Головне фото товару -->
+                <div class="card-image">
+                    {% if product.image1 %}
+                    <img src="{{ product.image1.url }}" alt="{{ product.title_uk }}" class="product-main-image">
+                    {% else %}
+                    <div class="product-placeholder">{{ product.icon_emoji }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="card-content">
+                    <h3 class="card-title">{{ product.title_uk }}</h3>
+                    <p class="card-description">{{ product.short_description_uk }}</p>
+
+                    <!-- Кнопка розгортання -->
+                    <button class="product-toggle btn btn--small btn--gradient" data-product-id="{{ product.id }}"
+                        type="button">
+                        Детальніше <span class="toggle-icon">▼</span>
+                    </button>
+
+                    <!-- Accordion контент (приховано за замовчуванням) -->
+                    <div class="product-details" data-expanded="false">
+
+                        <!-- Галерея додаткових фото (горизонтальна прокрутка) -->
+                        {% if product.image2 or product.image3 %}
+                        <div class="product-section product-gallery-section">
+                            <h4>Додаткові фото</h4>
+                            <div class="product-gallery">
+                                {% if product.image2 %}
+                                <img src="{{ product.image2.url }}" alt="{{ product.title_uk }} - фото 2"
+                                    class="gallery-image">
+                                {% endif %}
+                                {% if product.image3 %}
+                                <img src="{{ product.image3.url }}" alt="{{ product.title_uk }} - фото 3"
+                                    class="gallery-image">
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <!-- Повний опис -->
+                        <div class="product-section">
+                            <h4>Опис</h4>
+                            <p>{{ product.full_description_uk }}</p>
+                        </div>
+
+                        <!-- Технічні характеристики -->
+                        {% if product.specifications %}
+                        <div class="product-section">
+                            <h4>Технічні характеристики</h4>
+                            <table class="specs-table">
+                                {% for key, value in product.specifications.items %}
+                                <tr class="specs-table__row">
+                                    <td class="specs-table__label">{{ key }}</td>
+                                    <td class="specs-table__value">{{ value }}</td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                        {% endif %}
+
+                        <!-- Переваги -->
+                        {% if product.advantages_uk %}
+                        <div class="product-section">
+                            <h4>Переваги</h4>
+                            <div class="product-advantages">{{ product.advantages_uk|linebreaks }}</div>
+                        </div>
+                        {% endif %}
+
+                        <!-- Галузі застосування -->
+                        {% if product.applications_uk %}
+                        <div class="product-section">
+                            <h4>Галузі застосування</h4>
+                            <p>{{ product.applications_uk }}</p>
+                        </div>
+                        {% endif %}
+
+                        <!-- CTA -->
+                        <div class="product-actions">
+                            <a href="{% url 'leads:submit' %}" class="btn btn--primary">
+                                Замовити розрахунок
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="card">
+                <div class="card-content">
+                    <p>Товари не знайдено. Виконайте команду: python manage.py setup_products_catalog</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section section">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="cta-title">
+                Потрібна
+                <span class="hero-accent">консультація?</span>
+            </h2>
+            <p class="cta-description">
+                Наші інженери допоможуть підібрати оптимальне рішення для ваших технічних вимог
+            </p>
+            <div class="hero-actions">
+                <a href="{% url 'leads:submit' %}" class="btn btn--primary btn--large">
+                    Зворотній дзвінок
+                </a>
+                <a href="{% url 'pages:contacts' %}" class="btn btn--secondary btn--large">
+                    Контакти
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
