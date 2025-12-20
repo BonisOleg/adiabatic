@@ -388,9 +388,11 @@
     backdrop-filter: blur(5px);
 }
 
-.mobile-phone:hover {
-    background: rgb(255 255 255 / 15%);
-    transform: translateY(-1px);
+@media (hover: hover) {
+    .mobile-phone:hover {
+        background: rgb(255 255 255 / 15%);
+        transform: translateY(-1px);
+    }
 }
 
 .mobile-cta {
@@ -410,11 +412,13 @@
     max-width: 250px;
 }
 
-.mobile-cta:hover {
-    background: linear-gradient(135deg, var(--red-light), var(--red-dark));
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgb(196 56 77 / 40%);
-    border-color: rgb(255 255 255 / 40%);
+@media (hover: hover) {
+    .mobile-cta:hover {
+        background: linear-gradient(135deg, var(--red-light), var(--red-dark));
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgb(196 56 77 / 40%);
+        border-color: rgb(255 255 255 / 40%);
+    }
 }
 
 .mobile-cta:active {
@@ -494,9 +498,11 @@
         z-index: 1000;
     }
 
-    .mobile-menu::before:hover {
-        background: rgb(255 255 255 / 20%);
-        transform: rotate(90deg);
+    @media (hover: hover) {
+        .mobile-menu::before:hover {
+            background: rgb(255 255 255 / 20%);
+            transform: rotate(90deg);
+        }
     }
 
     /* iOS Safari optimizations */

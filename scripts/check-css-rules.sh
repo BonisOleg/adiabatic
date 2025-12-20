@@ -130,10 +130,29 @@ fi
 # Правило 8: backdrop-filter має мати -webkit- prefix
 echo ""
 echo "🌫️  [Rule 8] Checking backdrop-filter prefix..."
-BACKDROP_ISSUES=$(echo "$CSS_FILES" | xargs grep -n 'backdrop-filter:' | grep -v '\-webkit-backdrop-filter' || echo "")
+BACKDROP_ISSUES=""
+for file in $CSS_FILES; do
+  # Знаходимо всі рядки з backdrop-filter (крім @supports)
+  BACKDROP_LINES=$(grep -n 'backdrop-filter:' "$file" | grep -v '@supports' || echo "")
+  if [ -n "$BACKDROP_LINES" ]; then
+    while IFS=: read -r line_num line_content; do
+      # Перевіряємо, чи є -webkit-backdrop-filter на попередньому або поточному рядку
+      prev_line=$((line_num - 1))
+      if [ "$prev_line" -gt 0 ]; then
+        prev_content=$(sed -n "${prev_line}p" "$file")
+        if ! echo "$prev_content" | grep -q '\-webkit-backdrop-filter' && ! echo "$line_content" | grep -q '\-webkit-backdrop-filter'; then
+          BACKDROP_ISSUES="${BACKDROP_ISSUES}${file}:${line_num}:${line_content}\n"
+        fi
+      elif ! echo "$line_content" | grep -q '\-webkit-backdrop-filter'; then
+        BACKDROP_ISSUES="${BACKDROP_ISSUES}${file}:${line_num}:${line_content}\n"
+      fi
+    done <<< "$BACKDROP_LINES"
+  fi
+done
+
 if [ -n "$BACKDROP_ISSUES" ]; then
   echo "⚠️  backdrop-filter without -webkit- prefix:"
-  echo "$BACKDROP_ISSUES"
+  echo -e "$BACKDROP_ISSUES" | head -20
   echo "   Fix: Add '-webkit-backdrop-filter: ...; backdrop-filter: ...;'"
   ((WARNING_COUNT++))
 else
