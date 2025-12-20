@@ -107,10 +107,12 @@
     border: 2px solid transparent;
 }
 
-.card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
-    border-color: var(--secondary);
+@media (hover: hover) {
+    .card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-lg);
+        border-color: var(--secondary);
+    }
 }
 
 .card-image {
@@ -136,8 +138,10 @@
     text-decoration: none;
 }
 
-.card-title:hover {
-    color: var(--red-light);
+@media (hover: hover) {
+    .card-title:hover {
+        color: var(--red-light);
+    }
 }
 
 .card-description {
@@ -208,9 +212,11 @@
     appearance: none;
 }
 
-.back-to-top:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
+@media (hover: hover) {
+    .back-to-top:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+    }
 }
 
 /* ===== UTILITY CLASSES ===== */

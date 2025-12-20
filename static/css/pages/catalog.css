@@ -24,8 +24,10 @@
     transition: var(--transition);
 }
 
-.product-card:hover .product-main-image {
-    transform: scale(1.05);
+@media (hover: hover) {
+    .product-card:hover .product-main-image {
+        transform: scale(1.05);
+    }
 }
 
 /* Placeholder якщо немає фото */
@@ -123,9 +125,11 @@
     cursor: pointer;
 }
 
-.gallery-image:hover {
-    transform: scale(1.05);
-    box-shadow: var(--shadow-lg);
+@media (hover: hover) {
+    .gallery-image:hover {
+        transform: scale(1.05);
+        box-shadow: var(--shadow-lg);
+    }
 }
 
 /* Scrollbar для галереї */
@@ -143,8 +147,10 @@
     border-radius: 3px;
 }
 
-.product-gallery::-webkit-scrollbar-thumb:hover {
-    background: var(--primary);
+@media (hover: hover) {
+    .product-gallery::-webkit-scrollbar-thumb:hover {
+        background: var(--primary);
+    }
 }
 
 /* Таблиця характеристик */

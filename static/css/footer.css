@@ -78,9 +78,11 @@
     transition: var(--transition);
 }
 
-.social-link:hover {
-    color: var(--secondary);
-    background: rgb(244 163 44 / 10%);
+@media (hover: hover) {
+    .social-link:hover {
+        color: var(--secondary);
+        background: rgb(244 163 44 / 10%);
+    }
 }
 
 .footer-list {
@@ -97,9 +99,11 @@
     transition: var(--transition);
 }
 
-.footer-list a:hover,
-.download-link:hover {
-    color: var(--secondary);
+@media (hover: hover) {
+    .footer-list a:hover,
+    .download-link:hover {
+        color: var(--secondary);
+    }
 }
 
 .footer-list a:focus {
@@ -128,8 +132,10 @@
     transition: var(--transition);
 }
 
-.contact-item a:hover {
-    color: var(--secondary);
+@media (hover: hover) {
+    .contact-item a:hover {
+        color: var(--secondary);
+    }
 }
 
 .footer-bottom {
