@@ -16,7 +16,19 @@
     }],
     "plugin/no-unsupported-browser-features": [true, {
       "severity": "warning",
-      "ignore": ["css-nesting", "css-has", "viewport-units", "css-overscroll-behavior"]
+      "ignore": [
+        "css-nesting",
+        "css-has",
+        "viewport-units",
+        "css-overscroll-behavior",
+        "css-media-range-syntax",
+        "css-appearance",
+        "css-touch-action",
+        "css-gradients",
+        "css-overflow",
+        "flexbox-gap",
+        "css-resize"
+      ]
     }],
     "property-no-vendor-prefix": [true, {
       "ignoreProperties": ["backdrop-filter"]
