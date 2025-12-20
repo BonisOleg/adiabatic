@@ -78,7 +78,7 @@
 }
 
 /* Mobile Optimization */
-@media (max-width: 768px) {
+@media (width <= 768px) {
     .contact-form .form-row {
         grid-template-columns: 1fr;
     }

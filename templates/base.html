@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content">
+    <meta name="csrf-token" content="{{ csrf_token }}">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <!-- iOS Safari оптимізації -->
@@ -38,32 +39,24 @@
     <!-- Critical CSS -->
     <link rel="stylesheet" href="/static/css/critical.css">
 
-    <!-- CSS Files (preload for better performance) -->
-    <link rel="preload" href="/static/css/variables.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="/static/css/reset.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="/static/css/layout.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="/static/css/typography.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="/static/css/components.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="/static/css/navigation.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="/static/css/desktop-menu.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="/static/css/hero.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="/static/css/footer.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="/static/css/variables.css">
-        <link rel="stylesheet" href="/static/css/reset.css">
-        <link rel="stylesheet" href="/static/css/layout.css">
-        <link rel="stylesheet" href="/static/css/typography.css">
-        <link rel="stylesheet" href="/static/css/components.css">
-        <link rel="stylesheet" href="/static/css/navigation.css">
-        <link rel="stylesheet" href="/static/css/desktop-menu.css">
-        <link rel="stylesheet" href="/static/css/hero.css">
-        <link rel="stylesheet" href="/static/css/footer.css">
-    </noscript>
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="/static/css/variables.css">
+    <link rel="stylesheet" href="/static/css/reset.css">
+    <link rel="stylesheet" href="/static/css/layout.css">
+    <link rel="stylesheet" href="/static/css/typography.css">
+    <link rel="stylesheet" href="/static/css/components.css">
+    <link rel="stylesheet" href="/static/css/navigation.css">
+    <link rel="stylesheet" href="/static/css/desktop-menu.css">
+    <link rel="stylesheet" href="/static/css/hero.css">
+    <link rel="stylesheet" href="/static/css/footer.css">
 
     <!-- Page specific CSS -->
     {% block page_css %}{% endblock %}
 
     {% block extra_css %}{% endblock %}
+
+    <!-- HTMX -->
+    <script src="https://unpkg.com/htmx.org@2.0.8" defer></script>
 </head>
 
 <body>
@@ -183,7 +176,7 @@
     <!-- Fixed Background Video (not for home page) -->
     {% if request.resolver_match.url_name != 'home' %}
     <div class="hero-video-container">
-        <video class="hero-video" autoplay muted loop playsinline>
+        <video class="hero-video" autoplay muted loop playsinline poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E">
             <source src="/static/video/equipment.mp4" type="video/mp4">
             <!-- Fallback background for browsers that don't support video -->
         </video>
@@ -258,16 +251,17 @@
     </footer>
 
     <!-- Back to Top Button -->
-    <button class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Вгору"
+    <button class="back-to-top" id="backToTop" title="Вгору"
         aria-label="Повернутися вгору">
         ↑
     </button>
 
     <!-- Base JavaScript -->
-    <script src="/static/js/base.js" defer></script>
-    <script src="/static/js/desktop-menu.js" defer></script>
+    <script src="/static/js/base.js" type="module" defer></script>
+    <script src="/static/js/desktop-menu.js" type="module" defer></script>
     <script src="/static/js/form-validation.js" defer></script>
     <script src="/static/js/video.js" defer></script>
+    <script src="/static/js/htmx-integration.js" defer></script>
 
     <!-- Page specific JavaScript -->
     {% block page_js %}{% endblock %}

@@ -1,0 +1,58 @@
+#!/bin/bash
+set -e
+
+echo "========================================="
+echo "🔧 Automatic Rules Fixes"
+echo "========================================="
+
+FIXED_COUNT=0
+
+# Fix 1: Видалити inline style=""
+echo ""
+echo "🎨 [Fix 1] Removing inline styles..."
+HTML_FILES=$(find templates -name "*.html" 2>/dev/null || echo "")
+if [ -n "$HTML_FILES" ]; then
+  BEFORE=$(echo "$HTML_FILES" | xargs grep -c 'style="' | grep -v ':0$' | wc -l || echo "0")
+  echo "$HTML_FILES" | xargs sed -i.bak 's/ style="[^"]*"//g'
+  AFTER=$(echo "$HTML_FILES" | xargs grep -c 'style="' | grep -v ':0$' | wc -l || echo "0")
+  REMOVED=$((BEFORE - AFTER))
+  if [ $REMOVED -gt 0 ]; then
+    echo "✅ Removed $REMOVED inline style attributes"
+    ((FIXED_COUNT++))
+  fi
+fi
+
+# Fix 2: Додати inputmode="tel" до type="tel"
+echo ""
+echo "📞 [Fix 2] Adding inputmode=\"tel\" to tel inputs..."
+if [ -n "$HTML_FILES" ]; then
+  echo "$HTML_FILES" | xargs sed -i.bak 's/<input type="tel"/<input type="tel" inputmode="tel"/g'
+  echo "✅ Added inputmode to tel inputs"
+  ((FIXED_COUNT++))
+fi
+
+# Fix 3: flex: 1; → flex: 1 0 0;
+echo ""
+echo "📦 [Fix 3] Fixing flex shorthand..."
+CSS_FILES=$(find static/css -name "*.css" ! -name "reset.css" 2>/dev/null || echo "")
+if [ -n "$CSS_FILES" ]; then
+  BEFORE=$(echo "$CSS_FILES" | xargs grep -c 'flex:\s*1;' | grep -v ':0$' | wc -l || echo "0")
+  echo "$CSS_FILES" | xargs sed -i.bak 's/flex: 1;/flex: 1 0 0;/g'
+  AFTER=$(echo "$CSS_FILES" | xargs grep -c 'flex:\s*1;' | grep -v ':0$' | wc -l || echo "0")
+  FIXED=$((BEFORE - AFTER))
+  if [ $FIXED -gt 0 ]; then
+    echo "✅ Fixed $FIXED flex shorthand declarations"
+    ((FIXED_COUNT++))
+  fi
+fi
+
+# Видалити .bak файли
+find . -name "*.bak" -delete
+
+echo ""
+echo "========================================="
+echo "📊 Fixes Summary"
+echo "========================================="
+echo "Total fixes applied: $FIXED_COUNT"
+echo "✅ Auto-fix complete"
+

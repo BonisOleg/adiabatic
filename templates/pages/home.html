@@ -19,13 +19,12 @@
 <section class="hero hero--with-video">
     <!-- Rotating Video Background -->
     <div class="hero-video-container">
-        <video class="hero-video hero-video--rotating" autoplay muted loop playsinline data-video-index="0">
+        <video class="hero-video hero-video--rotating" autoplay muted loop playsinline data-video-index="0" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E">
             <source src="/static/video/main1.mp4" type="video/mp4">
             <source src="/static/video/main2.mp4" type="video/mp4">
             Ваш браузер не підтримує відео.
         </video>
-        <video class="hero-video hero-video--rotating hero-video--hidden" autoplay muted loop playsinline
-            data-video-index="1">
+        <video class="hero-video hero-video--rotating hero-video--hidden" autoplay muted loop playsinline poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E" data-video-index="1">
             <source src="/static/video/main2.mp4" type="video/mp4">
             <source src="/static/video/main1.mp4" type="video/mp4">
             Ваш браузер не підтримує відео.
@@ -160,7 +159,7 @@
 </section>
 
 <!-- Applications Section (Сфери застосування) -->
-<section class="section" style="background: var(--gray-50);">
+<section class="section">
     <div class="container">
         <div class="section-header">
             <p class="section-subtitle">Сфери застосування</p>
@@ -260,7 +259,7 @@
                 <p class="download-description">
                     Заповніть опитувальний лист для точного розрахунку теплообмінника
                 </p>
-                <a href="#" class="btn download-link" onclick="trackDownload('questionnaire.pdf')">Завантажити</a>
+                <a href="#" class="btn download-link" data-download="questionnaire.pdf">Завантажити</a>
             </div>
 
             <div class="download-card">
@@ -269,7 +268,7 @@
                 <p class="download-description">
                     Повний каталог нашої продукції з технічними характеристиками
                 </p>
-                <a href="#" class="btn download-link" onclick="trackDownload('catalog.pdf')">Завантажити каталог</a>
+                <a href="#" class="btn download-link" data-download="catalog.pdf">Завантажити каталог</a>
             </div>
         </div>
     </div>
@@ -278,7 +277,7 @@
 
 
 <!-- Partners Section -->
-<section class="section" style="background: var(--gray-50);">
+<section class="section">
     <div class="container">
         <div class="section-header">
             <p class="section-subtitle">Партнери</p>

@@ -1,6 +1,6 @@
 /* ===== FORM VALIDATION ===== */
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
     initFormValidation();
 });
 
@@ -65,7 +65,7 @@ function validateField(field) {
 
     // Phone validation
     if (type === 'tel' && value) {
-        const phoneRegex = /^[\+]?[0-9\s\-\(\)]{10,}$/;
+        const phoneRegex = /^[+]?[0-9\s\-()]{10,}$/;
         if (!phoneRegex.test(value)) {
             showFieldError(field, 'Введіть коректний номер телефону');
             return false;

@@ -1,6 +1,6 @@
 /* ===== VIDEO FUNCTIONALITY ===== */
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
     initVideoRotation();
     initFixedVideoBackground();
 });
@@ -17,7 +17,7 @@ function initVideoRotation() {
     console.log('🎬 Initializing video rotation with', videoElements.length, 'videos');
 
     let currentIndex = 0;
-    let transitionTimeout = null;
+    const transitionTimeout = null;
 
     // Встановлюємо початковий стан
     videoElements.forEach((video, index) => {
@@ -98,7 +98,7 @@ function initVideoRotation() {
 
     // Додаємо обробку помилок для відео
     videoElements.forEach((video, index) => {
-        video.addEventListener('error', function (e) {
+        video.addEventListener('error', (e) => {
             console.error(`❌ Video ${index + 1} error:`, e);
 
             // При помилці переключаємося на наступне відео
@@ -107,16 +107,16 @@ function initVideoRotation() {
             }
         });
 
-        video.addEventListener('loadstart', function () {
+        video.addEventListener('loadstart', () => {
             console.log(`📁 Video ${index + 1} loading started`);
         });
 
-        video.addEventListener('canplay', function () {
+        video.addEventListener('canplay', () => {
             console.log(`✅ Video ${index + 1} ready to play`);
         });
 
         // Важливо для безперервного відтворення
-        video.addEventListener('loadedmetadata', function () {
+        video.addEventListener('loadedmetadata', () => {
             console.log(`📊 Video ${index + 1} metadata loaded, duration: ${video.duration}s`);
         });
     });
@@ -165,7 +165,7 @@ function initFixedVideoBackground() {
     // Header transparency effect on scroll
     const header = document.querySelector('.header');
     if (header) {
-        window.addEventListener('scroll', function () {
+        window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
             if (scrolled > 100) {
                 header.style.background = 'rgba(49, 60, 72, 0.95)';

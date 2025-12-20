@@ -20,10 +20,16 @@ body {
     line-height: 1.6;
     color: var(--gray-900);
     background: var(--white);
-    min-height: 100vh;
+    min-height: 100vh; /* Fallback */
+    min-height: 100dvh;
     min-height: -webkit-fill-available;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
+    /* iOS Safari та Chrome pull-to-refresh заборона */
+    overscroll-behavior: none;
+    /* Text size adjust для мобільних */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
 }
 
 /* ===== UTILITIES ===== */

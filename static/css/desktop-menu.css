@@ -12,13 +12,12 @@
     cursor: pointer;
     gap: 4px;
     margin-right: var(--space-4);
-    -webkit-appearance: none;
     appearance: none;
     z-index: 1001;
 }
 
 /* Show on desktop only */
-@media (min-width: 768px) {
+@media (width >= 768px) {
     .desktop-burger-btn {
         display: flex;
     }
@@ -28,7 +27,7 @@
     width: 100%;
     height: 2px;
     background: var(--white);
-    transition: all 0.3s ease;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     border-radius: 1px;
     transform-origin: center;
 }
@@ -51,13 +50,13 @@
 .animated-desktop-menu {
     position: absolute;
     top: 50%;
-    left: 50%;
     transform: translate(-50%, -50%);
     opacity: 0;
     visibility: hidden;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 999;
     pointer-events: none;
+
     /* Center the menu between logo final position and language switcher */
     left: calc(50% - 100px);
 }
@@ -83,39 +82,41 @@
     font-weight: 500;
     padding: var(--space-2) var(--space-1);
     border-radius: var(--radius);
-    transition: all 0.3s ease;
+    transition: color 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     opacity: 0;
     transform: translateY(20px);
 }
 
-.animated-nav-link:hover {
-    color: var(--secondary);
-    transform: translateY(-2px);
+@media (hover: hover) {
+    .animated-nav-link:hover {
+        color: var(--secondary);
+        transform: translateY(-2px);
+    }
 }
 
 /* Sequential Animation for Menu Items */
 .animated-desktop-menu.active .animated-nav-list li:nth-child(1) .animated-nav-link {
-    animation: slideInUp 0.4s ease 0.1s forwards;
+    animation: slide-in-up 0.4s ease 0.1s forwards;
 }
 
 .animated-desktop-menu.active .animated-nav-list li:nth-child(2) .animated-nav-link {
-    animation: slideInUp 0.4s ease 0.2s forwards;
+    animation: slide-in-up 0.4s ease 0.2s forwards;
 }
 
 .animated-desktop-menu.active .animated-nav-list li:nth-child(3) .animated-nav-link {
-    animation: slideInUp 0.4s ease 0.3s forwards;
+    animation: slide-in-up 0.4s ease 0.3s forwards;
 }
 
 .animated-desktop-menu.active .animated-nav-list li:nth-child(4) .animated-nav-link {
-    animation: slideInUp 0.4s ease 0.4s forwards;
+    animation: slide-in-up 0.4s ease 0.4s forwards;
 }
 
 .animated-desktop-menu.active .animated-nav-list li:nth-child(5) .animated-nav-link {
-    animation: slideInUp 0.4s ease 0.5s forwards;
+    animation: slide-in-up 0.4s ease 0.5s forwards;
 }
 
 /* Logo Animation Keyframes */
-@keyframes logoSlideLeft {
+@keyframes logo-slide-left {
     from {
         transform: translateX(0);
     }
@@ -125,7 +126,7 @@
     }
 }
 
-@keyframes logoSlideRight {
+@keyframes logo-slide-right {
     from {
         transform: translateX(-750px);
     }
@@ -136,12 +137,12 @@
 }
 
 /* Large Desktop Optimizations */
-@media (min-width: 1200px) {
+@media (width >= 1200px) {
     .animated-desktop-menu {
         left: calc(50% - 30px);
     }
 
-    @keyframes logoSlideLeft {
+    @keyframes logo-slide-left {
         from {
             transform: translateX(0);
         }
@@ -151,7 +152,7 @@
         }
     }
 
-    @keyframes logoSlideRight {
+    @keyframes logo-slide-right {
         from {
             transform: translateX(-1000px);
         }
@@ -163,7 +164,7 @@
 }
 
 /* Menu Items Animation */
-@keyframes slideInUp {
+@keyframes slide-in-up {
     from {
         opacity: 0;
         transform: translate3d(0, 20px, 0);
@@ -177,7 +178,7 @@
 
 /* Logo Animation Classes */
 .logo.moving-right {
-    animation: logoSlideRight 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation: logo-slide-right 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     z-index: 1002;
     position: relative;
     will-change: transform;
@@ -186,7 +187,7 @@
 }
 
 .logo.moving-left {
-    animation: logoSlideLeft 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation: logo-slide-left 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     z-index: 1002;
     position: relative;
     will-change: transform;
@@ -202,21 +203,8 @@
     backface-visibility: hidden;
 }
 
-.animated-nav-link {
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.desktop-burger-btn span {
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.animated-desktop-menu {
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
 /* Reduce motion for accessibility */
 @media (prefers-reduced-motion: reduce) {
-
     .logo.moving-right,
     .logo.moving-left,
     .animated-nav-link,
@@ -234,7 +222,7 @@
 }
 
 /* Additional Desktop Menu Enhancements */
-@media (min-width: 768px) {
+@media (width >= 768px) {
     .header-content {
         position: relative;
         overflow: visible;

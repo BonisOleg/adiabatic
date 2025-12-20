@@ -7,50 +7,49 @@
 {% block content %}
 <section class="section">
     <div class="container">
-        <div class="text-center" style="max-width: 600px; margin: 0 auto;">
+        <div class="text-center">
             <!-- Success Icon -->
-            <div style="margin-bottom: var(--spacing-8);">
-                <i class="fas fa-check-circle" style="font-size: 4rem; color: var(--success);"></i>
+            <div>
+                <i class="fas fa-check-circle"></i>
             </div>
 
             <h1 class="heading-section">{% trans "Дякуємо за заявку!" %}</h1>
 
-            <p class="text-lead" style="margin: var(--spacing-6) 0;">
-                {% blocktrans with name=lead.name %}Дякуємо, {{ name }}! Ваша заявка успішно відправлена.{%
-                endblocktrans %}
+            <p class="text-lead">
+                {% blocktrans with name=lead.name %}Дякуємо, {{ name }}! Ваша заявка успішно відправлена.{% endblocktrans %}
             </p>
 
             <!-- Lead Details -->
             {% if lead %}
             <div
-                style="background: var(--gray-50); padding: var(--spacing-6); border-radius: 12px; margin: var(--spacing-8) 0; text-align: left;">
+               >
                 <h3 class="heading-subsection text-center">{% trans "Деталі заявки" %}</h3>
 
-                <div style="display: grid; gap: var(--spacing-3);">
-                    <div style="display: flex; justify-content: space-between;">
+                <div>
+                    <div>
                         <strong>{% trans "Номер заявки:" %}</strong>
                         <span>{{ lead.uuid|slice:":8" }}...</span>
                     </div>
 
                     {% if lead.product %}
-                    <div style="display: flex; justify-content: space-between;">
+                    <div>
                         <strong>{% trans "Продукт:" %}</strong>
                         <span>{{ lead.product.get_name }}</span>
                     </div>
                     {% endif %}
 
-                    <div style="display: flex; justify-content: space-between;">
+                    <div>
                         <strong>{% trans "Тип запиту:" %}</strong>
                         <span>{{ lead.get_inquiry_type_display }}</span>
                     </div>
 
-                    <div style="display: flex; justify-content: space-between;">
+                    <div>
                         <strong>{% trans "Дата створення:" %}</strong>
                         <span>{{ lead.created_at|date:"d.m.Y H:i" }}</span>
                     </div>
 
                     {% if lead.subject %}
-                    <div style="display: flex; justify-content: space-between;">
+                    <div>
                         <strong>{% trans "Тема:" %}</strong>
                         <span>{{ lead.subject }}</span>
                     </div>
@@ -59,18 +58,18 @@
             </div>
             {% endif %}
 
-            <div style="margin: var(--spacing-8) 0;">
+            <div>
                 <p class="text-body">
                     {% trans "Очікуваний час відповіді: протягом 2 годин у робочий час." %}
                 </p>
-                <p class="text-sm text-muted" style="margin-top: var(--spacing-2);">
+                <p class="text-sm text-muted">
                     {% trans "Ви отримаете повідомлення на email:" %} <strong>{{ lead.email }}</strong>
                 </p>
             </div>
 
             <!-- Action Buttons -->
             <div
-                style="display: flex; gap: var(--spacing-4); justify-content: center; flex-wrap: wrap; margin-top: var(--spacing-8);">
+               >
                 <a href="{% url 'pages:home' %}" class="btn btn--primary">
                     {% trans "На головну" %}
                 </a>
@@ -86,18 +85,18 @@
 
             <!-- Contact Info -->
             <div
-                style="margin-top: var(--spacing-12); padding: var(--spacing-6); background: var(--gray-50); border-radius: 12px;">
+               >
                 <h3 class="heading-subsection">{% trans "Додаткові контакти" %}</h3>
                 {% if site_settings %}
                 {% if site_settings.contact_phone %}
                 <p class="text-body">
-                    <i class="fas fa-phone" style="margin-right: var(--spacing-2);"></i>
+                    <i class="fas fa-phone"></i>
                     <a href="tel:{{ site_settings.contact_phone }}">{{ site_settings.contact_phone }}</a>
                 </p>
                 {% endif %}
                 {% if site_settings.contact_email %}
                 <p class="text-body">
-                    <i class="fas fa-envelope" style="margin-right: var(--spacing-2);"></i>
+                    <i class="fas fa-envelope"></i>
                     <a href="mailto:{{ site_settings.contact_email }}">{{ site_settings.contact_email }}</a>
                 </p>
                 {% endif %}

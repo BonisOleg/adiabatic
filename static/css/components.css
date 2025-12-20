@@ -17,8 +17,11 @@
     min-height: 48px;
     white-space: nowrap;
     text-transform: uppercase;
-    -webkit-appearance: none;
     appearance: none;
+
+    /* Touch optimization */
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .btn:hover {
@@ -46,13 +49,13 @@
     background: linear-gradient(to right, #D42721, #F34D1F);
     color: var(--white);
     border-radius: 30px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%);
     border: none;
 }
 
 .btn--gradient:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 15%);
 }
 
 .btn--large {
@@ -79,13 +82,13 @@
     gap: var(--space-6);
 }
 
-@media (min-width: 640px) {
+@media (width >= 640px) {
     .cards-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
-@media (min-width: 1024px) {
+@media (width >= 1024px) {
     .cards-grid {
         grid-template-columns: repeat(3, 1fr);
     }
@@ -166,7 +169,6 @@
     font-size: 1rem;
     font-family: var(--font-base);
     transition: var(--transition);
-    -webkit-appearance: none;
     appearance: none;
 }
 
@@ -174,7 +176,7 @@
 .form-textarea:focus {
     outline: none;
     border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(49, 60, 72, 0.1);
+    box-shadow: 0 0 0 3px rgb(49 60 72 / 10%);
 }
 
 .form-textarea {
@@ -185,7 +187,6 @@
 /* ===== BACK TO TOP ===== */
 .back-to-top {
     position: fixed;
-    bottom: var(--space-6);
     right: var(--space-6);
     background: var(--secondary);
     color: var(--primary);
@@ -200,11 +201,168 @@
     box-shadow: var(--shadow);
     z-index: 100;
     bottom: calc(var(--space-6) + env(safe-area-inset-bottom));
-    -webkit-appearance: none;
     appearance: none;
 }
 
 .back-to-top:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-lg);
+}
+
+/* ===== UTILITY CLASSES ===== */
+
+/* Background */
+.bg-gray {
+    background: var(--gray-50);
+}
+
+.bg-white {
+    background: var(--white);
+}
+
+/* Text */
+.text-left {
+    text-align: left;
+}
+
+.text-sm {
+    font-size: 0.875rem;
+}
+
+.text-lg {
+    font-size: 1.125rem;
+}
+
+.text-muted {
+    color: var(--gray-600);
+}
+
+/* Spacing - margin bottom */
+.mb-2 {
+    margin-bottom: var(--space-2);
+}
+
+.mb-3 {
+    margin-bottom: var(--space-3);
+}
+
+.mb-4 {
+    margin-bottom: var(--space-4);
+}
+
+.mb-6 {
+    margin-bottom: var(--space-6);
+}
+
+.mb-8 {
+    margin-bottom: var(--space-8);
+}
+
+/* Spacing - margin top */
+.mt-2 {
+    margin-top: var(--space-2);
+}
+
+.mt-3 {
+    margin-top: var(--space-3);
+}
+
+.mt-8 {
+    margin-top: var(--space-8);
+}
+
+.mt-12 {
+    margin-top: var(--space-12);
+}
+
+/* Spacing - padding */
+.p-6 {
+    padding: var(--space-6);
+}
+
+.p-8 {
+    padding: var(--space-8);
+}
+
+/* Layout */
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+}
+
+/* Max-width containers */
+.max-w-800 {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Grid helpers */
+.grid-auto-fit {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-4);
+}
+
+/* Stats card */
+.stats-card {
+    text-align: center;
+    padding: var(--space-8);
+}
+
+.stats-number {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: var(--space-3);
+}
+
+.stats-title {
+    color: var(--accent);
+    margin-bottom: var(--space-2);
+}
+
+.stats-description {
+    color: var(--gray-600);
+}
+
+/* Additional utility classes for inline style replacement */
+.text-primary {
+    color: var(--primary);
+}
+
+.text-accent {
+    color: var(--accent);
+}
+
+.fs-2rem {
+    font-size: 2rem;
+}
+
+.fs-1-1rem {
+    font-size: 1.1rem;
+}
+
+.fw-800 {
+    font-weight: 800;
+}
+
+.lh-1-7 {
+    line-height: 1.7;
+}
+
+.m-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.mb-0 {
+    margin-bottom: 0;
+}
+
+.fw-600 {
+    font-weight: 600;
 }

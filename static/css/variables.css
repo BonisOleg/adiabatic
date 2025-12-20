@@ -3,19 +3,25 @@
 :root {
     /* Brand Colors - Blue & Red Combination */
     --primary: #313C48;
+
     /* Основний синій */
     --secondary: #C4384D;
+
     /* Червоний замість голубого */
     --accent: #0F2A44;
+
     /* Темно-синій */
     --red-light: #E85A4F;
+
     /* Світлий червоний для акцентів */
     --red-dark: #A02E37;
+
     /* Темний червоний */
     --blue-dark: #0A1F33;
+
     /* Дуже темний синій */
-    --white: #ffffff;
-    --black: #000000;
+    --white: #fff;
+    --black: #000;
 
     /* Grays */
     --gray-50: #f9fafb;
@@ -39,8 +45,8 @@
     --space-16: 4rem;
 
     /* Effects */
-    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --shadow: 0 4px 6px -1px rgb(0 0 0 / 10%);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 10%);
     --transition: all 0.3s ease;
     --radius: 0.5rem;
     --radius-full: 50px;

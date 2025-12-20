@@ -1,0 +1,30 @@
+{
+  "extends": ["stylelint-config-standard"],
+  "plugins": [
+    "stylelint-order",
+    "stylelint-declaration-block-no-ignored-properties",
+    "stylelint-high-performance-animation",
+    "stylelint-no-unsupported-browser-features"
+  ],
+  "rules": {
+    "declaration-no-important": true,
+    "selector-pseudo-class-no-unknown": [true, {"ignorePseudoClasses": ["has", "where", "is"]}],
+    "at-rule-no-unknown": [true, {"ignoreAtRules": ["layer", "container", "supports", "scope"]}],
+    "plugin/declaration-block-no-ignored-properties": true,
+    "plugin/no-low-performance-animation-properties": [true, {
+      "ignoreProperties": ["color", "background", "box-shadow", "border-color", "visibility", "max-height"]
+    }],
+    "plugin/no-unsupported-browser-features": [true, {
+      "severity": "warning",
+      "ignore": ["css-nesting", "css-has", "viewport-units", "css-overscroll-behavior"]
+    }],
+    "property-no-vendor-prefix": [true, {
+      "ignoreProperties": ["backdrop-filter"]
+    }],
+    "max-nesting-depth": 3,
+    "no-descending-specificity": null,
+    "custom-property-pattern": null,
+    "selector-class-pattern": null
+  }
+}
+

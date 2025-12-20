@@ -1,5 +1,7 @@
 /* ===== DESKTOP ANIMATED MENU ===== */
 
+import { debounce } from './utils.js';
+
 class AnimatedDesktopMenu {
     constructor() {
         this.isMenuOpen = false;

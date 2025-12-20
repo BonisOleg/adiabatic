@@ -1,6 +1,9 @@
 /* ===== ADIABATIC BASE JAVASCRIPT ===== */
+/* global gtag */
 
-document.addEventListener('DOMContentLoaded', function () {
+import { debounce } from './utils.js';
+
+document.addEventListener('DOMContentLoaded', () => {
     // Initialize base components
     initMobileMenu();
     initSmoothScrolling();
@@ -20,7 +23,7 @@ function initMobileMenu() {
     if (!logoLink || !menu) return;
 
     // Toggle menu when clicking logo
-    logoLink.addEventListener('click', function (e) {
+    logoLink.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
         const isOpen = menu.classList.contains('open');
@@ -33,7 +36,7 @@ function initMobileMenu() {
     });
 
     // Close menu when clicking the close button (::before pseudo-element)
-    menu.addEventListener('click', function (e) {
+    menu.addEventListener('click', (e) => {
         // Check if click is in the close button area (top-right)
         const rect = menu.getBoundingClientRect();
         const clickX = e.clientX - rect.left;
@@ -48,7 +51,7 @@ function initMobileMenu() {
 
     // Close menu when clicking nav links
     navLinks.forEach(link => {
-        link.addEventListener('click', function () {
+        link.addEventListener('click', () => {
             if (window.innerWidth < 768) {
                 setTimeout(closeMenu, 200); // Small delay for better UX
             }
@@ -56,21 +59,21 @@ function initMobileMenu() {
     });
 
     // Close menu when clicking outside
-    document.addEventListener('click', function (e) {
+    document.addEventListener('click', (e) => {
         if (!logoLink.contains(e.target) && !menu.contains(e.target)) {
             closeMenu();
         }
     });
 
     // Close menu on escape
-    document.addEventListener('keydown', function (e) {
+    document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && menu.classList.contains('open')) {
             closeMenu();
         }
     });
 
     // Close menu on orientation change
-    window.addEventListener('orientationchange', function () {
+    window.addEventListener('orientationchange', () => {
         setTimeout(closeMenu, 300);
     });
 
@@ -78,12 +81,12 @@ function initMobileMenu() {
     let touchStartX = 0;
     let touchStartY = 0;
 
-    menu.addEventListener('touchstart', function (e) {
+    menu.addEventListener('touchstart', (e) => {
         touchStartX = e.touches[0].clientX;
         touchStartY = e.touches[0].clientY;
     }, { passive: true });
 
-    menu.addEventListener('touchend', function (e) {
+    menu.addEventListener('touchend', (e) => {
         const touchEndX = e.changedTouches[0].clientX;
         const touchEndY = e.changedTouches[0].clientY;
         const deltaX = touchEndX - touchStartX;
@@ -174,10 +177,11 @@ function initSmoothScrolling() {
 
 /* ===== BACK TO TOP BUTTON ===== */
 function initBackToTop() {
-    const backToTopBtn = document.querySelector('.back-to-top');
+    const backToTopBtn = document.querySelector('.back-to-top') || document.getElementById('backToTop');
     if (!backToTopBtn) return;
 
-    window.addEventListener('scroll', function () {
+    // Scroll handler
+    window.addEventListener('scroll', () => {
         if (window.pageYOffset > 300) {
             backToTopBtn.classList.add('visible');
             backToTopBtn.style.opacity = '1';
@@ -188,6 +192,14 @@ function initBackToTop() {
             backToTopBtn.style.visibility = 'hidden';
         }
     }, { passive: true });
+
+    // Click handler
+    backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
 }
 
 /* ===== iOS FIXES ===== */
@@ -198,10 +210,10 @@ function initIOSFixes() {
         document.body.classList.add('ios');
 
         // Fix viewport height
-        function setViewportHeight() {
+        const setViewportHeight = () => {
             const vh = window.innerHeight * 0.01;
             document.documentElement.style.setProperty('--vh', `${vh}px`);
-        }
+        };
 
         setViewportHeight();
         window.addEventListener('resize', debounce(setViewportHeight, 100));
@@ -216,7 +228,7 @@ function initIOSFixes() {
                     const originalContent = viewport.content;
                     viewport.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
 
-                    this.addEventListener('blur', function () {
+                    this.addEventListener('blur', () => {
                         setTimeout(() => {
                             viewport.content = originalContent;
                         }, 100);
@@ -264,22 +276,56 @@ window.debounce = function (func, wait) {
 };
 
 /* ===== ERROR HANDLING ===== */
-window.addEventListener('error', function (e) {
+window.addEventListener('error', (e) => {
     console.error('JavaScript Error:', e.error);
 });
 
-window.addEventListener('unhandledrejection', function (e) {
+window.addEventListener('unhandledrejection', (e) => {
     console.error('Unhandled Promise Rejection:', e.reason);
 });
 
 /* ===== PERFORMANCE MONITORING ===== */
 if ('performance' in window) {
-    window.addEventListener('load', function () {
+    window.addEventListener('load', () => {
         setTimeout(() => {
             const perfData = performance.getEntriesByType('navigation')[0];
             console.log('Page Load Time:', Math.round(perfData.loadEventEnd - perfData.fetchStart), 'ms');
         }, 0);
     });
+}
+
+/* ===== BFCACHE SUPPORT (Safari/Firefox) ===== */
+window.addEventListener('pageshow', (event) => {
+    if (event.persisted) {
+        console.log('📄 Page restored from bfcache');
+        
+        // Оновити динамічний контент
+        const forms = document.querySelectorAll('form');
+        forms.forEach(form => form.reset());
+        
+        // Trigger HTMX reload якщо є динамічний контент
+        if (typeof htmx !== 'undefined') {
+            htmx.trigger(document.body, 'pageRestored');
+        }
+        
+        // Оновити timestamp елементи якщо є
+        const timestamps = document.querySelectorAll('[data-timestamp]');
+        timestamps.forEach(el => {
+            const time = parseInt(el.dataset.timestamp);
+            if (time) {
+                el.textContent = formatRelativeTime(time);
+            }
+        });
+    }
+});
+
+// Helper для форматування часу
+function formatRelativeTime(timestamp) {
+    const seconds = Math.floor((Date.now() - timestamp) / 1000);
+    if (seconds < 60) return 'щойно';
+    if (seconds < 3600) return `${Math.floor(seconds / 60)} хв тому`;
+    if (seconds < 86400) return `${Math.floor(seconds / 3600)} год тому`;
+    return `${Math.floor(seconds / 86400)} дн тому`;
 }
 
 /* ===== DOWNLOAD TRACKING ===== */
@@ -296,12 +342,14 @@ function trackDownload(filename) {
 }
 
 // Add download tracking to download links
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
     const downloadLinks = document.querySelectorAll('.download-link, [href*=".pdf"], [href*=".doc"], [href*=".xls"]');
 
     downloadLinks.forEach(link => {
         link.addEventListener('click', function () {
-            const filename = this.getAttribute('href').split('/').pop() || this.textContent.trim();
+            // Перевіряємо data-download атрибут спочатку
+            const dataDownload = this.getAttribute('data-download');
+            const filename = dataDownload || this.getAttribute('href').split('/').pop() || this.textContent.trim();
             trackDownload(filename);
         });
     });

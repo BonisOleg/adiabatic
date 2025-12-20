@@ -1,6 +1,7 @@
 /* ===== ADIABATIC LEAD FORM JAVASCRIPT ===== */
+/* global validateForm, gtag */
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
     initLeadForm();
     console.log('📝 Lead form JavaScript loaded');
 });

@@ -361,3 +361,6 @@ class Command(BaseCommand):
             self.stdout.write(self.style.SUCCESS(f'✓ {product10.title_uk}'))
         
         self.stdout.write(self.style.SUCCESS(f'\n✅ Успішно завантажено {Product.objects.count()} товарів'))
+
+
+

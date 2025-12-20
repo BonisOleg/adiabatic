@@ -2,6 +2,7 @@
  * Adiabatic Catalog Page JavaScript
  * Accordion functionality for product cards
  */
+/* global gtag */
 
 document.addEventListener('DOMContentLoaded', () => {
     // Ініціалізація accordion для кожної картки товару
@@ -137,3 +138,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     console.log('✅ Catalog page initialized');
 });
+
+
+

@@ -11,7 +11,7 @@
     font-size: clamp(3rem, 8vw, 6rem);
     font-weight: 900;
     line-height: 1;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    text-shadow: 2px 2px 4px rgb(0 0 0 / 50%);
 }
 
 .hero-description {
@@ -68,7 +68,7 @@
 }
 
 /* Mobile Optimization */
-@media (max-width: 768px) {
+@media (width <= 768px) {
     .hero-content {
         padding: var(--space-6) var(--space-4);
     }
@@ -108,7 +108,7 @@
 }
 
 /* Tablet Optimization */
-@media (min-width: 769px) and (max-width: 1024px) {
+@media (width >= 769px) and (width <= 1024px) {
     .hero-title {
         font-size: clamp(2.5rem, 6vw, 4rem);
     }

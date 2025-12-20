@@ -1,4 +1,5 @@
 /* ===== ADIABATIC CRITICAL CSS ===== */
+
 /* Critical path CSS - only essential above-the-fold styles */
 
 /* Reset moved to reset.css */
@@ -14,7 +15,7 @@
     display: inline-block;
     width: 20px;
     height: 20px;
-    border: 3px solid rgba(255, 255, 255, 0.3);
+    border: 3px solid rgb(255 255 255 / 30%);
     border-radius: 50%;
     border-top-color: #fff;
     animation: spin 1s ease-in-out infinite;

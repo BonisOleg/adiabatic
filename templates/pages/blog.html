@@ -9,7 +9,7 @@
 {% block content %}
 <!-- Hero Section -->
 <section class="hero hero--with-video">
-    <video class="hero-video" autoplay muted loop playsinline>
+    <video class="hero-video" autoplay muted loop playsinline poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E">
         <source src="/static/video/information.mp4" type="video/mp4">
         Ваш браузер не підтримує відео.
     </video>
@@ -134,7 +134,7 @@
 </section>
 
 <!-- Popular Articles Section -->
-<section class="section" style="background: var(--gray-50);" id="basics">
+<section class="section" id="basics">
     <div class="container">
         <div class="section-header">
             <p class="section-subtitle">Популярні статті</p>
@@ -155,7 +155,7 @@
                         для вашого підприємства. Типи, характеристики, переваги...
                     </p>
                     <div class="card-meta">
-                        <span style="color: var(--gray-600); font-size: 0.9rem;">15 хв читання</span>
+                        <span>15 хв читання</span>
                         <a href="#" class="btn btn--small">Читати повністю</a>
                     </div>
                 </div>
@@ -170,7 +170,7 @@
                         типові несправності та способи їх усунення...
                     </p>
                     <div class="card-meta">
-                        <span style="color: var(--gray-600); font-size: 0.9rem;">12 хв читання</span>
+                        <span>12 хв читання</span>
                         <a href="#" class="btn btn--small">Читати повністю</a>
                     </div>
                 </div>
@@ -185,7 +185,7 @@
                         Утилізація тепла, рекуперація енергії...
                     </p>
                     <div class="card-meta">
-                        <span style="color: var(--gray-600); font-size: 0.9rem;">18 хв читання</span>
+                        <span>18 хв читання</span>
                         <a href="#" class="btn btn--small">Читати повністю</a>
                     </div>
                 </div>
@@ -200,7 +200,7 @@
                         Чек-лист для контролю якості монтажу...
                     </p>
                     <div class="card-meta">
-                        <span style="color: var(--gray-600); font-size: 0.9rem;">10 хв читання</span>
+                        <span>10 хв читання</span>
                         <a href="#" class="btn btn--small">Читати повністю</a>
                     </div>
                 </div>
@@ -215,7 +215,7 @@
                         практичні приклади розрахунків для різних типів обладнання...
                     </p>
                     <div class="card-meta">
-                        <span style="color: var(--gray-600); font-size: 0.9rem;">25 хв читання</span>
+                        <span>25 хв читання</span>
                         <a href="#" class="btn btn--small">Читати повністю</a>
                     </div>
                 </div>
@@ -230,7 +230,7 @@
                         Вимоги до матеріалів, безпека експлуатації...
                     </p>
                     <div class="card-meta">
-                        <span style="color: var(--gray-600); font-size: 0.9rem;">20 хв читання</span>
+                        <span>20 хв читання</span>
                         <a href="#" class="btn btn--small">Читати повністю</a>
                     </div>
                 </div>
@@ -241,7 +241,7 @@
 
 
 <!-- FAQ Section -->
-<section class="section" style="background: var(--gray-50);">
+<section class="section">
     <div class="container">
         <div class="section-header">
             <p class="section-subtitle">Питання та відповіді</p>
@@ -252,8 +252,8 @@
             <div class="section-underline"></div>
         </div>
 
-        <div style="max-width: 800px; margin: 0 auto;">
-            <div class="card" style="margin-bottom: var(--space-6);">
+        <div>
+            <div class="card">
                 <div class="card-content">
                     <h3 class="card-title">Який термін служби теплообмінників?</h3>
                     <p class="card-description">
@@ -264,7 +264,7 @@
                 </div>
             </div>
 
-            <div class="card" style="margin-bottom: var(--space-6);">
+            <div class="card">
                 <div class="card-content">
                     <h3 class="card-title">Як часто потрібно проводити технічне обслуговування?</h3>
                     <p class="card-description">
@@ -274,7 +274,7 @@
                 </div>
             </div>
 
-            <div class="card" style="margin-bottom: var(--space-6);">
+            <div class="card">
                 <div class="card-content">
                     <h3 class="card-title">Які матеріали використовуються для виготовлення?</h3>
                     <p class="card-description">
@@ -285,7 +285,7 @@
                 </div>
             </div>
 
-            <div class="card" style="margin-bottom: var(--space-6);">
+            <div class="card">
                 <div class="card-content">
                     <h3 class="card-title">Чи надаєте ви гарантію на обладнання?</h3>
                     <p class="card-description">
