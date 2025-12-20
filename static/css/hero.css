@@ -151,7 +151,6 @@
 }
 
 @media (hover: hover) {
-    @media (hover: hover) {
     .hero-logo:hover {
         transform: scale(1.05);
     }
@@ -297,4 +296,4 @@
     .form-textarea {
         font-size: 1rem;
     }
-}}
+}
