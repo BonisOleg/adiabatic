@@ -18,7 +18,6 @@
     white-space: nowrap;
     text-transform: uppercase;
     appearance: none;
-    margin-bottom: 20px;
 
     /* Touch optimization */
     touch-action: manipulation;

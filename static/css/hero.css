@@ -182,6 +182,10 @@
     margin-top: var(--space-4);
 }
 
+.hero-actions .btn:last-child {
+    margin-bottom: 20px;
+}
+
 @media (width >= 768px) {
     .hero-actions {
         flex-direction: row;

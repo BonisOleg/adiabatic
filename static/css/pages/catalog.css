@@ -207,7 +207,7 @@
 /* CTA Section styles are now in components.css */
 
 /* Mobile Optimization */
-@media (width <= 768px) {
+@media (width <=768px) {
     .product-main-image {
         height: 180px;
     }
@@ -247,7 +247,7 @@
 }
 
 /* Tablet Optimization */
-@media (width >= 769px) and (width <= 1024px) {
+@media (width >=769px) and (width <=1024px) {
     .gallery-image {
         width: 220px;
         height: 160px;
@@ -286,5 +286,3 @@
 .product-details[data-expanded="true"] .product-section:nth-child(5) {
     animation-delay: 0.25s;
 }
-
-
