@@ -177,8 +177,9 @@
 .hero-actions {
     display: flex;
     flex-direction: column;
-    gap: var(--space-4);
+    gap: var(--space-6);
     align-items: center;
+    margin-top: var(--space-4);
 }
 
 @media (width >= 768px) {
@@ -251,7 +252,8 @@
     .hero-actions {
         flex-direction: column;
         width: 100%;
-        gap: var(--space-3);
+        gap: var(--space-4);
+        margin-top: var(--space-3);
     }
 
     .hero-actions .btn {
