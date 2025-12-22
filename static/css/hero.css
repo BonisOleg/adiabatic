@@ -231,6 +231,13 @@
         -webkit-backdrop-filter: blur(8px);
         backdrop-filter: blur(8px);
     }
+
+    .hero-actions .btn {
+        width: 100%;
+        max-width: 280px;
+        font-size: 0.9rem;
+        padding: 0.75rem 1.5rem;
+    }
 }
 
 /* Tablet glass block adjustments */
