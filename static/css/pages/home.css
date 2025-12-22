@@ -1,6 +1,7 @@
 /* ===== ADIABATIC HOME PAGE STYLES ===== */
 
 /* Home page specific hero overrides */
+
 /* Base hero styles are in hero.css, these are specific overrides for home page */
 .hero-logo {
     height: 80px;
@@ -73,6 +74,7 @@
 /* Mobile Optimization */
 @media (width <= 768px) {
     /* Hero mobile styles are now in hero.css */
+
     /* Only home-page specific mobile overrides here */
     .hero-title {
         font-size: clamp(2rem, 6vw, 4rem);

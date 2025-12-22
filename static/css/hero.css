@@ -279,7 +279,9 @@
 }
 
 /* Home page specific hero styles */
+
 /* These styles override base hero styles only on home page */
+
 /* They are loaded after hero.css via pages/home.css */
 
 /* Fallback for browsers that don't support video autoplay */
