@@ -1,27 +1,6 @@
 /* ===== ADIABATIC HOME PAGE STYLES ===== */
 
-/* Home page specific hero overrides */
-
-/* Base hero styles are in hero.css, these are specific overrides for home page */
-.hero-logo {
-    height: 80px;
-    width: auto;
-    object-fit: contain;
-}
-
-.hero-title {
-    font-size: clamp(3rem, 8vw, 6rem);
-    font-weight: 900;
-    line-height: 1;
-    text-shadow: 2px 2px 4px rgb(0 0 0 / 50%);
-}
-
-.hero-description {
-    font-size: clamp(1.25rem, 3vw, 1.75rem);
-    font-weight: 400;
-    line-height: 1.4;
-    opacity: 0.9;
-}
+/* Hero styles are now unified in hero.css - same as all other pages */
 
 /* Products Section */
 .downloads {
@@ -73,33 +52,10 @@
 
 /* Mobile Optimization */
 @media (width <= 768px) {
-    /* Hero mobile styles are now in hero.css */
-
-    /* Only home-page specific mobile overrides here */
-    .hero-title {
-        font-size: clamp(2rem, 6vw, 4rem);
-        margin-bottom: var(--space-4);
-        line-height: 1.2;
-    }
-
-    .hero-description {
-        font-size: clamp(1rem, 2.5vw, 1.5rem);
-        margin-bottom: 20px;
-    }
+    /* Hero mobile styles are in hero.css - same as all other pages */
 
     .downloads-grid {
         grid-template-columns: 1fr;
         gap: var(--space-6);
-    }
-}
-
-/* Tablet Optimization */
-@media (width >= 769px) and (width <= 1024px) {
-    .hero-title {
-        font-size: clamp(2.5rem, 6vw, 4rem);
-    }
-
-    .hero-description {
-        font-size: clamp(1.1rem, 2.5vw, 1.5rem);
     }
 }
