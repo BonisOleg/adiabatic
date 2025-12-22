@@ -70,3 +70,6 @@ function showNotification(message, type) {
 
 console.log('✅ HTMX integration loaded');
 
+
+
+
