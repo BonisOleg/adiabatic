@@ -204,28 +204,7 @@
     min-width: 200px;
 }
 
-/* CTA Section */
-.cta-section {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-    color: var(--white);
-}
-
-.cta-title {
-    font-size: clamp(2rem, 4vw, 2.5rem);
-    font-weight: 800;
-    margin-bottom: var(--space-4);
-    text-transform: uppercase;
-}
-
-.cta-description {
-    font-size: 1.1rem;
-    margin-bottom: var(--space-8);
-    opacity: 0.9;
-}
-
-.text-center {
-    text-align: center;
-}
+/* CTA Section styles are now in components.css */
 
 /* Mobile Optimization */
 @media (width <= 768px) {
@@ -264,13 +243,7 @@
         font-size: 1rem;
     }
 
-    .cta-title {
-        font-size: clamp(1.5rem, 5vw, 2rem);
-    }
-
-    .cta-description {
-        font-size: 1rem;
-    }
+    /* CTA mobile styles are now in components.css */
 }
 
 /* Tablet Optimization */

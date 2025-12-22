@@ -232,6 +232,28 @@
         backdrop-filter: blur(8px);
     }
 
+    .hero-content {
+        padding: var(--space-6) var(--space-4);
+    }
+
+    .hero-subtitle {
+        margin-bottom: var(--space-3);
+    }
+
+    .hero-title {
+        margin-bottom: var(--space-4);
+    }
+
+    .hero-description {
+        margin-bottom: 20px;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        width: 100%;
+        gap: var(--space-3);
+    }
+
     .hero-actions .btn {
         width: 100%;
         max-width: 280px;
@@ -255,6 +277,10 @@
         height: 50px;
     }
 }
+
+/* Home page specific hero styles */
+/* These styles override base hero styles only on home page */
+/* They are loaded after hero.css via pages/home.css */
 
 /* Fallback for browsers that don't support video autoplay */
 @media (prefers-reduced-motion: reduce) {

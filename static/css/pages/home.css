@@ -1,6 +1,7 @@
 /* ===== ADIABATIC HOME PAGE STYLES ===== */
 
 /* Home page specific hero overrides */
+/* Base hero styles are in hero.css, these are specific overrides for home page */
 .hero-logo {
     height: 80px;
     width: auto;
@@ -71,14 +72,8 @@
 
 /* Mobile Optimization */
 @media (width <= 768px) {
-    .hero-content {
-        padding: var(--space-6) var(--space-4);
-    }
-
-    .hero-subtitle {
-        margin-bottom: var(--space-3);
-    }
-
+    /* Hero mobile styles are now in hero.css */
+    /* Only home-page specific mobile overrides here */
     .hero-title {
         font-size: clamp(2rem, 6vw, 4rem);
         margin-bottom: var(--space-4);
@@ -88,12 +83,6 @@
     .hero-description {
         font-size: clamp(1rem, 2.5vw, 1.5rem);
         margin-bottom: 20px;
-    }
-
-    .hero-actions {
-        flex-direction: column;
-        width: 100%;
-        gap: var(--space-3);
     }
 
     .downloads-grid {
