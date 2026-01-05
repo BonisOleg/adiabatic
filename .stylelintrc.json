@@ -20,6 +20,7 @@
         "css-nesting",
         "css-has",
         "viewport-units",
+        "viewport-unit-variants",
         "css-overscroll-behavior",
         "css-media-range-syntax",
         "css-appearance",
@@ -27,7 +28,12 @@
         "css-gradients",
         "css-overflow",
         "flexbox-gap",
-        "css-resize"
+        "css-resize",
+        "css-backdrop-filter",
+        "intrinsic-width",
+        "css-logical-props",
+        "css-scroll-behavior",
+        "css3-cursors"
       ]
     }],
     "property-no-vendor-prefix": [true, {

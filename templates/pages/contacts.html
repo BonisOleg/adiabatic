@@ -5,61 +5,78 @@
 {% block og_title %}{{ page.get_title }}{% endblock %}
 {% block og_description %}{{ page.get_meta_description }}{% endblock %}
 
+{% block page_css %}
+<link rel="stylesheet" href="/static/css/pages/contacts.css">
+{% endblock %}
+
 {% block content %}
 <!-- Contacts Section (ADIABATIC Style) -->
-<section class="catalog-section">
+<section class="section">
     <div class="container">
-        <div class="catalog-header js-observe">
-            <p class="catalog-subtitle">Контактна інформація</p>
-            <h1 class="catalog-title">
-                Зв'яжіться з нами
+        <div class="section-header js-observe">
+            <p class="section-subtitle">Контактна інформація</p>
+            <h1 class="section-title">
+                Зв'яжіться з <span class="section-accent">нами</span>
             </h1>
-            <div class="catalog-underline"></div>
+            <div class="section-underline"></div>
         </div>
 
-        <div class="about-container">
-            <div class="about-content js-observe">
-                <h2 class="about-title">
+        <div class="contacts-content">
+            <div class="contacts-main js-observe">
+                <h2 class="section-title">
                     Ми готові
-                    <span class="about-title-accent">допомогти вам</span>
+                    <span class="section-accent">допомогти вам</span>
                 </h2>
-                <p class="about-description">
+                <p class="contacts-description">
                     Напишіть, якщо у вас є питання. Ми розмістимо вашу інформацію в короткі терміни.
                 </p>
-                <div class="footer__contact-info">
-                    <div class="footer__contact-item" data-icon="📍">
-                        Україна, 61020, м. Харків, вул. Промислова, 6
+                <div class="contacts-info">
+                    <div class="contact-item">
+                        <span class="contact-item__icon">📍</span>
+                        <span class="contact-item__text">Україна, 61020, м. Харків, вул. Промислова, 6</span>
                     </div>
-                    <div class="footer__contact-item" data-icon="📞">
-                        <a href="tel:+380677584499">+38067 758 44 99</a>
+                    <div class="contact-item">
+                        <span class="contact-item__icon">📞</span>
+                        <a href="tel:+380677584499" class="contact-item__text">+38067 758 44 99</a>
                     </div>
-                    <div class="footer__contact-item" data-icon="✉️">
-                        <a href="mailto:office@adiabatic.ua">office@adiabatic.ua</a>
+                    <div class="contact-item">
+                        <span class="contact-item__icon">✉️</span>
+                        <a href="mailto:office@adiabatic.ua" class="contact-item__text">office@adiabatic.ua</a>
                     </div>
                 </div>
-                <a href="{% url 'leads:submit' %}" class="about-cta">
+                <a href="{% url 'leads:submit' %}" class="btn btn--primary btn--large">
                     Надіслати повідомлення
                 </a>
             </div>
 
-            <div class="about-features js-observe">
-                <h3 class="about-features__title">
-                    Зв'яжіться з нами
-                </h3>
-                <ul class="about-features__list">
-                    <li class="about-features__item">
-                        <span class="about-features__text">📱 Telegram</span>
-                    </li>
-                    <li class="about-features__item">
-                        <span class="about-features__text">📞 Viber</span>
-                    </li>
-                    <li class="about-features__item">
-                        <span class="about-features__text">💬 WhatsApp</span>
-                    </li>
-                    <li class="about-features__item">
-                        <span class="about-features__text">✉️ Email</span>
-                    </li>
-                </ul>
+            <div class="contacts-methods js-observe">
+                <h3 class="section-subtitle">Способи зв'язку</h3>
+                <div class="cards-grid">
+                    <div class="card">
+                        <div class="card-image">📱</div>
+                        <div class="card-content">
+                            <h3 class="card-title">Telegram</h3>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-image">📞</div>
+                        <div class="card-content">
+                            <h3 class="card-title">Viber</h3>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-image">💬</div>
+                        <div class="card-content">
+                            <h3 class="card-title">WhatsApp</h3>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-image">✉️</div>
+                        <div class="card-content">
+                            <h3 class="card-title">Email</h3>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="contact-map">
                     <div class="adiabatic-placeholder contact-map__placeholder">

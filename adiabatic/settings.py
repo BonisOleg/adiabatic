@@ -27,10 +27,24 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-k#*+d9^*ah_bt)rm3&83v%-^27
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'True').lower() == 'true'
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1,0.0.0.0').split(',')
+# Parse ALLOWED_HOSTS from environment
+_allowed_hosts_env = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1,0.0.0.0')
+ALLOWED_HOSTS = [host.strip() for host in _allowed_hosts_env.split(',') if host.strip()]
+
+# On Render, allow all hosts (validated by DynamicAllowedHostsMiddleware)
+# This is necessary because Render generates dynamic subdomains
+# Our middleware will validate that only .onrender.com subdomains are allowed
+if os.getenv('DATABASE_URL'):
+    # On Render (indicated by DATABASE_URL presence), allow all hosts
+    # The DynamicAllowedHostsMiddleware will validate .onrender.com subdomains
+    ALLOWED_HOSTS = ['*']
 
 # CSRF trusted origins for Render
-CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', 'https://localhost').split(',')
+_csrf_origins_env = os.getenv('CSRF_TRUSTED_ORIGINS', 'https://localhost')
+CSRF_TRUSTED_ORIGINS = [origin.strip() for origin in _csrf_origins_env.split(',') if origin.strip()]
+
+# On Render, CSRF origins are validated dynamically by DynamicCsrfMiddleware
+# which allows any .onrender.com subdomain
 
 
 # Application definition
@@ -52,10 +66,11 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'adiabatic.middleware.DynamicAllowedHostsMiddleware',  # Custom host validation for Render
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',  # Для i18n
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    'adiabatic.middleware.DynamicCsrfMiddleware',  # Custom CSRF middleware for Render subdomains
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
