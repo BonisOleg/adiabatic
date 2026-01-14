@@ -22,11 +22,11 @@ services:
       - key: DEBUG
         value: False
       - key: ALLOWED_HOSTS
-        value: adiabatic-django.onrender.com,adiabatic-django-*.onrender.com
+        value: www.adiabatic.biz,adiabatic.biz,adiabatic-django.onrender.com,adiabatic-django-*.onrender.com
       - key: CSRF_TRUSTED_ORIGINS
-        value: https://adiabatic-django.onrender.com,https://adiabatic-django-*.onrender.com
+        value: https://www.adiabatic.biz,https://adiabatic.biz,https://adiabatic-django.onrender.com,https://adiabatic-django-*.onrender.com
       - key: SITE_URL
-        value: https://adiabatic-django.onrender.com
+        value: https://www.adiabatic.biz
 
 databases:
   - name: adiabatic-db
